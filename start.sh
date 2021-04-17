@@ -5,6 +5,7 @@ set -e
 
 # Take needs directory
 cd /tabletennis
+rm -rf tmp/pids/server.pid
 
 # Drop old db
 ./bin/rails db:drop
