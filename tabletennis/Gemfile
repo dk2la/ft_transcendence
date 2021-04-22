@@ -25,6 +25,10 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+## Install bootstrap for create the simple page
+# Bootstrap gem
+gem 'bootstrap-sass'
+
 ## Install Autorization gem
 # Autorization gem
 gem 'devise'
