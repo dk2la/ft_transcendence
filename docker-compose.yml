@@ -16,3 +16,6 @@ services:
         - "3000:3000"
     depends_on: 
         - db
+    environment:
+        FT_ID: 5aca6d2b8d03bd85d8c945b15b9cbf7c53275f4a697916e79429a799162f688c
+        FT_SECRET: a895f2b0c1a6873101ae79d76703bb1c41e3c159eaf04400a50d4275b059a260

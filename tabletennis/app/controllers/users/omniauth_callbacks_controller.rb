@@ -10,4 +10,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_registration_url
     end
   end
+
+  def passthru
+    super
+  end
+
+  def after_omniauth_failure_path_for scope
+    # instead of root_path you can add sign_in_path if you end up to have your own sign_in page.
+    root_path
+  end
 end
