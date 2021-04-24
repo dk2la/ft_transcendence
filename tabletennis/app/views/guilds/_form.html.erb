@@ -1,0 +1,32 @@
+<%= form_for(@guild) do |form| %>
+    <% if guild.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(guild.errors.count, "error") %> prohibited this guild from being saved:</h2>
+  
+        <ul>
+          <% guild.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :anagram %>
+      <%= form.text_field :anagram %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_field :description %>
+    </div>
+  
+    <div class="actions">
+      <%= form.submit "Create Guild" %>
+    </div>
+  <% end %>

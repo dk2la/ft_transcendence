@@ -2,14 +2,15 @@
 <h1>Here we add table with all guilds</h1>
 <h1>
     <h2>List: guilds </h2><br>
+    <%= link_to "Create guild", new_guildd_path %></br>
     <% @guilds.each do |guild| %>
         <tr>
             <td><%= guild.name %></td>
-            <td><%= guild.anagram %></td>
+            <td><%= [guild.anagram] %></td>
             <td><%= guild.rating %></td>
-            <td><%= guild.nubmer_of_users %></td>
-            <td><%= guild.photo %></td>
-        </tr>
+            <td><%= guild.description %></td>
+        </tr></br>
     <% end %>
+</h1>
 
 

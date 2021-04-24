@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  root 'start_page#index', to: redirect('/home/index')
   get 'guilds/index'
-  root 'home#index'
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   devise_scope :user do
@@ -11,5 +11,8 @@ Rails.application.routes.draw do
   get 'home/index', as: 'home'
   get 'guilds/index', as: 'guild'
   get '/users/sign_in', as: 'login'
+
+  resources :guilds
+  get '/guilds/new', to: 'guilds#new', as: "new_guildd"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
