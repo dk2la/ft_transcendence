@@ -1,15 +1,44 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+ul li {
+    display:inline-block;
+    margin-left: 15px;
+}
+
+header {
+    margin-block-start: -1em;
+    font-size: 10;
+    text-align: center;
+    background-color: rgb(111, 111, 112);
+    padding-bottom: 5px;
+}
+
+h1 {
+    padding-top: 25px;
+}
+
+.start_page {
+    text-align: center;
+    padding-bottom: 25px;
+    margin-block-start: -1.5em;
+}
+
+.button_start_game {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: rgb(205,216,228);
+    text-shadow: 0 -1px rgb(46,53,58);
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid rgba(33,43,52,1);
+    border-radius: 3px;
+    background: rgb(81,92,102) linear-gradient(rgb(81,92,102), rgb(69,78,87));
+    box-shadow:
+    inset 0 1px rgba(101,114,126,1),
+    inset 0 0 1px rgba(140,150,170,.8),
+    0 1px rgb(83,94,104),
+    0 0 1px rgb(86,96,106);
+}

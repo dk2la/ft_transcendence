@@ -1,15 +1,13 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-      <img style="margin-bottom: -45px" height="40" width="40" src="https://www.flaticon.com/svg/vstatic/svg/1099/1099779.svg?token=exp=1619267845~hmac=58ac3483cc2f02440cef1c9e045b48af" alt="Game logo">
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Guilds",   guild_path %></li>
-            <li><%= link_to "Games",   '#' %></li>
-            <li><%= link_to "Tournaments",   '#' %></li>
-            <li><%= link_to "Home",   home_path %></li>
-            <li><%= link_to "Log in", login_path %></li>
-            <li><%= link_to "Sign up",  registration_path %></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<header>
+  <div class="header">
+    <img style="margin-bottom: -5px;margin-top: 25px;" height="40" width="40" src="https://www.flaticon.com/svg/vstatic/svg/1099/1099779.svg?token=exp=1619282241~hmac=24f8a8761a3b090fcda242dc65409e85" alt="Game logo">
+    <ul>
+      <li><%= link_to "Home",   home_path %></li>
+      <li><%= link_to "Games",   '#' %></li>
+      <li><%= link_to "Tournaments",   '#' %></li>
+      <li><%= link_to "Guilds",   guild_path %></li>
+      <li><%= link_to "Log in", login_path %></li>
+      <li><%= link_to "Sign up",  registration_path %></li>
+    </ul>
+  </div>
+</header>
