@@ -1,3 +1,3 @@
 <h1>StartPage#index</h1>
 
-<li><%= link_to "Sign up",  registration_path %></li>
+<li><%= link_to "Sign up", (user_signed_in? == false) ? new_user_registration_path : "/home/index" %></li>
