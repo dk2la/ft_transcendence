@@ -5,7 +5,7 @@
     <%= link_to "Create guild", new_guildd_path %></br>
     <% @guilds.each do |guild| %>
         <tr>
-            <td><%= guild.name %></td>
+            <td><%= guild.name %></td></br>
             <td><%= [guild.anagram] %></td>
             <td><%= guild.rating %></td>
             <td><%= guild.description %></td>

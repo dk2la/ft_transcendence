@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_24_121751) do
+ActiveRecord::Schema.define(version: 2021_04_24_200438) do
+
+  create_table "guild_members", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "guild_id"
+    t.integer "user_role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "guilds", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -37,6 +45,9 @@ ActiveRecord::Schema.define(version: 2021_04_24_121751) do
     t.string "nickname"
     t.string "provider"
     t.string "uid"
+    t.boolean "admin", default: false
+    t.integer "rating", default: 1000
+    t.text "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

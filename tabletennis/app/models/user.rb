@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :guild_member
+  has_many :guild, :through => :guild_member
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:marvin]
