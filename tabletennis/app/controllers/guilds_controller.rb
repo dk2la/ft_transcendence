@@ -7,9 +7,13 @@ class GuildsController < ApplicationController
     @guild = Guild.new
   end
 
+  def show
+    
+  end
+
   def create
     @guild = Guild.new(guild_params)
-    guild_member = GuildMember.create(user: current_user, guild: @guild)
+    guild_members = GuildMember.create(user_role: 2, user: current_user, guild: @guild)
 
     respond_to do |f|
       if @guild.save
