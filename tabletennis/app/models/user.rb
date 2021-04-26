@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :guild_member
-  has_many :guild, :through => :guild_member
+  has_one :guild_members
+  has_one :guilds, :through => :guild_members
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

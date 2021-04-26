@@ -15,10 +15,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     super
   end
 
-  def after_sign_up_path_for(resource)
-    "http://www.google.com"
-  end
-
   def after_omniauth_failure_path_for scope
     # instead of root_path you can add sign_in_path if you end up to have your own sign_in page.
     root_path

@@ -1,6 +1,6 @@
 class Guild < ApplicationRecord
-    has_many :guild_member
-    has_many :user, :through => :guild_member
+    has_many :guild_members
+    has_many :users, :through => :guild_members
 
     ANAGRAM_VALIDATE_REGEX = /[A-Z]/
     NAME_VALIDATE_REGEX = /[a-zA-Z ]/
