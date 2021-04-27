@@ -15,7 +15,7 @@
             <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>
             <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
             <tr>
-                <th><%= link_to "Edit profile", edit_home_path(current_user) , class: "button_edit_profile" %> </th>
+                <th><%= link_to "Edit profile", user_path(current_user) , class: "button_edit_profile" %> </th>
                 <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
             </tr>
             </table>
