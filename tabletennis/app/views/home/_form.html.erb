@@ -1,5 +1,5 @@
 
-<%= form_for(current_user, url: update_user_path(current_user)) do |form| %>
+<%= form_for(current_user, url: update_user_path(current_user), remote: true) do |form| %>
     <% if user.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -28,18 +28,19 @@
 
 <% end %>
 
-    <script>
-      document.querySelector('.edit_user').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const inputNickname = document.querySelector('#user_nickname').value;
-        const inputEmail = document.querySelector('#user_email').value;
-        const formAction = event.target.action;
+  # <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  #   <script>
+  #     document.querySelector('.edit_user').addEventListener('submit', function (event) {
+  #       event.preventDefault();
+  #       const inputNickname = document.querySelector('#user_nickname').value;
+  #       const inputEmail = document.querySelector('#user_email').value;
+  #       const formAction = event.target.action;
 
-        const data = {
-            nickname: inputNickname,
-            email: inputEmail
-        };
-        axios.patch(formAction, data).then(res => console.log(res.data));
-      });
-    </script>
+  #       const data = {
+  #           nickname: inputNickname,
+  #           email: inputEmail
+  #       };
+  #       axios.patch(formAction, data).then(res => console.log(res.data)).catch(error => {console.log(error.response)});
+  #     });
+  #   </script>
 
