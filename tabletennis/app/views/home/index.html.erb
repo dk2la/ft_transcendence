@@ -9,7 +9,9 @@
             </tr>
             <tr><th>Nickname:</th><th><%= current_user.nickname %></th></tr>
             <tr><th>Email:</th><th><%= current_user.email %></th></tr>
-            <tr><th>Guild</th><th><%= current_user.nickname %></th></tr>
+            <% if current_user.guild %>
+                <tr><th>Guild</th><th><%= current_user.guild.name %></th></tr>
+            <% end %>
             <th>Рейтинг:</th><th><%= current_user.rating %></th>
             <tr><th>Всего побед</th><th>Dostat zaprosom iz db</th></tr>
             <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>

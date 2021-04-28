@@ -1,4 +1,6 @@
 class GuildsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @guilds = Guild.all
   end
@@ -8,7 +10,7 @@ class GuildsController < ApplicationController
   end
 
   def show
-    
+    @guild = Guild.find(params[:id])
   end
 
   def create

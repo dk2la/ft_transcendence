@@ -8,7 +8,9 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
+  <% if user_signed_in? %>
     <%= render 'layouts/header' %>
+  <% end %>
     <div class="container">
       <%= yield %>
     </div>

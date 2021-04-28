@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!
 
   def index
   end
@@ -15,7 +16,7 @@ class HomeController < ApplicationController
   def update
     respond_to do |format|
       if current_user.update(user_params)
-        format.html { redirect_to current_user, notice: "User was successfully updated." }
+        format.html { redirect_to home_index_path, notice: "User was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
