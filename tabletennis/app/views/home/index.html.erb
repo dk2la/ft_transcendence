@@ -39,6 +39,17 @@
             <tr><th>sjakku</th><th style="color: red">(offline)</th></tr>
             <tr><th>memilio</th><th style="color: green">(online)</th></tr>
             </table>
+            <ol>
+                <% current_user.pending_invitations.each do |invitation| %>
+                    <li>
+                    <%= User.find(invitation.user_id).nickname %>
+                    <%= link_to 'Accept Invitation',
+                    friendship_update_path(invitation_id: invitation.id) %>
+                    <%= link_to 'Reject Invitation',
+                    friendship_destroy_path(invitation_id: invitation.id) %>
+                    </li>
+                <% end %>
+            </ol>
         </div>
     </div>
 </body>

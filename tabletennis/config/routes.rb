@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'start_page#index'
-  
+
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   
   devise_scope :user do
@@ -14,7 +14,14 @@ Rails.application.routes.draw do
   get 'home/index', to: 'home#index'
   get 'home/:id/edit', to: 'home#edit', as: 'user'
   patch 'home/:id', to: 'home#update', as: 'update_user'
+  post  'home/invite_friend', to: 'home#invite_friend', as: 'invite'
   
   resources :guilds
+
+  resources :list_players
+
+  get 'friendship/update'
+  get 'friendship/create'
+  get 'friendship/destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

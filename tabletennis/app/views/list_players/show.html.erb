@@ -1,0 +1,12 @@
+
+<h1 style="color: black">
+    NAME<br/>
+    <%= @list.nickname %><br/>
+    EMAIL<br/>
+    <%= @list.email %><br/>
+    <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
+    <td> <%= link_to 'Send Invitation',
+        friendship_create_path(ids: {id1: current_user.id, id2: @list.id})
+    %></td>
+  <% end %>
+</h1>

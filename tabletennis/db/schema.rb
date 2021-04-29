@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_28_170759) do
+ActiveRecord::Schema.define(version: 2021_04_29_113723) do
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "friend_id"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
 
   create_table "guild_members", force: :cascade do |t|
     t.integer "user_id"
@@ -27,15 +37,6 @@ ActiveRecord::Schema.define(version: 2021_04_28_170759) do
     t.string "anagram"
     t.text "description"
     t.integer "rating"
-  end
-
-  create_table "invitations", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "friend_id"
-    t.boolean "confirmed", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,5 +64,4 @@ ActiveRecord::Schema.define(version: 2021_04_28_170759) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
-  add_foreign_key "invitations", "users"
 end
