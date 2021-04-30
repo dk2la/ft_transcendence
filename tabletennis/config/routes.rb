@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   patch 'home/:id', to: 'home#update', as: 'update_user'
   post  'home/invite_friend', to: 'home#invite_friend', as: 'invite'
   
+  get '/guilds/leave_from_guild', to: 'guilds#leave_from_guild', as: 'leave_from_guild'
   get '/guilds/accept_to_guild', to: 'guilds#accept_to_guild', as: 'accept'
   resources :guilds
 

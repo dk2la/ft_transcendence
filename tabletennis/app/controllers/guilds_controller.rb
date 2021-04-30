@@ -33,9 +33,14 @@ class GuildsController < ApplicationController
   def accept_to_guild
     @guild = Guild.find(params[:id])
     guild_members = GuildMember.create(user_role: 0, user: current_user, guild: @guild)
-    redirect_back follback_location: { action: "show" }, alert: "You are join to this guild"
+    redirect_back fallback_location: { action: "show" }, alert: "You are join to this guild"
   end
   
+  def leave_from_guild
+    current_user.guild_member.destroy
+    redirect_back fallback_location: { action: "index" }, alert: "You are succsessfully leave from this guild"
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_guild

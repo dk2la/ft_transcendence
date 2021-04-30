@@ -8,6 +8,10 @@
 <p><%= @guild.name %></p>
 <p><%= @guild.anagram %></p>
 <p><%= @guild.description %></p>
-<% if !current_user.guild %>
+<% unless current_user.guild %>
     <p><%= link_to 'Join guild', accept_path(id: @guild.id) %>
+<% end %>
+
+<% if current_user.guild %>
+    <p><%= link_to 'Leave from guild', leave_from_guild_path %>
 <% end %>
