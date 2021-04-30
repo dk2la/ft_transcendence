@@ -13,9 +13,13 @@ class GuildsController < ApplicationController
   end
 
   def show
-    @gm = GuildMember.all
     @guild = Guild.find(params[:id])
+    @gm = @guild.guild_members
     @owner = @guild.guild_members.where(user_role: 2)
+  end
+
+  def edit
+    @guild = Guild.find(params[:id])
   end
 
   def create
@@ -23,9 +27,9 @@ class GuildsController < ApplicationController
     
     if guild.save
       guild_members = GuildMember.create(user_role: 2, user: current_user, guild: guild)
-      redirect_to guild, notice: "try to fill up correct, someone field"
+      redirect_to guild, notice: "Guild successfully created"
     else
-      redirect_to new_guild_path, alert: 'Sosi'
+      redirect_to new_guild_path, alert: 'Guild not created because some fields wrong'
     end
   end
   
