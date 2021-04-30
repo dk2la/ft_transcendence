@@ -13,6 +13,7 @@ class GuildsController < ApplicationController
   end
 
   def show
+    @gm = GuildMember.all
     @guild = Guild.find(params[:id])
     @owner = @guild.guild_members.where(user_role: 2)
   end

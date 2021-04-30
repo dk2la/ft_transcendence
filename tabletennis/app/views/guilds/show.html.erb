@@ -5,13 +5,26 @@
         <p><%= owner.user.nickname %></p>
     <% end %>
 </h1>
+<p>Name:</p>
 <p><%= @guild.name %></p>
+<p>Anagram:</p>
 <p><%= @guild.anagram %></p>
+<p>Description:</p>
 <p><%= @guild.description %></p>
+
+<p>Func like join || leave:</p>
 <% unless current_user.guild %>
     <p><%= link_to 'Join guild', accept_path(id: @guild.id) %>
 <% end %>
 
 <% if current_user.guild %>
     <p><%= link_to 'Leave from guild', leave_from_guild_path %>
+<% end %></br>
+
+<p>Members list:</p>
+<% @gm.each do |membmer| %>
+    <tr>
+        <td><%= membmer.user.nickname %></td>
+        <td><%= membmer.user_role %></td>
+    </tr></br>
 <% end %>
