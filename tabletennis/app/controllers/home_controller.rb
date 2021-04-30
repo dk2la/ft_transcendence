@@ -3,6 +3,7 @@ class HomeController < ApplicationController
 
   # /GET /home
   def index
+    @friends = current_user.friends
   end
 
   # GET /home/:id/edit for render form update user

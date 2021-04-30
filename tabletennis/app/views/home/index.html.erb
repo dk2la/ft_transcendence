@@ -35,9 +35,15 @@
         <div class="main_pages" style="border-color: white;">
             <h1>Friends</h1>
             <table class="friends">
-            <tr><th>atomatoe</th><th style="color: red">(offline)</th></tr>
-            <tr><th>sjakku</th><th style="color: red">(offline)</th></tr>
-            <tr><th>memilio</th><th style="color: green">(online)</th></tr>
+                <% @friends.each do |friend| %>
+                    <tr>
+                        <td><%= friend.nickname %></td></br>
+                        <% if friend.guild %>
+                            <td><%= [friend.guild.anagram] %></td>
+                        <% end %>
+                        <td><%= friend.rating %></td>
+                    </tr></br>
+                <% end %>
             </table>
             <ol>
                 <% current_user.pending_invitations.each do |invitation| %>
