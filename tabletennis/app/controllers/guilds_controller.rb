@@ -1,8 +1,11 @@
 class GuildsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_guild, only: [:show]
+  before_action :check_guild_mem, only: [:show, :new, :create]
 
   def index
     @guilds = Guild.all
+    @guilds = @guilds.sort_by(&:rating).reverse
   end
 
   def new
@@ -36,6 +39,12 @@ class GuildsController < ApplicationController
     def guild_params
       p params
       p params.require(:guild).permit(:name, :anagram, :description, :rating)
+    end
+
+    def check_guild_mem
+      if current_user.guild
+        redirect_back fallback_location: { action: "index" }, alert: "you are already in guild"
+      end
     end
 end
 

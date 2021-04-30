@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
-
+  
   # /GET /home
   def index
     @friends = current_user.friends
