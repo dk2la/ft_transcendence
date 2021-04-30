@@ -1,5 +1,5 @@
 class Guild < ApplicationRecord
-    has_many :guild_members
+    has_many :guild_members, dependent: :destroy
     has_many :users, :through => :guild_members
 
     ANAGRAM_VALIDATE_REGEX = /[A-Z]/

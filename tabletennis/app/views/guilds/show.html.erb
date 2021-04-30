@@ -18,7 +18,7 @@
 <% end %>
 
 <% if current_user.guild %>
-    <p><%= link_to 'Leave from guild', leave_from_guild_path %>
+    <p><%= link_to 'Leave from guild', leave_from_guild_path(@guild) %>
 <% end %></br>
 
 <p>Members list:</p>

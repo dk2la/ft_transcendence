@@ -1,6 +1,6 @@
 class GuildsController < ApplicationController
   before_action :authenticate_user!
-  # before_action :set_guild, only: [:show]
+  before_action :set_guild, only: [:show]
   before_action :check_guild_mem, only: [:new, :create, :accept_to_guild]
 
   def index
@@ -19,27 +19,31 @@ class GuildsController < ApplicationController
   end
 
   def create
-    @guild = Guild.new(guild_params)
-    guild_members = GuildMember.create(user_role: 2, user: current_user, guild: @guild)
-
-    respond_to do |f|
-      if @guild.save
-        f.html { redirect_to @guild, notice: "Guild was successfully created." }
-      else
-        f.html { render :new, status: :unprocessable_entity }
-      end
+    guild = Guild.new(guild_params)
+    
+    if guild.save
+      guild_members = GuildMember.create(user_role: 2, user: current_user, guild: guild)
+      redirect_to guild, notice: "try to fill up correct, someone field"
+    else
+      redirect_to new_guild_path, alert: 'Sosi'
     end
   end
   
   def accept_to_guild
     @guild = Guild.find(params[:id])
     guild_members = GuildMember.create(user_role: 0, user: current_user, guild: @guild)
-    redirect_back fallback_location: { action: "show" }, alert: "You are join to this guild"
+    redirect_back fallback_location: { action: "show" }, notice: "You are join to this guild"
   end
   
   def leave_from_guild
-    current_user.guild_member.destroy
-    redirect_back fallback_location: { action: "index" }, alert: "You are succsessfully leave from this guild"
+    if current_user.guild_member[:user_role] == 2
+      guild = Guild.find(params[:id])
+      guild.destroy
+      redirect_to guilds_path, notice: "Guild has been destroyed"
+    else
+      current_user.guild_member.destroy
+      redirect_back fallback_location: { action: "index" }, notice: "You are succsessfully leave from this guild"
+    end
   end
 
   private
