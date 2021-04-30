@@ -9,6 +9,7 @@
             <td><%= [guild.anagram] %></td>
             <td><%= guild.rating %></td>
             <td><%= guild.description %></td>
+            <td><%= link_to 'View guild', guild_path(guild.id) %>
         </tr></br>
     <% end %>
 </h1>

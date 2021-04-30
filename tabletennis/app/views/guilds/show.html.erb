@@ -1,4 +1,13 @@
 <h1 style="color: black"> THIS IS GUILD <%= @guild.id %> </h1>
+<h1 style="color: black"> 
+    Owner</br>
+    <% @owner.each do |owner| %>
+        <p><%= owner.user.nickname %></p>
+    <% end %>
+</h1>
 <p><%= @guild.name %></p>
 <p><%= @guild.anagram %></p>
 <p><%= @guild.description %></p>
+<% if !current_user.guild %>
+    <p><%= link_to 'Join guild', accept_path(id: @guild.id) %>
+<% end %>

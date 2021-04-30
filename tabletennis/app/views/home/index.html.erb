@@ -42,6 +42,7 @@
                             <td><%= [friend.guild.anagram] %></td>
                         <% end %>
                         <td><%= friend.rating %></td>
+                        <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)) %></td>
                     </tr></br>
                 <% end %>
             </table>

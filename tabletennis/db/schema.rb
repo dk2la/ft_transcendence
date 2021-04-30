@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_113723) do
     t.string "name"
     t.string "anagram"
     t.text "description"
-    t.integer "rating"
+    t.integer "rating", default: 1000
   end
 
   create_table "users", force: :cascade do |t|
