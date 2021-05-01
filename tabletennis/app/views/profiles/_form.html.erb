@@ -1,4 +1,4 @@
-<%= form_for(current_user, url: update_user_path(current_user), remote: true) do |form| %>
+<%= form_for(current_user, url: update_profile_path(current_user), remote: true) do |form| %>
     <% if user.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -26,5 +26,3 @@
     </div>
 
 <% end %>
-
-

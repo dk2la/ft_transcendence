@@ -1,7 +1,8 @@
 class GuildsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_guild, only: [:show]
+  before_action :set_guild, only: [:accept_to_guild, :check_user_role, :show, :edit]
   before_action :check_guild_mem, only: [:new, :create, :accept_to_guild]
+  before_action :check_user_role, only: [:edit]
 
   def index
     @guilds = Guild.all
@@ -13,13 +14,11 @@ class GuildsController < ApplicationController
   end
 
   def show
-    @guild = Guild.find(params[:id])
     @gm = @guild.guild_members
     @owner = @guild.guild_members.where(user_role: 2)
   end
 
   def edit
-    @guild = Guild.find(params[:id])
   end
 
   def create
@@ -34,7 +33,6 @@ class GuildsController < ApplicationController
   end
   
   def accept_to_guild
-    @guild = Guild.find(params[:id])
     guild_members = GuildMember.create(user_role: 0, user: current_user, guild: @guild)
     redirect_back fallback_location: { action: "show" }, notice: "You are join to this guild"
   end
@@ -51,6 +49,13 @@ class GuildsController < ApplicationController
   end
 
   private
+
+  def check_user_role
+    unless current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2
+      redirect_to guild_path, alert: "You are not owner for edit"
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_guild
     @guild = Guild.find(params[:id])

@@ -3,6 +3,6 @@
         <h1>FT_TRANSCENDENCE</h1>
         <img src="https://64.media.tumblr.com/26a960808b3605f7eabca7ec60f03e7c/tumblr_nubbhqC9yT1rpco88o2_r1_500.gif" alt="Game logo">
         <p></p>
-        <%= link_to "Sign up",(current_user == nil) ? new_user_registration_path : home_path(current_user.id), class: "button_start_game" %>
+        <%= link_to "Sign up",(current_user == nil) ? new_user_registration_path : profiles_path(current_user.id), class: "button_start_game" %>
     </div>
 <body>

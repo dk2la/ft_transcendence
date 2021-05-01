@@ -10,11 +10,10 @@ Rails.application.routes.draw do
   get 'users/sign_up', as: 'registration'
   get '/users/sign_in', as: 'login'
   
-  resources :home
-  get 'home/index', to: 'home#index'
-  get 'home/:id/edit', to: 'home#edit', as: 'user'
-  patch 'home/:id', to: 'home#update', as: 'update_user'
-  post  'home/invite_friend', to: 'home#invite_friend', as: 'invite'
+  get 'profiles/:id/edit', to: 'profiles#edit', as: 'edit_profile'
+  patch 'profiles/:id', to: 'profiles#update', as: 'update_profile'
+  post  'profiles/invite_friend', to: 'profiles#invite_friend', as: 'invite'
+  resources :profiles
   
   get '/guilds/leave_from_guild/:id', to: 'guilds#leave_from_guild', as: 'leave_from_guild'
   get '/guilds/accept_to_guild', to: 'guilds#accept_to_guild', as: 'accept'

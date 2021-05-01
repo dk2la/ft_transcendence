@@ -17,7 +17,7 @@
     <p><%= link_to 'Join guild', accept_path(id: @guild.id) %>
 <% end %>
 
-<% if current_user.guild %>
+<% if current_user.guild && current_user.guild_member.guild_id == @guild.id %>
     <p><%= link_to 'Leave from guild', leave_from_guild_path(@guild) %>
 <% end %></br>
 
@@ -28,6 +28,6 @@
         <td><%= membmer.user_role %></td>
     </tr></br>
 <% end %>
-<% if current_user.guild_member[:guild_id] == @guild.id && current_user.guild_member[:user_role] == 2 %>
-    <%= link_to 'Edit info', edit_guild_path %>
+<% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>
+    <%= link_to 'Edit info guild', edit_guild_path %>
 <% end %>
