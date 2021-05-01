@@ -51,7 +51,7 @@ class GuildsController < ApplicationController
   private
 
   def check_user_role
-    unless current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2
+    unless current_user.guild && current_user.guild.user_owner?(current_user, @guild) # todo добавить alert на то что чел не в гильдии
       redirect_to guild_path, alert: "You are not owner for edit"
     end
   end

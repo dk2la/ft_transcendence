@@ -8,10 +8,10 @@ class Guild < ApplicationRecord
     validates :anagram, presence: true, format: { with: ANAGRAM_VALIDATE_REGEX }, length: {minimum: 4, maximum: 5}, uniqueness: true
     validates :description, presence: true, length: {minimum: 3, maximum: 300}
 
-    # def user_owner?(current_user, guild)
-    #     if current_user.guild.id == @guild && current_user.guild_member.user_role == 2
-    #         return true
-    #     end
-    #     return false
-    # end
+    def user_owner?(current_user, guild)
+        if current_user.guild.id == guild.id && current_user.guild_member.user_role == 2
+            return true
+        end
+        return false
+    end
 end

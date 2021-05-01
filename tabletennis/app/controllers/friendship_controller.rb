@@ -10,13 +10,13 @@ class FriendshipController < ApplicationController
       def destroy
         invitation = Friendship.find(params[:invitation_id])
         invitation.destroy
-        redirect_to user_path(current_user.id)
+        redirect_to profiles_path(current_user.id)
       end
     
       def update
         invitation = Friendship.find(params[:invitation_id])
         p current_user
         invitation.update(confirmed: true)
-        redirect_to user_path(invitation.friend_id)
+        redirect_to profiles_path(invitation.friend_id)
       end
 end
