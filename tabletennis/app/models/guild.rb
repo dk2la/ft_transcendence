@@ -29,4 +29,10 @@ class Guild < ApplicationRecord
         return false
     end
 
+    def check_member_officer?(cur, guild)
+        if guild.check_current_guild?(cur, guild) && cur.guild_member.user_role == 1
+            return true
+        end
+        return false
+    end
 end

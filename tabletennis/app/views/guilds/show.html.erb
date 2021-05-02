@@ -27,6 +27,7 @@
         <td><%= member.user.nickname %></td>
         <td><%= member.user_role %></td>
         <td><%= link_to 'make an officer', set_officer_path(id: member.user_id) %></td>
+        <td><%= link_to 'remove officer', remove_officer_path(id: member.user_id) %></td>
     </tr></br>
 <% end %>
 <% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>

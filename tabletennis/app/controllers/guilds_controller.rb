@@ -52,9 +52,20 @@ class GuildsController < ApplicationController
     p params
     cur = User.find(params[:id])
     unless cur.guild.check_member_role?(cur, cur.guild)
-      redirect_to guild_path(cur.guild), alert: "User cannot be an officer"
+      redirect_to guild_path(cur.guild), alert: "User cannot be an officer #{cur.nickname}"
     else
       cur.guild_member.update(user_role: 1)
+      redirect_to guild_path(cur.guild), notice: "Successfully set officer #{cur.nickname}"
+    end
+  end
+
+  def remove_from_officer
+    cur = User.find(params[:id])
+    unless cur.guild.check_member_officer?(cur, cur.guild)
+      redirect_to guild_path(cur.guild), alert: "User cannot be remove from officer #{cur.nickname}"
+    else
+      cur.guild_member.update(user_role: 0)
+      redirect_to guild_path(cur.guild), notice: "Successfully remove from officer #{cur.nickname}"
     end
   end
   private
