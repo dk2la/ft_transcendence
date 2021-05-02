@@ -15,8 +15,8 @@ class Guild < ApplicationRecord
         return false
     end
 
-    def user_owner?(current_user, guild)
-        if guild.check_current_guild?(cur, guild) && current_user.guild_member.user_role == 2
+    def user_owner?(cur, guild)
+        if guild.check_current_guild?(cur, guild) && cur.guild_member.user_role == 2
             return true
         end
         return false
