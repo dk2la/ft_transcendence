@@ -22,10 +22,11 @@
 <% end %></br>
 
 <p>Members list:</p>
-<% @gm.each do |membmer| %>
+<% @gm.each do |member| %>
     <tr>
-        <td><%= membmer.user.nickname %></td>
-        <td><%= membmer.user_role %></td>
+        <td><%= member.user.nickname %></td>
+        <td><%= member.user_role %></td>
+        <td><%= link_to 'make an officer', set_officer_path(id: member.user_id) %></td>
     </tr></br>
 <% end %>
 <% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>

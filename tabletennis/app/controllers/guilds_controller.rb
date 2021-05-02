@@ -1,6 +1,6 @@
 class GuildsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_guild, only: [:accept_to_guild, :check_user_role, :show, :edit]
+  before_action :set_guild, only: [:set_guild_member_officer, :accept_to_guild, :check_user_role, :show, :edit]
   before_action :check_guild_mem, only: [:new, :create, :accept_to_guild]
   before_action :check_user_role, only: [:edit]
 
@@ -48,6 +48,15 @@ class GuildsController < ApplicationController
     end
   end
 
+  def set_officer
+    p params
+    cur = User.find(params[:id])
+    unless cur.guild.check_member_role?(cur, cur.guild)
+      redirect_to guild_path(cur.guild), alert: "User cannot be an officer"
+    else
+      cur.guild_member.update(user_role: 1)
+    end
+  end
   private
 
   def check_user_role
