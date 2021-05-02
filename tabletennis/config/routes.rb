@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/guilds/accept_to_guild', to: 'guilds#accept_to_guild', as: 'accept'
   get '/guilds/set_officer', to: 'guilds#set_officer', as: 'set_officer'
   get '/guilds/remove_from_officer', to: 'guilds#remove_from_officer', as: 'remove_officer'
+  get '/guilds/kick_member_from_guild', to: 'guilds#kick_member_from_guild', as: 'kick_member'
   resources :guilds
 
   resources :list_players

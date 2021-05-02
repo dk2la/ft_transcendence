@@ -36,6 +36,11 @@
                 <td><%= link_to 'remove officer', remove_officer_path(id: member.user_id) %></td>
             <% end %>
         <% end %>
+        <% if @guild.check_member_officer?(member.user, member.user.guild) || @guild.check_member_role?(member.user, member.user.guild) %>
+            <% if current_user.guild_member.user_role == 2 || current_user.guild_member.user_role == 1 %>
+                <%= link_to 'kick member', kick_member_path(id: member.user_id) %>
+            <% end %>
+        <% end %>
     </tr></br>
 <% end %>
 <% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>
