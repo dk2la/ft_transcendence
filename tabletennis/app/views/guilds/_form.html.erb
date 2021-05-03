@@ -11,22 +11,22 @@
       </div>
     <% end %>
   
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :name %><br />
+      <%= form.text_field :name, class: "text_sign_up" %>
     </div>
   
-    <div class="field">
-      <%= form.label :anagram %>
-      <%= form.text_field :anagram %>
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :anagram %><br />
+      <%= form.text_field :anagram, class: "text_sign_up" %>
     </div>
   
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_field :description %>
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :description %><br />
+      <%= form.text_field :description, class: "text_sign_up" %>
     </div>
   
-    <div class="actions">
-      <%= form.submit "Create Guild" %>
+    <div class="actions"><br />
+      <%= form.submit "Create Guild", class: "button_start_game" %>
     </div>
   <% end %>

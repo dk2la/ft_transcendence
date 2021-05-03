@@ -1,18 +1,26 @@
-<h1>All players here</h1>
-<h1>Here we add table with all players</h1>
-<h1>
-    <h2>List: Users </h2><br>
-    <% @list.each do |l| %>
-        <tr>
-            <td><%= l.nickname %></td>
-            <% if l.guild %>
-                <td><%= [l.guild.anagram] %></td>
-            <% end %></br>
-            <td><%= l.email %></td>
-            <td><%= l.rating %></td>
-            <% unless l == current_user %>
-                <td><%= link_to 'View profile', list_player_path(l.id) %></td>
-            <% end %>
-        </tr></br>
-    <% end %>
-</h1>
+<body style="background-color: black;">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <h1>All players here</h1>
+    <h1>
+        <h1>Users: </h1>
+        <table class="friends">
+        <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>View</td></tr>
+        <% @list.each do |l| %>
+            <tr>
+                <td><%= l.nickname %></td>
+                <% if l.guild %>
+                    <td><%= [l.guild.anagram] %></td>
+                <% else %>
+                    <td>["None"]</td>
+                <% end %>
+                <td><%= l.email %></td>
+                <td><%= l.rating %></td>
+                <% unless l == current_user %>
+                    <td><%= link_to 'View profile', list_player_path(l.id), class: "button_make_officer" %></td>
+                <% end %>
+            </tr>
+        <% end %>
+        </table>
+    </h1>
+</div>
+</body>

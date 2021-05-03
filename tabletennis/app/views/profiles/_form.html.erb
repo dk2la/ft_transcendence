@@ -11,18 +11,18 @@
       </div>
     <% end %>
   
-    <div class="field">
-      <%= form.label :nickname %>
-      <%= form.text_field :nickname %>
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :nickname %></br>
+      <%= form.text_field :nickname, class: "text_sign_up" %>
     </div>
   
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.text_field :email %>
-    </div>
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :email %></br>
+      <%= form.text_field :email, class: "text_sign_up" %>
+    </div></br></br>
   
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit "Update info", class: "button_start_game" %>
     </div>
 
 <% end %>

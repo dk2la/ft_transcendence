@@ -18,7 +18,11 @@
             <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
             <tr>
                 <th><%= link_to "Edit profile", edit_profile_path(current_user) , class: "button_edit_profile" %> </th>
-                <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
+                <% if current_user.guild %>
+                    <th><%= link_to "Guild", guild_path(current_user.guild), class: "button_edit_profile" %> </th>
+                <% else %>
+                    <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
+                <% end %>
             </tr>
             </table>
         </div>
@@ -32,28 +36,30 @@
                 <tr><th style="color: #44ecce; padding-right: 25px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">sjakku</th><th style="padding-right: 25px;">11/9</th><th style="color: green">(win)</th></tr>
             </table>
         </div>
-        <div class="main_pages" style="border-color: white;">
+        <div class="main_pages" style="border-color: white; text-align: center;">
             <h1>Friends</h1>
             <table class="friends">
+                <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Remove friend</td></tr>
                 <% @friends.each do |friend| %>
                     <tr>
-                        <td><%= friend.nickname %></td></br>
+                        <td><%= friend.nickname %></td>
                         <% if friend.guild %>
                             <td><%= [friend.guild.anagram] %></td>
+                        <% else %>
+                            <td>["None"]</td>
                         <% end %>
+                        <td><%= friend.email %></td>
                         <td><%= friend.rating %></td>
-                        <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)) %></td>
+                        <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
                     </tr></br>
                 <% end %>
             </table>
             <ol>
                 <% current_user.pending_invitations.each do |invitation| %>
                     <li>
-                    <%= User.find(invitation.user_id).nickname %>
-                    <%= link_to 'Accept Invitation',
-                    friendship_update_path(invitation_id: invitation.id) %>
-                    <%= link_to 'Reject Invitation',
-                    friendship_destroy_path(invitation_id: invitation.id) %>
+                        <p style="color: white;"><%= User.find(invitation.user_id).nickname %>
+                        <%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %>
+                        <%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></p>
                     </li>
                 <% end %>
             </ol>

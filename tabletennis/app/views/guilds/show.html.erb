@@ -1,48 +1,57 @@
-<h1 style="color: black"> THIS IS GUILD <%= @guild.id %> </h1>
-<h1 style="color: black"> 
-    Owner</br>
-    <% @owner.each do |owner| %>
-        <p><%= owner.user.nickname %></p>
+<body style="background-color: black;">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <div class="main_pages" style="border-color: white; text-align: center;">
+    <h1><%= @guild.name %></h1>
+
+    <p><img style="width: 140px; height: 140px;" src="https://i.gyazo.com/8de1066d8b26430bafb010f4707990b4.png"><p>
+    <% unless current_user.guild %>
+        <%= link_to 'Join guild', accept_path(id: @guild.id), class: "button_edit_profile" %>
     <% end %>
-</h1>
-<p>Name:</p>
-<p><%= @guild.name %></p>
-<p>Anagram:</p>
-<p><%= @guild.anagram %></p>
-<p>Description:</p>
-<p><%= @guild.description %></p>
 
-<p>Func like join || leave:</p>
-<% unless current_user.guild %>
-    <p><%= link_to 'Join guild', accept_path(id: @guild.id) %>
-<% end %>
+    <% if current_user.guild && current_user.guild_member.guild_id == @guild.id %>
+        <%= link_to 'Leave from guild', leave_from_guild_path(@guild), class: "button_leave_guild" %>
+    <% end %>
 
-<% if current_user.guild && current_user.guild_member.guild_id == @guild.id %>
-    <p><%= link_to 'Leave from guild', leave_from_guild_path(@guild) %>
-<% end %></br>
+    <% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>
+        <%= link_to 'Edit info guild', edit_guild_path, class: "button_view_guild" %>
+    <% end %>
+    <p class="friends">Guild id: <%= @guild.id %></p>
+    <p class="friends">Rating: <%= @guild.rating %></p>
+    <p class="friends">Name: <%= @guild.name %></p>
+    <p class="friends">Anagram: <%= @guild.anagram %></p>
+    <p class="friends">Leader:
+    <% @owner.each do |owner| %>
+        <%= owner.user.nickname %></p>
+        <% end %></p>
+    <p class="friends">Description: <%= @guild.description %></p>
 
-<p>Members list:</p>
-<% @gm.each do |member| %>
-    <tr>
-        <td><%= member.user.nickname %></td>
-        <td><%= member.user_role %></td>
-        <% if @guild.check_member_role?(member.user, member.user.guild) %>
-            <% if current_user.guild_member.user_role == 2 %>
-                <td><%= link_to 'make an officer', set_officer_path(id: member.user_id) %></td>
+    <h1>Members list:</h1>
+    <table class="friends">
+    <tr><td>Nickname</td><td>Role</td></tr>
+    <% @gm.each do |member| %>
+        <tr>
+            <td><%= member.user.nickname %></td>
+            <% if member.user_role == 2 %>
+                <td>owner</td>
             <% end %>
-        <% end %>
-        <% if @guild.check_member_officer?(member.user, member.user.guild) %>
-            <% if current_user.guild_member.user_role == 2 %>
-                <td><%= link_to 'remove officer', remove_officer_path(id: member.user_id) %></td>
+            <% if @guild.check_member_role?(member.user, member.user.guild) %>
+                <% if current_user.guild_member.user_role == 2 %>
+                    <td><%= link_to 'make an officer', set_officer_path(id: member.user_id), class: "button_make_officer" %></td>
+                <% end %>
             <% end %>
-        <% end %>
-        <% if @guild.check_member_officer?(member.user, member.user.guild) || @guild.check_member_role?(member.user, member.user.guild) %>
-            <% if current_user.guild_member.user_role == 2 || current_user.guild_member.user_role == 1 %>
-                <%= link_to 'kick member', kick_member_path(id: member.user_id) %>
+            <% if @guild.check_member_officer?(member.user, member.user.guild) %>
+                <% if current_user.guild_member.user_role == 2 %>
+                    <td><%= link_to 'remove officer', remove_officer_path(id: member.user_id), class: "button_leave_guild" %></td>
+                <% end %>
             <% end %>
-        <% end %>
-    </tr></br>
-<% end %>
-<% if current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2 %>
-    <%= link_to 'Edit info guild', edit_guild_path %>
-<% end %>
+            <% if @guild.check_member_officer?(member.user, member.user.guild) || @guild.check_member_role?(member.user, member.user.guild) %>
+                <% if current_user.guild_member.user_role == 2 || current_user.guild_member.user_role == 1 %>
+                    <td><%= link_to 'kick member', kick_member_path(id: member.user_id), class: "button_leave_guild" %></td>
+                <% end %>
+            <% end %>
+        </tr>
+    <% end %>
+    </table>
+    </div>
+</div>
+</body>

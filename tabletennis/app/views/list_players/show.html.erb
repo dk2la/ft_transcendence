@@ -1,12 +1,39 @@
-
-<h1 style="color: black">
-    NAME<br/>
-    <%= @list.nickname %><br/>
-    EMAIL<br/>
-    <%= @list.email %><br/>
-    <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
-    <td> <%= link_to 'Send Invitation',
-        friendship_create_path(ids: {id1: current_user.id, id2: @list.id})
-    %></td>
+<body style="background-color: black;">
+<div style="width: 1000px;margin: auto;height: 100%;">
+  <div class="main_pages" style="border-color: white;">
+  <h1>Profile user <%= @list.nickname %></h1>
+<table class="friends">
+  <tr>
+      <th><img style="width: 140px; height: 140px;" src="https://ava-24.com/_ph/98/563228947.jpg"></th>
+      <th><img style="width: 140px; height: 140px;" src="https://i.gyazo.com/8de1066d8b26430bafb010f4707990b4.png"></th>
+  </tr>
+  <tr><th>Nickname:</th><th><%= @list.nickname %></th></tr>
+  <tr><th>Email:</th><th><%= @list.email %></th></tr>
+  <% if @list.guild %>
+      <tr><th>Guild</th><th><%= @list.guild.name %></th></tr>
   <% end %>
-</h1>
+  <th>Рейтинг:</th><th><%= @list.rating %></th>
+  <tr><th>Всего побед</th><th>Dostat zaprosom iz db</th></tr>
+  <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>
+  <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
+  </table>
+  <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
+  <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
+  <% end %>
+</div>
+<div>
+  <h1>Friends</h1>
+  <table class="friends">
+      <% @friends.each do |friend| %>
+          <tr>
+              <td><%= friend.nickname %></td>
+              <% if friend.guild %>
+                  <td><%= [friend.guild.anagram] %></td>
+              <% end %>
+              <td><%= friend.rating %></td>
+          </tr>
+      <% end %>
+  </table>
+</div>
+</div>
+</body>

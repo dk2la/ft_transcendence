@@ -86,6 +86,95 @@ h1 {
     background: #76B7E9;
 }
 
+.button_view_guild {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #6f2da0;
+    border-radius: 3px;
+    background: #6f2da0;
+}
+
+.button_view_guild:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_leave_guild {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #d23d25;
+    border-radius: 3px;
+    background: #d23d25;
+}
+
+.button_leave_guild:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_make_officer {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid rgb(204, 133, 25);
+    border-radius: 3px;
+    background: rgb(204, 133, 25);;
+}
+
+.button_make_officer:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_send_invite {
+    margin-top: 2px;
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #8CDB39;
+    border-radius: 3px;
+    background: black;
+}
+
+.button_send_invite:hover {
+    border: 1px solid #8CDB39;
+    border-radius: 3px;
+    background: #8CDB39;
+}
+
 .friends {
     color: white;
     margin-left: auto;
@@ -98,6 +187,8 @@ h1 {
     width: 240px;
     height: 22px;
     border-radius: 9px;
-    background-color: cadetblue;
-    border: 2px solid cadetblue;
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    text-align: center;
 }
