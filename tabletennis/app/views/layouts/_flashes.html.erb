@@ -1,8 +1,8 @@
 <% flash.each do |key, message| %>
     <% if key == 'alert' %>
-        <div class="popup popup-alert">
+        <div class="popup popup-alert", style="color: white">
     <% else %>
-        <div class="popup popup-success">
+        <div class="popup popup-success", style="color: white">
     <% end %>
         <p class="<%= key %> popup-text"><%= message %></p>
     </div> 
