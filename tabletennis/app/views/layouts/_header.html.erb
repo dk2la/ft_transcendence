@@ -1,12 +1,15 @@
 <header>
-  <div class="header">
-    <img style="margin-bottom: -5px;margin-top: 25px;" height="40" width="40" src="https://www.flaticon.com/svg/vstatic/svg/1099/1099779.svg?token=exp=1619282241~hmac=24f8a8761a3b090fcda242dc65409e85" alt="Game logo">
-    <ul>
-      <li><%= link_to "Home",   profiles_path %></li>
-      <li><%= link_to "Games",   '#' %></li>
-      <li><%= link_to "Tournaments",   '#' %></li>
-      <li><%= link_to "Guilds",   guilds_path %></li>
-      <li><%= link_to "Online players", list_players_path %></li>
-    </ul>
+  <div class="head_menu">
+    <div class="friends">
+        <img style="margin-bottom: -10px;margin-top: 25px;" height="50" width="50" src="/assets/logo.svg" alt="Game logo">
+        </br></br>
+        <div class="text_head">
+          <%= link_to "Home",   profiles_path %>
+          <%= link_to "Games",   '#' %>
+          <%= link_to "Tournaments",   '#' %>
+          <%= link_to "Guilds",   guilds_path %>
+          <%= link_to "Online players", list_players_path %>
+        </div>
+      </div>
   </div>
 </header>

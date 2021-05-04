@@ -1,7 +1,7 @@
 <%= form_for(@guild, remote: true ) do |form| %>
     <% if guild.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(guild.errors.count, "error") %> prohibited this guild from being saved:</h2>
+        <h1><%= pluralize(guild.errors.count, "error") %> prohibited this guild from being saved:</h1>
   
         <ul>
           <% guild.errors.each do |error| %>
@@ -11,17 +11,17 @@
       </div>
     <% end %>
   
-    <div style="color: white;">
+    <div style="color: white; font-family: fantasy;">
       <%= form.label :name %><br />
       <%= form.text_field :name, class: "text_sign_up" %>
     </div>
   
-    <div style="padding-top: 10px; color: white;">
+    <div style="padding-top: 10px; color: white; font-family: fantasy;">
       <%= form.label :anagram %><br />
       <%= form.text_field :anagram, class: "text_sign_up" %>
     </div>
   
-    <div style="padding-top: 10px; color: white;">
+    <div style="padding-top: 10px; color: white; font-family: fantasy;">
       <%= form.label :description %><br />
       <%= form.text_field :description, class: "text_sign_up" %>
     </div>

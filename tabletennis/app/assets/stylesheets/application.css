@@ -1,18 +1,7 @@
-ul li {
-    display:inline-block;
-    margin-left: 15px;
-}
-
-header {
-
-    text-align: center;
-    background-color: rgb(111, 160, 65);
-    padding-bottom: 10px;
-}
-
 h1 {
     color: white;
     text-align: center;
+    font-family: fantasy;
 }
 
 .start_page {
@@ -36,6 +25,7 @@ h1 {
     border: 1px solid #8CDB39;
     border-radius: 3px;
     background: #82ca35;
+    font-family: fantasy;
 }
 
 .button_start_game:hover {
@@ -78,6 +68,7 @@ h1 {
     border: 1px solid #8CDB39;
     border-radius: 3px;
     background: #82ca35;
+    font-family: fantasy;
 }
 
 .button_edit_profile:hover {
@@ -100,6 +91,7 @@ h1 {
     border: 1px solid #6f2da0;
     border-radius: 3px;
     background: #6f2da0;
+    font-family: fantasy;
 }
 
 .button_view_guild:hover {
@@ -122,6 +114,7 @@ h1 {
     border: 1px solid #d23d25;
     border-radius: 3px;
     background: #d23d25;
+    font-family: fantasy;
 }
 
 .button_leave_guild:hover {
@@ -143,7 +136,8 @@ h1 {
     outline: none;
     border: 1px solid rgb(204, 133, 25);
     border-radius: 3px;
-    background: rgb(204, 133, 25);;
+    background: rgb(204, 133, 25);
+    font-family: fantasy;
 }
 
 .button_make_officer:hover {
@@ -167,6 +161,7 @@ h1 {
     border: 1px solid #8CDB39;
     border-radius: 3px;
     background: black;
+    font-family: fantasy;
 }
 
 .button_send_invite:hover {
@@ -176,6 +171,7 @@ h1 {
 }
 
 .friends {
+    font-family: fantasy;
     color: white;
     margin-left: auto;
     margin-right: auto;
@@ -195,4 +191,50 @@ h1 {
     border: #686868 solid 1px;
     color: white;
     text-align: center;
+    font-family: fantasy;
+}
+
+.button_log_intra42 {
+    margin-top: 2px;
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 5px 1.7em;
+    outline: none;
+    border: #686868 solid 1px;
+    border-radius: 100px;
+    background-color: #3535357a;
+    font-family: fantasy;
+}
+
+.button_log_intra42:hover {
+    border: 1px solid #6eaf2881;
+    border-radius: 100px;
+    background: #6eaf2881;
+}
+
+.head_menu {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+
+header a {
+    color: white;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.logo {
+    margin-bottom: -5px;
+    margin-top: 25px; 
+    height: 40;
+    width: 40;
 }

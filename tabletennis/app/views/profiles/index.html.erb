@@ -3,27 +3,27 @@
         <div class="main_pages" style="border-color: white;">
             <h1>Profile</h1>
             <table class="friends" style="width: 500px;">
-            <tr>
-                <th><img style="width: 140px; height: 140px;" src="https://ava-24.com/_ph/98/563228947.jpg"></th>
-                <th><img style="width: 140px; height: 140px;" src="https://i.gyazo.com/8de1066d8b26430bafb010f4707990b4.png"></th>
-            </tr>
-            <tr><th>Nickname:</th><th><%= current_user.nickname %></th></tr>
-            <tr><th>Email:</th><th><%= current_user.email %></th></tr>
-            <% if current_user.guild %>
-                <tr><th>Guild</th><th><%= current_user.guild.name %></th></tr>
-            <% end %>
-            <th>Рейтинг:</th><th><%= current_user.rating %></th>
-            <tr><th>Всего побед</th><th>Dostat zaprosom iz db</th></tr>
-            <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>
-            <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
-            <tr>
-                <th><%= link_to "Edit profile", edit_profile_path(current_user) , class: "button_edit_profile" %> </th>
+                <tr>
+                    <th><img style="width: 140px; height: 140px;" src="/assets/standart_avatar.png"></th>
+                    <th><img style="width: 140px; height: 140px;" src="/assets/standart_guild_avatar.jpg"></th>
+                </tr>
+                <tr><th>Nickname:</th><th><%= current_user.nickname %></th></tr>
+                <tr><th>Email:</th><th><%= current_user.email %></th></tr>
                 <% if current_user.guild %>
-                    <th><%= link_to "Guild", guild_path(current_user.guild), class: "button_edit_profile" %> </th>
-                <% else %>
-                    <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
+                    <tr><th>Guild</th><th><%= current_user.guild.name %></th></tr>
                 <% end %>
-            </tr>
+                <tr><th>Rating:</th><th><%= current_user.rating %></th></tr>
+                <tr><th>Wins: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr><th>Lose: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr><th>Win Tournament: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr>
+                    <th><%= link_to "Edit profile", edit_profile_path(current_user) , class: "button_edit_profile" %> </th>
+                    <% if current_user.guild %>
+                        <th><%= link_to "Guild", guild_path(current_user.guild), class: "button_edit_profile" %> </th>
+                    <% else %>
+                        <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
+                    <% end %>
+                </tr>
             </table>
         </div>
         <div class="main_pages" style="border-color: white;">
