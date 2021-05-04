@@ -36,6 +36,7 @@
                 <tr><th style="color: #44ecce; padding-right: 10px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">sjakku</th><th style="padding-right: 10px;">11/9</th><th style="color: green">(win)</th></tr>
             </table>
         </div>
+        <% unless @friends.empty? && current_user.pending_invitations.empty? %>
         <h1>Friends</h1>
         <table class="friends" style="width: 500px;">
             <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Remove friend</td></tr>
@@ -66,6 +67,7 @@
                     </tr>
                 <% end %>
         </table>
+        <% end %>
         </br></br></br></br>
         </div>
     </div>

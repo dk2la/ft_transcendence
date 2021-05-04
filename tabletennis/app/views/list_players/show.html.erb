@@ -18,10 +18,11 @@
   <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
   </table>
   <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
-  <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
+    <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
   <% end %>
 </div>
 <div>
+<% unless @friends.empty? %>
   <h1>Friends</h1>
   <table class="friends">
       <% @friends.each do |friend| %>
@@ -34,6 +35,7 @@
           </tr>
       <% end %>
   </table>
+<% end %>
 </div>
 </div>
 </body>
