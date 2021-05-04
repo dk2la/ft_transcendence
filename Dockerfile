@@ -30,4 +30,3 @@ RUN yarn install
 RUN bundle install
 
 CMD start.sh
-
