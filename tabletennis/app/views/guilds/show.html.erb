@@ -34,6 +34,10 @@
             <td><%= member.user.nickname %></td>
             <% if member.user_role == 2 %>
                 <td>owner</td>
+            <% elsif member.user_role == 1 %>
+                <td>officer</td>
+            <% else %>
+                <td>member</td>
             <% end %>
             <% if @guild.check_member_role?(member.user, member.user.guild) %>
                 <% if current_user.guild_member.user_role == 2 %>
