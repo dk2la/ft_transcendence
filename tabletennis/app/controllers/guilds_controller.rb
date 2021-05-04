@@ -45,7 +45,7 @@ class GuildsController < ApplicationController
       redirect_to guilds_path, notice: "Guild has been destroyed"
     else
       current_user.guild_member.destroy
-      redirect_back fallback_location: { action: "index" }, notice: "You are succsessfully leave from this guild"
+      redirect_to guilds_path, notice: "You are succsessfully leave from this guild"
     end
   end
 
