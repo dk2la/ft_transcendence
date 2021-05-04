@@ -29,40 +29,44 @@
         <div class="main_pages" style="border-color: white;">
             <h1>Statistic</h1>
             <table class="friends" style="width: 500px;">
-                <tr><th style="color: purple; padding-right: 25px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">atomatoe</th><th style="padding-right: 25px;">6/11</th><th style="color: red">(lose)</th></tr>
-                <tr><th style="color: purple; padding-right: 25px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">sjakku</th><th style="padding-right: 25px;">11/10</th><th style="color: green">(win)</th></tr>
-                <tr><th style="color: purple; padding-right: 25px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">memilio</th><th style="padding-right: 25px;">11/8</th><th style="color: green">(win)</th></tr>
-                <tr><th style="color: #44ecce; padding-right: 25px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">atomatoe</th><th style="padding-right: 25px;">11/6</th><th style="color: green">(win)</th></tr>
-                <tr><th style="color: #44ecce; padding-right: 25px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 25px;">sjakku</th><th style="padding-right: 25px;">11/9</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">atomatoe</th><th style="padding-right: 10px;">6/11</th><th style="color: red">(lose)</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">sjakku</th><th style="padding-right: 10px;">11/10</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">memilio</th><th style="padding-right: 10px;">11/8</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #44ecce; padding-right: 10px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">atomatoe</th><th style="padding-right: 10px;">11/6</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #44ecce; padding-right: 10px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">sjakku</th><th style="padding-right: 10px;">11/9</th><th style="color: green">(win)</th></tr>
             </table>
         </div>
-        <div class="main_pages" style="border-color: white; text-align: center;">
-            <h1>Friends</h1>
-            <table class="friends" style="width: 500px;">
-                <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Remove friend</td></tr>
-                <% @friends.each do |friend| %>
-                    <tr>
-                        <td><%= friend.nickname %></td>
-                        <% if friend.guild %>
-                            <td><%= [friend.guild.anagram] %></td>
-                        <% else %>
-                            <td>["None"]</td>
-                        <% end %>
-                        <td><%= friend.email %></td>
-                        <td><%= friend.rating %></td>
-                        <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
-                    </tr></br>
+        <h1>Friends</h1>
+        <table class="friends" style="width: 500px;">
+            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Remove friend</td></tr>
+            <% @friends.each do |friend| %>
+                <tr>
+                    <td><%= friend.nickname %></td>
+                    <% if friend.guild %>
+                        <td><%= [friend.guild.anagram] %></td>
+                    <% else %>
+                        <td>["None"]</td>
+                    <% end %>
+                    <td><%= friend.email %></td>
+                    <td><%= friend.rating %></td>
+                    <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
+                </tr>
                 <% end %>
-            </table>
-            <ol>
                 <% current_user.pending_invitations.each do |invitation| %>
-                    <li>
-                        <p style="color: white;"><%= User.find(invitation.user_id).nickname %>
-                        <%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %>
-                        <%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></p>
-                    </li>
+                    <tr>
+                    <td><%= User.find(invitation.user_id).nickname %></td>
+                    <% if User.find(invitation.user_id).guild %>
+                        <td><%= User.find(invitation.user_id).guild.name %></td>
+                    <% else %>
+                        <td>["None"]</td>
+                    <% end %>
+                    <td><%= User.find(invitation.user_id).email %></td>
+                    <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
+                    <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
+                    </tr>
                 <% end %>
-            </ol>
+        </table>
+        </br></br></br></br>
         </div>
     </div>
 </body>
