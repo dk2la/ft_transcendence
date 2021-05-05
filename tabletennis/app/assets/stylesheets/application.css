@@ -174,7 +174,7 @@ header {
     background: #76B7E9;
 }
 
-.friends {
+.friends, .list_guilds {
     font-family: fantasy;
     color: white;
     margin-left: auto;

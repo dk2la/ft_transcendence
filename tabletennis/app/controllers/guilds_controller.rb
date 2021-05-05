@@ -8,6 +8,7 @@ class GuildsController < ApplicationController
   def index
     @guilds = Guild.all
     @guilds = @guilds.sort_by(&:rating).reverse
+    ActionCable.server.broadcast("game_10", {zalupa: 10})
   end
 
   def new

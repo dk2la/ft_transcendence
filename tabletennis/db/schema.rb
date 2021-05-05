@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_113723) do
+ActiveRecord::Schema.define(version: 2021_05_05_155701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2021_04_29_113723) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["friend_id"], name: "index_friendships_on_friend_id"
     t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "first_user_id"
+    t.integer "second_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "guild_members", force: :cascade do |t|
@@ -57,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_113723) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
+    t.integer "status", default: 0
     t.string "provider"
     t.string "uid"
     t.boolean "admin", default: false

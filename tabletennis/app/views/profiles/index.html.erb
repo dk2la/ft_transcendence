@@ -52,6 +52,7 @@
                     <% end %>
                     <td><%= friend.email %></td>
                     <td><%= friend.rating %></td>
+                    <td><%= friend.status %></td>
                     <td><%= link_to 'View profile', list_player_path(friend.id), class: "button_make_officer" %></td>
                     <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
                 </tr>

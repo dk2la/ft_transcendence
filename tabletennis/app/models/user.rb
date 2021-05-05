@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  enum status: [:offline, :online]
+
   #FRIENDS INVITATIONS RELATIVES
   has_many :invitations
   has_many :pending_invitations, -> { where confirmed: false }, class_name: 'Friendship', foreign_key: "friend_id"
@@ -8,10 +10,14 @@ class User < ActiveRecord::Base
   has_one :guild_member
   has_one :guild, :through => :guild_member
 
+  #GAMES RELATIVES
+  has_many :first_game, class_name: 'Game', foreign_key: 'second_user'
+  has_many :second_game, class_name: 'Game', foreign_key: 'first_user'
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:marvin]
-  
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
