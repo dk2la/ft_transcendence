@@ -1,3 +1,4 @@
+
 <%= form_for(current_user, url: update_profile_path(current_user), remote: true) do |form| %>
     <% if user.errors.any? %>
       <div id="error_explanation">
@@ -10,29 +11,33 @@
         </ul>
       </div>
     <% end %>
-  
+
     <div style="padding-top: 10px; color: white;">
       <%= form.label :nickname %></br>
       <%= form.text_field :nickname, class: "text_sign_up" %>
     </div>
-  
-    <div style="padding-top: 10px; color: white;">
+
+    </br>
+    <div class="friends" style="padding-top: 10px; color: white; width: 800px;">
       <%= form.label :photo %></br>
       <tr>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/standart_avatar.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_1.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_2.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_3.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_4.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_5.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_6.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/avatar_7.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/standart_avatar.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_1.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_2.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_3.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_4.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_5.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_6.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/avatar_7.png"></th>
       </tr></br>
       <%= form.text_field :photo, class: "text_sign_up", type: :hidden %>
     </div>
     </br></br>
-
-    <div class="actions">
+    <h1>Current avatar:</h1>
+    <div class="friends" style="width: 100px;">
+      <img id="user" src="<%= current_user.photo %>" style="width: 70px; height: 70px;">
+    </div>
+    <div class="actions"></br>
       <%= form.submit "Update info", class: "button_start_game" %>
     </div></br>
 

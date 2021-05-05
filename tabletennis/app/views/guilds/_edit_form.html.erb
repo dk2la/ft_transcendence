@@ -16,17 +16,21 @@
       <%= form.text_field :description, class: "text_sign_up"  %>
     </div></br>
 
-    <div style="padding-top: 10px; color: white;">
+    <div class="friends" style="padding-top: 10px; color: white; width: 500px;">
       <tr>
-      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/standart_guild_avatar.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/guild_1.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/guild_2.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/guild_3.png"></th>
-      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src;" style="width: 70px; height: 70px;" src="/assets/guild_4.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/standart_guild_avatar.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_1.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_2.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_3.png"></th>
+      <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_4.png"></th>
       </tr>
       <%= form.text_field :photo, type: :hidden %>
-    </div></br>
-  
+    </div>
+    <h1>Current avatar:</h1></br>
+    <div class="friends" style="width: 100px;">
+      <img id="user" src="<%= @guild.photo %>" style="width: 70px; height: 70px;">
+    </div>
+    </br>
     <div class="actions">
       <%= form.submit "Update", class: "button_start_game" %>
     </div>

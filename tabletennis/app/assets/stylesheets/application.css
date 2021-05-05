@@ -243,7 +243,18 @@ header a {
     width: 40;
 }
 
+.avatar {
+    color: #fff;
+    background: rgba(0, 0, 0, 0);
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 1s;
+  }
+  
 .avatar:active {
-    border: 1px solid #ff7c01;
-    border-radius: 4px;
-}
+    background: rgb(59, 129, 2);
+    transition: background 0s;
+  }
