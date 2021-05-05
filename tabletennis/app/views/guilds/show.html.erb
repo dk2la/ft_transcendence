@@ -3,7 +3,7 @@
     <div class="main_pages" style="border-color: white; text-align: center;">
     <h1><%= @guild.name %></h1>
 
-    <p><img style="width: 140px; height: 140px;" src="/assets/standart_guild_avatar.jpg"><p>
+    <p><img style="width: 140px; height: 140px;" src="<%=(url_for(@guild.photo))%>"><p>
     <% unless current_user.guild %>
         <%= link_to 'Join guild', accept_path(id: @guild.id), class: "button_edit_profile" %>
     <% end %>

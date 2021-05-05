@@ -242,3 +242,8 @@ header a {
     height: 40;
     width: 40;
 }
+
+.avatar:active {
+    border: 1px solid #ff7c01;
+    border-radius: 4px;
+}

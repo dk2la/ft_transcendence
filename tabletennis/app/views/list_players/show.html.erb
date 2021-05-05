@@ -4,8 +4,10 @@
   <h1>Profile user <%= @list.nickname %></h1>
 <table class="friends">
   <tr>
-      <th><img style="width: 140px; height: 140px;" src="/assets/standart_avatar.png"></th>
-      <th><img style="width: 140px; height: 140px;" src="/assets/standart_guild_avatar.jpg"></th>
+      <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@list.photo))%>">
+      <% if @list.guild %>
+        <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@list.guild.photo))%>"></th>
+      <% end %>
   </tr>
   <tr><th>Nickname:</th><th><%= @list.nickname %></th></tr>
   <tr><th>Email:</th><th><%= @list.email %></th></tr>

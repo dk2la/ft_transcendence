@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
     def update
       respond_to do |format|
         if current_user.update(user_params)
-          format.html { redirect_to home_index_path, notice: "User was successfully updated." }
+          format.html { redirect_to profiles_path, notice: "User was successfully updated." }
         else
           format.html { render :edit, status: :unprocessable_entity }
         end
@@ -24,6 +24,6 @@ class ProfilesController < ApplicationController
     private
   
     def user_params
-      params.require(:user).permit(:nickname, :email)
+      params.require(:user).permit(:nickname, :email, :photo)
     end
 end

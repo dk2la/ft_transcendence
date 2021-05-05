@@ -4,8 +4,10 @@
             <h1>Profile</h1>
             <table class="friends" style="width: 500px;">
                 <tr>
-                    <th><img style="width: 140px; height: 140px;" src="/assets/standart_avatar.png"></th>
-                    <th><img style="width: 140px; height: 140px;" src="/assets/standart_guild_avatar.jpg"></th>
+                    <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@current_user.photo))%>">
+                    <% if current_user.guild %>
+                        <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@current_user.guild.photo))%>"></th>
+                    <% end %>
                 </tr>
                 <tr><th>Nickname:</th><th><%= current_user.nickname %></th></tr>
                 <tr><th>Email:</th><th><%= current_user.email %></th></tr>
@@ -39,7 +41,7 @@
         <% unless @friends.empty? && current_user.pending_invitations.empty? %>
         <h1>Friends</h1>
         <table class="friends" style="width: 500px;">
-            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Remove friend</td></tr>
+            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td></td><td></td></tr>
             <% @friends.each do |friend| %>
                 <tr>
                     <td><%= friend.nickname %></td>
@@ -50,6 +52,7 @@
                     <% end %>
                     <td><%= friend.email %></td>
                     <td><%= friend.rating %></td>
+                    <td><%= link_to 'View profile', list_player_path(friend.id), class: "button_make_officer" %></td>
                     <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
                 </tr>
                 <% end %>
@@ -62,6 +65,7 @@
                         <td>["None"]</td>
                     <% end %>
                     <td><%= User.find(invitation.user_id).email %></td>
+                    <td><%= User.find(invitation.user_id).rating %></td>
                     <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
                     <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
                     </tr>

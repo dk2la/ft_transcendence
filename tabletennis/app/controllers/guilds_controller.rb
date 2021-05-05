@@ -1,7 +1,7 @@
 class GuildsController < ApplicationController
   # todo добавить защиту на make officer, remove officer, kick_member_from_guild
   before_action :authenticate_user!
-  before_action :set_guild, only: [:set_guild_member_officer, :accept_to_guild, :check_user_role, :show, :edit]
+  before_action :set_guild, only: [:set_guild_member_officer, :accept_to_guild, :check_user_role, :show, :edit, :update]
   before_action :check_guild_mem, only: [:new, :create, :accept_to_guild]
   before_action :check_user_role, only: [:edit]
 
@@ -33,6 +33,17 @@ class GuildsController < ApplicationController
     end
   end
   
+  def update
+    respond_to do |format|
+      p guild_params
+      if @guild.update(guild_params)
+        format.html { redirect_to guild_path(@guild), notice: "Guild was successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity, alert: "Update failed" }
+      end
+    end
+  end
+
   def accept_to_guild
     guild_members = GuildMember.create(user_role: 0, user: current_user, guild: @guild)
     redirect_back fallback_location: { action: "show" }, notice: "You are join to this guild"
@@ -95,7 +106,7 @@ class GuildsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def guild_params
     p params
-    p params.require(:guild).permit(:name, :anagram, :description, :rating)
+    p params.require(:guild).permit(:name, :anagram, :description, :rating, :photo)
   end
   
   def check_guild_mem
