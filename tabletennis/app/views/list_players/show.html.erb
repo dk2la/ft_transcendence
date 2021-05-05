@@ -27,13 +27,18 @@
 <% unless @friends.empty? %>
   <h1>Friends</h1>
   <table class="friends">
+    <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
       <% @friends.each do |friend| %>
           <tr>
               <td><%= friend.nickname %></td>
               <% if friend.guild %>
                   <td><%= [friend.guild.anagram] %></td>
+              <% else %>
+                <td>["None"]</td>
               <% end %>
+              <td><%= friend.email %></td>
               <td><%= friend.rating %></td>
+              <td><%= friend.status %></td>
           </tr>
       <% end %>
   </table>

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 40
+sleep 20
 # Set activity monitoring error
 set -e
 

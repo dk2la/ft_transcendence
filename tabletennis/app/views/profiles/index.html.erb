@@ -41,7 +41,7 @@
         <% unless @friends.empty? && current_user.pending_invitations.empty? %>
         <h1>Friends</h1>
         <table class="friends" style="width: 500px;">
-            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td></td><td></td></tr>
+            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
             <% @friends.each do |friend| %>
                 <tr>
                     <td><%= friend.nickname %></td>
