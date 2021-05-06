@@ -68,6 +68,7 @@
                     <% end %>
                     <td><%= User.find(invitation.user_id).email %></td>
                     <td><%= User.find(invitation.user_id).rating %></td>
+                    <td><%= User.find(invitation.user_id).status %></td>
                     <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
                     <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
                     </tr>
