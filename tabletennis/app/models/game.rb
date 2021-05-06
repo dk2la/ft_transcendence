@@ -1,8 +1,6 @@
 class Game < ApplicationRecord
-    belongs_to :first_user, class_name: 'User'
-    belongs_to :second_user, class_name: 'User'
+    NAME_VALIDATE_REGEX = /[a-zA-Z ]/
+    validates :name, presence: true, format: {with: NAME_VALIDATE_REGEX }, length: {minimum: 5, maximum: 10}, uniqueness: true
 
-    def users
-        [first_user, second_user
-    end
+    
 end

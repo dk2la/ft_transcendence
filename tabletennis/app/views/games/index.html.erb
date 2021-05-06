@@ -1,0 +1,8 @@
+<h2> HERE WILL BE ALL GAMES </h2>
+
+<% @games.each do |game| %>
+    <tr>
+        <td><%= game.name %></td>
+    </tr></br>
+<% end %>
+<%= link_to 'Create game', new_game_path %>

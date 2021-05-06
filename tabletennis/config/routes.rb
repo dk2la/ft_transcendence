@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'abouts/index'
   root 'start_page#index'
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :list_players
 
+  resources :games
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'
