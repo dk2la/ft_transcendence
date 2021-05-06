@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_game, only: [:show]
 
   def index
     @games = Game.all
@@ -18,7 +19,7 @@ class GamesController < ApplicationController
     if game.save
       redirect_to game, notice: "Game successfully created"
     else
-      redirect_to game_new_path, alert: 'Game not created because some fields wrong'
+      redirect_to new_game_path, alert: 'Game not created because some fields wrong'
     end
   end
 

@@ -151,7 +151,6 @@ header {
 }
 
 .button_send_invite {
-    margin-top: 2px;
     text-align: center;
     display: inline-block;
     font-family: arial,sans-serif;
@@ -234,6 +233,7 @@ header a {
     color: white;
     text-align: center;
     margin-left: 10px;
+    text-decoration: none;
 }
 
 .logo {
@@ -258,3 +258,92 @@ header a {
     background: rgb(59, 129, 2);
     transition: background 0s;
   }
+
+.wrap {
+  text-align: center;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.card:hover .front {transform: rotateY(180deg);}
+.card:hover .back {transform: rotateY(360deg);}
+
+.button_link {
+    font-size: 18px;
+    background-color: #686868;
+    border: 1px solid #686868;
+    border-radius: 25px;
+    width: 65px;
+    height: 65px;
+ }
+ 
+ .button #rock {
+    background: url(/assets/GitHub_logo.png) no-repeat;
+ }
+
+.line {
+    border: none; /* Убираем границу */
+    background-color: #686868; /* Цвет линии */
+    color: #686868; /* Цвет линии для IE6-7 */
+    height: 1px; /* Толщина линии */
+}
+
+
+.slider_wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.myslide {
+    display: none;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider_wrapper a {
+    cursor: pointer;
+}
+
+.pack_1{
+    background-color: rgba(255, 0, 0, 0);
+}
+.pack_2{
+    background-color: rgba(0, 128, 0, 0);
+}
+.pack_3{
+    background-color: rgba(0, 0, 255, 0);
+}
+.pack_4{
+    background-color: rgba(255, 166, 0, 0);
+}

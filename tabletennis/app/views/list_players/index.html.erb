@@ -4,7 +4,7 @@
     <h1>
         <h1>Users: </h1>
         <table class="friends" style="width: 600px;">>
-        <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>View</td></tr>
+        <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td></tr>
         <% @list.each do |l| %>
             <tr>
                 <td><%= l.nickname %></td>
@@ -15,6 +15,7 @@
                 <% end %>
                 <td><%= l.email %></td>
                 <td><%= l.rating %></td>
+                <td><%= l.status %></td>
                 <% unless l == current_user %>
                     <td><%= link_to 'View profile', list_player_path(l.id), class: "button_make_officer" %></td>
                 <% end %>
