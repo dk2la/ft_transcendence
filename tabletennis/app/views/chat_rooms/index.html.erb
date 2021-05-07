@@ -1,0 +1,10 @@
+<h1>ChatRooms#index</h1>
+<%= link_to 'Create chat room', new_chat_room_path %>
+<% @chat_rooms.each do |chat_room| %>
+    <tr>
+        <td><%= chat_room.name %></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to 'join chat', chat_room_path(chat_room.id), class: "button_view_guild" %>
+    </tr>
+<% end %>

@@ -19,7 +19,7 @@ class GamesController < ApplicationController
     if game.save
       redirect_to game, notice: "Game successfully created"
     else
-      redirect_to new_game_path, alert: 'Game not created because some fields wrong'
+      redirect_to new_game_path, alert: "#{game.errors.full_messages.join('; ')}"
     end
   end
 

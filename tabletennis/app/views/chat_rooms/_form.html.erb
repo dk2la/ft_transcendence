@@ -1,0 +1,22 @@
+<%= form_for(@chat_room, remote: true) do |form| %>
+    <% if @chat_room.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
+  
+        <ul>
+          <% c@chat_room.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div style="padding-top: 10px; color: white;">
+      <%= form.label :name %></br>
+      <%= form.text_field :name, class: "text_sign_up"  %>
+    </div></br>
+
+    <div class="actions"><br />
+    <%= form.submit "Create Chat room", class: "button_start_game" %>
+    </div>
+  <% end %>
