@@ -10,8 +10,8 @@
         </ul>
       </div>
     <% end %>
-  
-    <div style="color: white; font-family: fantasy;">
+
+    <div style="padding-top: 10px; color: white; font-family: fantasy;">
       <%= form.label :name %><br />
       <%= form.text_field :name, class: "text_sign_up" %>
     </div>
@@ -24,8 +24,29 @@
     <div style="padding-top: 10px; color: white; font-family: fantasy;">
       <%= form.label :description %><br />
       <%= form.text_field :description, class: "text_sign_up" %>
-    </div>
+    </div><br />
   
+
+    <div style="color: white; font-family: fantasy;">
+    <%= form.label :photo %><br />
+    <div class="friends" style="padding-top: 10px; color: white; width: 500px;">
+    <tr>
+    <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_1.png"></th>
+    <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_2.png"></th>
+    <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/standart_guild_avatar.png"></th>
+    <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_3.png"></th>
+    <th><img class="avatar" onclick="document.getElementById('guild_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild_4.png"></th>
+    </tr>
+    <%= form.text_field :photo, class: "text_sign_up", type: :hidden %>
+    </div>      
+
+
+    <p style="color: white; font-family: fantasy;">Current avatar:</p>
+    <div class="friends" style="width: 100px;">
+      <img id="user" src="<%= @guild.photo %>" style="width: 70px; height: 70px;">
+    </div>
+
+
     <div class="actions"><br />
       <%= form.submit "Create Guild", class: "button_start_game" %>
     </div>

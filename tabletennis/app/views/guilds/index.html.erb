@@ -3,7 +3,8 @@
     <div class="main_pages" style="border-color: white; text-align: center;">
         <h1>Guilds</h1>
         <%= link_to "Create guild", new_guild_path, class: "button_edit_profile" %></br>
-        <table class="list_guilds" style="width: 500px;"></br>
+        <table class="list_guilds" style="width: 500px;">
+        </br>
         <tr><td>Name</td><td>Anagram</td><td>Rating</td><td>Description</td><td>View</td></tr>
         <% @guilds.each do |guild| %>
             <tr>

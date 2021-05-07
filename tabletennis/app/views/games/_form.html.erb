@@ -13,9 +13,118 @@
     <div style="color: white; font-family: fantasy;">
       <%= form.label :name %><br />
       <%= form.text_field :name, class: "text_sign_up" %>
+    </div><br />
+
+    <div style="color: white; font-family: fantasy;">
+    <%= form.label :background %><br />
+    <div class="slider_wrapper">
+    <a style="margin-left: auto; padding-right: 15px;" id="prev"><img style="width: 100px; height: 29px;" src="/assets/arrow_left.png" alt="prev"></a>
+    
+    <div class="myslide">
+      <div class="slider_item pack_2">
+        <h1>Transcendence Field</h1>
+        <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/game_back.gif"></th>
+        <p class="friends" style="width: 300px;">To select - click on the picture</p>
+        </div>
+    </div>
+
+    <div class="myslide">
+      <div class="slider_item pack_2">
+        <h1>Atomatoe tavern</h1>
+        <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/guild.gif"></th>
+        <p class="friends" style="width: 300px;">To select - click on the picture</p>
+        </div>
+    </div>
+
+    <div class="myslide">
+    <div class="slider_item pack_2">
+      <h1>Sjakku guild</h1>
+      <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/list_players.gif"></th>
+      <p class="friends" style="width: 300px;">To select - click on the picture</p>
+      </div>
+    </div>
+
+    <div class="myslide">
+    <div class="slider_item pack_2">
+      <h1>Tears of the project</h1>
+      <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/tears_project.gif"></th>
+      <p class="friends" style="width: 300px;">To select - click on the picture</p>
+      </div>
+    </div>
+
+    <div class="myslide">
+    <div class="slider_item pack_2">
+      <h1>Russia</h1>
+      <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/russia_background.gif"></th>
+      <p class="friends" style="width: 300px;">To select - click on the picture</p>
+      </div>
+    </div>
+
+    <div class="myslide">
+      <div class="slider_item pack_2">
+        <h1>Lonely forest</h1>
+        <th><img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/about_us.gif"></th>
+        <p class="friends" style="width: 300px;">To select - click on the picture</p>
+        </div>
+    </div>
+
+    <div class="myslide">
+    <div class="slider_item pack_2">
+      <h1>Night Intra</h1>
+      <th>
+      <img style="height: 304px;" class="avatar" onclick="document.getElementById('game_background').value=this.src; document.getElementById('user').src=this.src" style="width: 70px; height: 70px;" src="/assets/night_intra.gif">
+      </th>
+      <p class="friends" style="width: 300px;">To select - click on the picture</p>
+    </div>
+    </div>
+
+    <a style="padding-left: 15px; margin-right: auto;" id="next"><img style="width: 100px; height: 29px;" src="/assets/arrow_right.png" alt="next"></a>
+    </div>
+    <%= form.text_field :background, class: "text_sign_up", type: :hidden %>
     </div>
   
     <div class="actions"><br />
       <%= form.submit "Create Game", class: "button_start_game" %>
     </div>
   <% end %>
+
+<script> 
+try {
+    slideIndex = 1;
+    prev = document.getElementById ('prev');
+    next = document.getElementById ('next');
+} catch (e) {
+    let slideIndex = 1;
+    let prev = document.getElementById ('prev');
+    let next = document.getElementById ('next');
+}
+showSlides(slideIndex);
+
+next.addEventListener ("click", function () {
+  showSlides(slideIndex += 1);
+});
+
+prev.addEventListener ("click", function () {
+  showSlides(slideIndex -= 1);
+});
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("myslide");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+        slideIndex = slides.length;
+    }
+ 
+    for (let slide of slides) {
+        slide.style.display = "none";
+    }
+    slides[slideIndex - 1].style.display = "flex";    
+  }
+</script> 
