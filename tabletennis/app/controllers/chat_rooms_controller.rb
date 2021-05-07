@@ -1,12 +1,16 @@
 class ChatRoomsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_chat_room, only: [:show, :destroy]
-
+  before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
   def index
     @chat_rooms = ChatRoom.all
   end
 
   def show
+    @chat_rooms = ChatRoom.all
+    render 'index'
+  end
+  
+  def edit
   end
 
   def new
@@ -39,7 +43,7 @@ class ChatRoomsController < ApplicationController
   private
 
   def set_chat_room
-    @chat = ChatRoom.find(params[:id])
+    @chat_room = ChatRoom.find(params[:id])
   end
 
   def chat_room_params

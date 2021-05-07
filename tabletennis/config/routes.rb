@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get 'messages/index'
-  get 'messages/show'
-  get 'messages/new'
-  get 'messages/create'
-  get 'messages/destroy'
   get 'abouts/index'
   root 'start_page#index'
 
@@ -33,6 +28,7 @@ Rails.application.routes.draw do
   resources :games
 
   resources :chat_rooms
+  resources :messages
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'

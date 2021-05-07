@@ -10,9 +10,13 @@ class User < ActiveRecord::Base
   has_one :guild_member
   has_one :guild, :through => :guild_member
 
-  #GAMES RELATIVES
-  has_many :first_game, class_name: 'Game', foreign_key: 'second_user'
-  has_many :second_game, class_name: 'Game', foreign_key: 'first_user'
+  #GAMES RELATIVES 1:1
+  has_one :game_member
+  has_one :game, :through => :game_member
+
+  #CHAT ROOMS RELATIVE
+  has_many :room_members
+  has_many :chat_rooms, :through => :room_members
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

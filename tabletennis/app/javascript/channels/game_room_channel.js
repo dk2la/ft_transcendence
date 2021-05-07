@@ -1,18 +1,28 @@
 import consumer from "./consumer"
 
-var zalupa = consumer.subscriptions.create("GameRoomChannel", {
-    connected() {
-      setTimeout(() => {let kek = "kek"}, 1000);
-      // Called when the subscription is ready for use on the server
-      consumer.subscriptions.remove(zalupa);
-    },
+document.addEventListener('turbolinks:load', () => {
+  const game_room_element = document.getElementById('game-id');
+  const game_room_id = game_room_element.getAttribute('data-room-id')
 
-    disconnected() {
-      // Called when the subscription has been terminated by the server
-    },
+  console.log(consumer.subscriptions)
 
-    received(data) {
-      // Called when there's incoming data on the websocket for this channel\
-      console.log(data);
-    }
-  });
+  consumer.subscriptions.subscriptions.forEach((subscription) => {
+    consumer.subscriptions.remove(subscription)
+  })
+
+consumer.subscriptions.create({ channel: "GameRoomChannel", room_id: game_room_id}, {
+  connected() {
+    // Called when the subscription is ready for use on the server
+    console.log("Connected to room " + game_room_id);
+  },
+
+  disconnected() {
+    // Called when the subscription has been terminated by the server
+    console.log("Disnonnected from room" + game_room_id);
+  },
+
+  received(data) {
+    
+  }
+});
+})

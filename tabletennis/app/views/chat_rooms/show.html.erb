@@ -1,8 +1,10 @@
-<h1>ChatRooms#show</h1>
+
+<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Name:</strong>
-  <%= @chat.name %>
+  <%= @chat_room.name %>
 </p>
 
+<%= link_to 'Edit', edit_chat_room_path(@chat_room.id) %> |
 <%= link_to 'Back', chat_rooms_path %>

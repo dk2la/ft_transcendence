@@ -12,6 +12,7 @@ class SendMessageJob < ApplicationJob
       locals: { message: message }
     )
 
-    ActionCable.server.broadcast "room_channel_#{message.room_id}", {mine: mine, theirs: theirs, message: message}
+    
+    ActionCable.server.broadcast "room_channel_#{message.chat_room_id}", {mine: mine, theirs: theirs, message: message}
   end
 end
