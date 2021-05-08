@@ -13,5 +13,12 @@ class ChatRoom < ApplicationRecord
     has_many :messages
 
     #Validates
-    validates :name, presence: true, format: {with: NAME_VALIDATE_REGEX }, length: {minimum: 5, maximum: 20}, uniqueness: true
+    validates :name, presence: true, format: {with: NAME_VALIDATE_REGEX }, length: {minimum: 2, maximum: 20}, uniqueness: true
+
+    def room_member?(cur, chat_room)
+        if chat_room.room_members.find_by(user_id: cur)
+            return false
+        end
+        return true
+    end
 end

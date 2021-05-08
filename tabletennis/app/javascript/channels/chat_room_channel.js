@@ -1,7 +1,7 @@
 import consumer from "./consumer"
 document.addEventListener('turbolinks:load', () => {
-  const chat_room_element = document.getElementById('room-id');
-  const chat_room_id = chat_room_element.getAttribute('data-room-id');
+  const chat_room_element = document.getElementById('chat-room-id');
+  const chat_room_id = chat_room_element.getAttribute('data-chat-room-id');
 
   console.log(consumer.subscriptions)
 
@@ -11,7 +11,7 @@ document.addEventListener('turbolinks:load', () => {
 
   consumer.subscriptions.create({ channel: "ChatRoomChannel", chat_room_id: chat_room_id }, {
     connected() {
-      console.log("connected to " + chat_room_id)
+      console.log("connected to chat_room_" + chat_room_id)
     },
 
     disconnected() {
@@ -19,7 +19,7 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      const user_element = document.getElementById('user-id');
+      const user_element = document.getElementById('user-room-id');
       const user_id = Number(user_element.getAttribute('data-user-id'));
 
       let html;
@@ -30,7 +30,12 @@ document.addEventListener('turbolinks:load', () => {
         html = data.theirs
       }
 
+      console.log(data);
+
+
       const messageContainer = document.getElementById('messages')
+      console.log(messageContainer);
+
       messageContainer.innerHTML = messageContainer.innerHTML + html
     }
   });

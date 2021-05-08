@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :games
 
+  get '/chat_rooms/join_chat_room', to: 'chat_rooms#join_chat_room', as: 'join_chat'
   resources :chat_rooms
   resources :messages
   get 'friendship/update'

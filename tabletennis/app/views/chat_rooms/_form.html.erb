@@ -1,20 +1,20 @@
 <%= form_with(model: chat_room, local: false) do |form| %>
-  <% if chat_room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
-
-      <ul>
-        <% chat_room.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <% if chat_room.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
+  
+        <ul>
+          <% chat_room.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="form-group mb-3">
+      <%= form.label "Add a new room" %>
+      <%= form.text_field :name, placeholder: "Room name" %>
     </div>
+  
+    <%= form.submit "Add"%>
   <% end %>
-
-  <div class="form-group mb-3">
-    <%= form.label "Add a new room" %>
-    <%= form.text_field :name, class: 'form-control', placeholder: "Room name" %>
-  </div>
-
-  <%= form.submit "Add", class: "btn btn-outline-primary btn-block" %>
-<% end %>
