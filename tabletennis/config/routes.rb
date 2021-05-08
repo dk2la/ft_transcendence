@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :games
 
+  get '/chat_rooms/leave_from_room', to: 'chat_rooms#leave_from_room', as: 'leave_from_chat'
   get '/chat_rooms/join_chat_room', to: 'chat_rooms#join_chat_room', as: 'join_chat'
   resources :chat_rooms
   resources :messages

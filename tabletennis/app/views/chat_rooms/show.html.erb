@@ -4,6 +4,8 @@
 
     <p>HELLO<p>
 
+    <%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id) %></br>
+
     <% @chat_room.users.each do |member| %>
         <tr>
             <td><%= member.nickname %></td>
@@ -18,7 +20,7 @@
     <% end %>
 
     <div style="width: 400px; height: 400px; background: black;">
-        <div id="messages" class="messages">
+        <div id="messages" class="messages", style="color: green">
             <% @chat_room.messages.each do |message| %>
                 <%= render 'messages/message', message: message %>
             <% end %>
