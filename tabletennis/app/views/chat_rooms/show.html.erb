@@ -42,6 +42,7 @@
                 <td><%= link_to 'Duel', list_player_path(member.id), class: "button_make_officer" %></td>
                 <td><%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
                 <td><%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
                 </tr>
             <% end %>
         </table>

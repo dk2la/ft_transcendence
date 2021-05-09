@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :games
 
+  get '/chat_rooms/ban_user', to: 'chat_rooms#ban_user', as: 'ban_user'
+  get '/chat_rooms/unban_user', to: 'chat_rooms#unban_user', as: 'unban_user'
   get '/chat_rooms/remove_moderator', to: 'chat_rooms#remove_moderator', as: 'remove_moderator'
   get '/chat_rooms/set_moderator', to: 'chat_rooms#set_moderator', as: 'set_moderator'
   get '/chat_rooms/leave_from_room', to: 'chat_rooms#leave_from_room', as: 'leave_from_chat'

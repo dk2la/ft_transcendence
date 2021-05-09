@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_171033) do
     t.bigint "user_id"
     t.bigint "chat_room_id"
     t.integer "member_role", default: 0
+    t.boolean "muted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chat_room_id"], name: "index_room_members_on_chat_room_id"

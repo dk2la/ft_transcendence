@@ -7,6 +7,7 @@ class ChatRoom < ApplicationRecord
     has_one :owner, -> { where(member_role: 2) }, class_name: :RoomMember
     has_many :moderators, -> { where(member_role: 1) }, class_name: :RoomMember
     has_many :members, -> { where(member_role: 0) }, class_name: :RoomMember
+    has_many :muteds, -> { where(muted: true) }, class_name: :RoomMember
     has_many :banned_users
 
     #RELATIVE FOR MESSAGES
@@ -33,6 +34,13 @@ class ChatRoom < ApplicationRecord
     def just_room_member?(cur, chat_room)
         room_member = cur.room_members.find_by(chat_room_id: chat_room.id)
         if room_member[:member_role] == 0
+            return true
+        end
+        return false
+    end
+
+    def user_banned?(cur, chat_room)
+        if chat_room.banned_users.find_by(user_id: cur.id)
             return true
         end
         return false

@@ -18,7 +18,9 @@ class ChatRoomsController < ApplicationController
 
     def join_chat_room
         @chat_room = ChatRoom.find(params[:id])
-        if @chat_room.room_member?(current_user.id, @chat_room)
+        if @chat_room.user_banned?(current_user, @chat_room)
+            redirect_to chat_rooms_path, alert: "You have no access to this room, because you banned"
+        elsif @chat_room.room_member?(current_user.id, @chat_room)
             room_member = RoomMember.create(user_id: current_user.id, chat_room_id: @chat_room.id, member_role: 0)
             redirect_to @chat_room, notice: "Successfully join to chat #{@chat_room.name}"
             ActionCable.server.broadcast "chat_room_channel_#{@chat_room.id}", {member: room_member, action: "join"}
@@ -76,6 +78,40 @@ class ChatRoomsController < ApplicationController
             cur.room_members.find_by(chat_room_id: @chat_room.id).update(member_role: 0)
             redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname} successfully removed from moderator"
         end
+    end
+
+    # def mute_member #todo add table with muted users
+    #     @chat_room = ChatRoom.find(params[:chat_id])
+    #     cur = User.find(params[:id])
+    #     unless @chat_room.member_muted?(cur, @chat_room)
+    #         cur.room_members.find_by(chat_room_id: @chat_room.id).update(muted: false)
+    #         redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted for you" 
+    #     else
+    #         redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, already muted"
+    #     end
+    # end
+
+    def ban_user #todo дописать метод проверяющий owner или нет, для before_action, если нет то кинет алерт
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        if @chat_room.room_owner?(cur, @chat_room)
+            redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, is owner!"
+        else
+            banned_user = BannedUser.new(user_id: cur.id, chat_room_id: @chat_room.id)
+            if banned_user.save
+                @chat_room.room_members.find_by(user_id: cur.id).destroy
+                redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully banned"
+            else
+                redirect_to chat_room_path(@chat_room.id), alert: "Fuck you"
+            end
+        end
+    end
+
+    def unban_user
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        @chat_room.banned_users.find_by(user_id: cur.id).destroy
+        redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully unbanned"
     end
 
     private
