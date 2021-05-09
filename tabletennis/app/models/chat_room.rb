@@ -22,9 +22,9 @@ class ChatRoom < ApplicationRecord
         return true
     end
 
-    def room_owner?(cur, chat_room_id)
-        rm = cur.room_members.where(chat_room_id: chat_room_id)
-        if rm[:chat_room_id] == 2
+    def room_owner?(cur, chat_room)
+        room_member = cur.room_members.find_by(chat_room_id: chat_room.id)
+        if room_member[:member_role] == 2
             return true
         end
         return false

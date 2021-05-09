@@ -1,6 +1,6 @@
 class ChatRoomsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_chat_room, only: [:show, :update, :join_chat_room, :leave_from_room]
+    before_action :set_chat_room, only: [:show, :update, :leave_from_room]
 
     def index
         @chat_rooms = ChatRoom.all
@@ -17,6 +17,7 @@ class ChatRoomsController < ApplicationController
     end
 
     def join_chat_room
+        @chat_room = ChatRoom.find(params[:id])
         if @chat_room.room_member?(current_user.id, @chat_room)
             room_members = RoomMember.create(user_id: current_user.id, chat_room_id: @chat_room.id, member_role: 0)
             redirect_to @chat_room, notice: "Successfully join to chat #{@chat_room.name}"
@@ -45,14 +46,12 @@ class ChatRoomsController < ApplicationController
     end
 
     def leave_from_room
-        rm = current_user.room_members.where(chat_room_id: @chat_room.id)
-        if rm.member?(current_user)
-            current_user.room_members.where(chat_room_id: @chat_room.id).destroy
+        if @chat_room.room_owner?(current_user, @chat_room)
             @chat_room.destroy
-            redirect_to chat_rooms, notice: "Chat room #{@chat_room.name} successfully removed"
+            redirect_to chat_rooms_path, notice: "Chat room #{@chat_room.name} successfully removed"
         else
-            current_user.room_members.where(chat_room_id: @chat_room.id).destroy
-            redirect_to chat_rooms, notice: "User #{current_user.nickname}, successfully leaved!"
+            current_user.room_members.find_by(chat_room_id: @chat_room.id).destroy
+            redirect_to chat_rooms_path, notice: "User #{current_user.nickname}, successfully leaved!"
         end
     end
     private
