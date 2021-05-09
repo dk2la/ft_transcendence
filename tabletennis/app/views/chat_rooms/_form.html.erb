@@ -2,7 +2,6 @@
     <% if chat_room.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
-  
         <ul>
           <% chat_room.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -11,10 +10,11 @@
       </div>
     <% end %>
   
-    <div class="form-group mb-3">
-      <%= form.label "Add a new room" %>
-      <%= form.text_field :name, placeholder: "Room name" %>
-    </div>
+    <div style="color: white; font-family: fantasy;">
+      <%= form.label "Add a new room" %><br />
+      <%= form.text_field :name, placeholder: "Room name", class: "text_sign_up" %>
+    </div></br>
   
-    <%= form.submit "Add"%>
+    <%= form.submit "Create", class: "button_start_game" %></br></br>
+    <%= link_to 'Back', chat_rooms_path, class: "button_make_officer" %>
   <% end %>

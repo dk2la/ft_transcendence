@@ -83,6 +83,12 @@
     <%= form.text_field :background, class: "text_sign_up", type: :hidden %>
     </div>
   
+    <p style="color: white; font-family: fantasy;">Current background:</p>
+    <div class="friends" style="width: 100px;">
+      <img id="user" src="<%= @game.background %>" style="width: 100px; margin-top: 8px;">
+    </div>
+
+
     <div class="actions"><br />
       <%= form.submit "Create Game", class: "button_start_game" %>
     </div>

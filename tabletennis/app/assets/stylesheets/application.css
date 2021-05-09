@@ -8,6 +8,16 @@ header {
     background-color: #68686800;
 }
 
+.current_head
+{
+    color: white;
+}
+
+.current_head:hover
+{
+    color: #ec770f;
+}
+
 .start_page {
     text-align: center;
     padding-bottom: 25px;
