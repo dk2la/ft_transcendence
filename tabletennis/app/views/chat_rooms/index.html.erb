@@ -1,15 +1,22 @@
-<h2> Chat rooms </h2>
+<body style="background-image: url('/assets/chat.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+</br>
+<h1> Chat rooms </h1>
 
-<%= render 'form', chat_room: ChatRoom.new %>
-
-<% @chat_rooms.each do |chat_room| %>
-    <tr>
-        <td><%= chat_room.id %></td>
-        <td><%= chat_room.name %></td>
-        <td><%= chat_room.users.uniq.count %> "members" </td>
-        <td><%= link_to "View room #{chat_room.name}", chat_room_path(chat_room.id) %></td>
-        <% unless chat_room.room_members.find_by(user_id: current_user.id) %>
-            <td><%= link_to "Join to chat #{chat_room.name}", join_chat_path(id: chat_room.id) %></td>
+<div class="main_pages" style="border-color: white; text-align: center;">
+    <%= link_to "Create channel", new_chat_room_path, class: "button_edit_profile" %></br></br></br>
+    <table class="list_guilds" style="width: 400px;">
+        <tr><td>Room id</td><td>Name</td><td>Members</td><td></td></tr>
+        <% @chat_rooms.each do |chat_room| %>
+            <tr>
+                <td><%= chat_room.id %></td>
+                <td><%= chat_room.name %></td>
+                <td><%= chat_room.users.uniq.count %> "members" </td>
+                <td><%= link_to "View room #{chat_room.name}", chat_room_path(chat_room.id), class: "button_view_guild" %></td>
+                <% unless chat_room.room_members.find_by(user_id: current_user.id) %>
+                    <td><%= link_to "Join to chat #{chat_room.name}", join_chat_path(id: chat_room.id) %></td>
+                <% end %>
+            </tr>
         <% end %>
-    </tr></br>
-<% end %>
+    </table>
+</div>
+</body>

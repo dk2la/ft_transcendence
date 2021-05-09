@@ -1,6 +1,4 @@
-<div class="content">
-  <%= message.content %>
-</div>
-<div class="author">
-  <%= message.user.nickname %>
-</div>
+<% if message.user.guild %>
+    [<%= message.user.guild.anagram %>]
+<% end %>
+<%= message.user.nickname %>: <%= message.content %></br>
