@@ -20,8 +20,8 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      const user_id = Number(user_element.getAttribute('data-user-id'));
       const user_element = document.getElementById('user-room-id');
+      const user_id = Number(user_element.getAttribute('data-user-id'));
       // if (data.member != undefined) {
       //   conlose.log(data);
       //   if (data.action == "leave") {

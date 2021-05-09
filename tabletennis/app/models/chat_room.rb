@@ -29,4 +29,12 @@ class ChatRoom < ApplicationRecord
         end
         return false
     end
+
+    def just_room_member?(cur, chat_room)
+        room_member = cur.room_members.find_by(chat_room_id: chat_room.id)
+        if room_member[:member_role] == 0
+            return true
+        end
+        return false
+    end
 end

@@ -47,7 +47,7 @@ class ChatRoomsController < ApplicationController
     end
 
     def leave_from_room
-        if @chat_room.owner
+        if @chat_room.room_owner?(current_user, @chat_room)
             @chat_room.destroy
             redirect_to chat_rooms_path, notice: "Chat room #{@chat_room.name} successfully removed"
         else
@@ -55,6 +55,29 @@ class ChatRoomsController < ApplicationController
             redirect_to chat_rooms_path, notice: "User #{current_user.nickname}, successfully leaved!"
         end
     end
+
+    def set_moderator
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        unless @chat_room.just_room_member?(cur, @chat_room)
+            redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname} already owner or moderator!"
+        else
+            cur.room_members.find_by(chat_room_id: @chat_room.id).update(member_role: 1)
+            redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname} successfully approve to moderator"
+        end
+    end
+
+    def remove_moderator
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        if @chat_room.just_room_member?(cur, @chat_room)
+            redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname} already member!"
+        else
+            cur.room_members.find_by(chat_room_id: @chat_room.id).update(member_role: 0)
+            redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname} successfully removed from moderator"
+        end
+    end
+
     private
     
     def set_chat_room
