@@ -4,9 +4,9 @@ class ChatRoom < ApplicationRecord
     # RELATIVES FOR MEMBERS
     has_many :room_members, dependent: :destroy
     has_many :users, :through => :room_members
-    has_one :owner, -> { where(member_role: 2) }, class_name: 'Room_member'
-    has_many :moderators, -> { where(member_role: 1) }, class_name: 'Room_member'
-    has_many :members, -> { where(member_role: 0) }, class_name: 'Room_member'
+    has_one :owner, -> { where(member_role: 2) }, class_name: :RoomMember
+    has_many :moderators, -> { where(member_role: 1) }, class_name: :RoomMember
+    has_many :members, -> { where(member_role: 0) }, class_name: :RoomMember
     has_many :banned_users
 
     #RELATIVE FOR MESSAGES

@@ -6,18 +6,20 @@
 
     <%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id) %></br>
 
-    <% @chat_room.users.each do |member| %>
-        <tr>
-            <td><%= member.nickname %></td>
-            <% if member.guild %>
-                <td><%= [member.guild.anagram] %></td>
-            <% else %>
-                <td>"None"</td>
-            <% end %>s
-            <td><%= member.rating %></td>
-            <td><%= link_to 'View profile', list_player_path(member.id) %><td>
-        </tr></br>
-    <% end %>
+    <div id="list-members-id">
+        <% @chat_room.users.each do |member| %>
+            <tr id="member-id">
+                <td><%= member.nickname %></td>
+                <% if member.guild %>
+                    <td><%= [member.guild.anagram] %></td>
+                <% else %>
+                    <td>"None"</td>
+                <% end %>s
+                <td><%= member.rating %></td>
+                <td><%= link_to 'View profile', list_player_path(member.id) %><td>
+            </tr></br>
+        <% end %>
+    </div>
 
     <div style="width: 400px; height: 400px; background: black;">
         <div id="messages" class="messages", style="color: green">

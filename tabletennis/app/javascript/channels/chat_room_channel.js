@@ -1,4 +1,5 @@
 import consumer from "./consumer"
+
 document.addEventListener('turbolinks:load', () => {
   const chat_room_element = document.getElementById('chat-room-id');
   const chat_room_id = chat_room_element.getAttribute('data-chat-room-id');
@@ -19,11 +20,19 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      const user_element = document.getElementById('user-room-id');
       const user_id = Number(user_element.getAttribute('data-user-id'));
-
+      const user_element = document.getElementById('user-room-id');
+      // if (data.member != undefined) {
+      //   conlose.log(data);
+      //   if (data.action == "leave") {
+      //     member_element = document.getElementById('member-id');
+      //     member_element.parentNode.removeChild(member_element);
+      //   }
+      //   else {
+      //     list_member_element = document.getElementById('list-members-id');
+      //   }
+      // } else if (data.message != undefined) {
       let html;
-
       if (user_id === data.message.user_id) {
         html = data.mine
       } else {
@@ -31,12 +40,12 @@ document.addEventListener('turbolinks:load', () => {
       }
 
       console.log(data);
-
-
+      
       const messageContainer = document.getElementById('messages')
       console.log(messageContainer);
 
       messageContainer.innerHTML = messageContainer.innerHTML + html
     }
+    // }
   });
 })
