@@ -47,4 +47,27 @@
             <% end %>
         </table>
     </div>
+    <div class="friends" style="width: 400px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
+        <% unless @chat_room.banned_users.empty? %>
+            <p>
+                Banned members: <%= @chat_room.banned_users.uniq.count %>
+            </p>
+            <table class="list_guilds" style="width: 300px;">
+                <tr><td>Name</td><td>Anagram</td><td>Rating</td><td></td><td></td></tr>
+                <% @chat_room.banned_users.each do |banned| %>
+                    <tr>
+                        <td><%= User.find_by(id: banned.user_id).nickname %></td>
+                        <% if  User.find_by(id: banned.user_id).guild %>
+                            <td><%= [ User.find_by(id: banned.user_id).guild.anagram] %></td>
+                        <% else %>
+                            <td>"None"</td>
+                        <% end %>
+                        <td><%= User.find_by(id: banned.user_id).rating %></td>
+                        <td><%= link_to 'View profile', list_player_path(banned.user_id), class: "button_view_guild" %></td>
+                        <td><%= link_to 'Unban member', unban_user_path(id: banned.user_id, chat_id: @chat_room.id), class: "button_view_guild" %></td>
+                    </tr>
+                <% end %>
+            </table>
+        <% end %>
+    </div>
 </div>
