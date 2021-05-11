@@ -10,7 +10,7 @@
         </ul>
       </div>
     <% end %>
-    <%= form.hidden_field :chat_room_id, value: chat_room.id %>
+    <%= form.hidden_field :chat_room_id, value: chat_room%>
   
     <div class="input-group">
       <%= form.text_field :content, placeholder: "Type your message here...", class: "text_sign_up" %>

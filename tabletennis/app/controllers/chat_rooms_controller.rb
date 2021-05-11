@@ -80,16 +80,25 @@ class ChatRoomsController < ApplicationController
         end
     end
 
-    # def mute_member #todo add table with muted users
-    #     @chat_room = ChatRoom.find(params[:chat_id])
-    #     cur = User.find(params[:id])
-    #     unless @chat_room.member_muted?(cur, @chat_room)
-    #         cur.room_members.find_by(chat_room_id: @chat_room.id).update(muted: false)
-    #         redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted for you" 
-    #     else
-    #         redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, already muted"
-    #     end
-    # end
+    def mute_member #todo add table with muted users
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        cu = User.find(params[:current_id])
+        unless @chat_room.room_owner?(cu, @chat_room)
+            redirect_to chat_room_path(@chat_room.id), alert: "#{cu.nickname}, not owner or moderator"
+        else
+            if @chat_room.room_owner?(cur, @chat_room)
+                redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, is owner!"
+            else
+                muted = MutedUser.new(user_id: cur.id, chat_room_id: @chat_room.id)
+                if !@chat_room.member_muted?(cur, @chat_room) && muted.save
+                    redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted for you" 
+                else
+                    redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, already muted"
+                end
+            end
+        end
+    end
 
     def ban_user #todo дописать метод проверяющий owner или нет, для before_action, если нет то кинет алерт
         @chat_room = ChatRoom.find(params[:chat_id])

@@ -17,11 +17,18 @@ class MessagesController < ApplicationController
     end
   
     def create
+      p "HERE"
+      p params
       @message = Message.new(message_params)
       @message.user = current_user
-      @message.save
-  
-      SendMessageJob.perform_later(@message)
+      
+      chat = ChatRoom.find(message_params[:chat_room_id])
+      if chat.muted_users.find_by(user_id: current_user.id)
+        redirect_to chat_room_path(chat.id), alert: "You cannot be write, because you muted"
+      else
+        @message.save
+        SendMessageJob.perform_later(@message)
+      end
     end
 
     private

@@ -15,7 +15,11 @@
         </div>
         <div class="chat-field">
         <% if @chat_room.room_members.find_by(user_id: current_user.id) %>
-            <%= render 'messages/form', message: Message.new, chat_room: @chat_room %>
+            <% unless @chat_room.muted_users.find_by(user_id: current_user.id) %>
+                <%= render 'messages/form', message: Message.new, chat_room: @chat_room.id %>
+            <% else %>
+                <p>You are muted</p>
+            <% end %>
         <% else %>
             <%= link_to 'Join chat room', join_chat_path(@chat_room.id) %>
         <% end %>
@@ -43,6 +47,7 @@
                 <td><%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
                 <td><%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
                 <td><%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
                 </tr>
             <% end %>
         </table>

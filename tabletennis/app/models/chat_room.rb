@@ -7,11 +7,14 @@ class ChatRoom < ApplicationRecord
     has_one :owner, -> { where(member_role: 2) }, class_name: :RoomMember
     has_many :moderators, -> { where(member_role: 1) }, class_name: :RoomMember
     has_many :members, -> { where(member_role: 0) }, class_name: :RoomMember
-    has_many :muteds, -> { where(muted: true) }, class_name: :RoomMember
+    # has_many :muteds, -> { where(muted: true) }, class_name: :RoomMember
     has_many :banned_users
 
     #RELATIVE FOR MESSAGES
     has_many :messages
+
+    #RELATIVE FOR MUTED
+    has_many :muted_users
 
     #Validates
     validates :name, presence: true, format: {with: NAME_VALIDATE_REGEX }, length: {minimum: 2, maximum: 20}, uniqueness: true
@@ -41,6 +44,13 @@ class ChatRoom < ApplicationRecord
 
     def user_banned?(cur, chat_room)
         if chat_room.banned_users.find_by(user_id: cur.id)
+            return true
+        end
+        return false
+    end
+
+    def member_muted?(cur, chat_room)
+        if chat_room.muted_users.find_by(user_id: cur.id)
             return true
         end
         return false
