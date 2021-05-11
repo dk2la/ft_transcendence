@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :games
 
+  get '/chat_rooms/umute_member', to: 'chat_rooms#umute_member', as: 'umute_member'
   get '/chat_rooms/mute_member', to: 'chat_rooms#mute_member', as: 'mute_member'
   get '/chat_rooms/ban_user', to: 'chat_rooms#ban_user', as: 'ban_user'
   get '/chat_rooms/unban_user', to: 'chat_rooms#unban_user', as: 'unban_user'

@@ -92,10 +92,26 @@ class ChatRoomsController < ApplicationController
             else
                 muted = MutedUser.new(user_id: cur.id, chat_room_id: @chat_room.id)
                 if !@chat_room.member_muted?(cur, @chat_room) && muted.save
-                    redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted for you" 
+                    redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted" 
                 else
                     redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, already muted"
                 end
+            end
+        end
+    end
+
+    def umute_member
+        @chat_room = ChatRoom.find(params[:chat_id])
+        cur = User.find(params[:id])
+        cu = User.find(params[:current_id])
+        unless @chat_room.room_owner?(cu, @chat_room)
+            redirect_to chat_room_path(@chat_room.id), alert: "#{cu.nickname}, not owner or moderator"
+        else
+            if @chat_room.member_muted?(cur, @chat_room)
+                @chat_room.muted_users.find_by(user_id: cur.id).destroy
+                redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully unmuted"
+            else
+                redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, was not be muted"
             end
         end
     end

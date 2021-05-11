@@ -27,6 +27,9 @@ gem 'redis', '~> 4.0'
 
 gem 'pg'
 
+#Install cable_ready for del more js
+gem 'cable_ready'
+
 ## Install Autorization gem
 # Autorization gem
 gem 'devise'
