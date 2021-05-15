@@ -1,0 +1,79 @@
+<body style="background-image: url('/assets/chat.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+
+<div id="chat-room-id", data-chat-room-id="<%= @chat_room.try(:id) %>"></div>
+<div id="user-room-id", data-user-id="<%= current_user.id %>"></div>
+
+</br>
+<h1>Channel <%= @chat_room.name %></h1>
+
+<div class="main_pages" style="display: flex;">
+    <div class="friends" style="width: 550px; height: 500px; overflow: auto;">
+        <div id="messages" class="messages">
+        <% @chat_room.messages.each do |message| %>
+            <%= render 'messages/message', message: message %>
+        <% end %>
+        </div>
+        <div class="chat-field">
+        <% if @chat_room.room_members.find_by(user_id: current_user.id) %>
+            <% unless @chat_room.muted_users.find_by(user_id: current_user.id) %>
+                <%= render 'messages/form', message: Message.new, chat_room: @chat_room.id %>
+            <% else %>
+                <p>You are muted</p>
+            <% end %>
+        <% else %>
+            <%= link_to 'Join chat room', join_chat_path(@chat_room.id) %>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="friends" style="width: 400px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
+        <p>
+        Members: <%= @chat_room.users.uniq.count %>
+        <%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id), class: "button_leave_guild", style: "margin-left: 15px;" %>
+        </p>
+        <table class="list_guilds" style="width: 300px;">
+        <tr><td>Name</td><td>Anagram</td><td>Rating</td><td></td><td></td></tr>
+            <% @chat_room.users.each do |member| %>
+                <tr>
+                <td><%= member.nickname %></td>
+                <% if member.guild %>
+                    <td><%= [member.guild.anagram] %></td>
+                <% else %>
+                    <td>"None"</td>
+                <% end %>
+                <td><%= member.rating %></td>
+                <td><%= link_to 'View profile', list_player_path(member.id), class: "button_view_guild" %></td>
+                <td><%= link_to 'Duel', list_player_path(member.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                <td><%= link_to 'unmute', umute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+    <div class="friends" style="width: 400px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
+        <% unless @chat_room.banned_users.empty? %>
+            <p>
+                Banned members: <%= @chat_room.banned_users.uniq.count %>
+            </p>
+            <table class="list_guilds" style="width: 300px;">
+                <tr><td>Name</td><td>Anagram</td><td>Rating</td><td></td><td></td></tr>
+                <% @chat_room.banned_users.each do |banned| %>
+                    <tr>
+                        <td><%= User.find_by(id: banned.user_id).nickname %></td>
+                        <% if  User.find_by(id: banned.user_id).guild %>
+                            <td><%= [ User.find_by(id: banned.user_id).guild.anagram] %></td>
+                        <% else %>
+                            <td>"None"</td>
+                        <% end %>
+                        <td><%= User.find_by(id: banned.user_id).rating %></td>
+                        <td><%= link_to 'View profile', list_player_path(banned.user_id), class: "button_view_guild" %></td>
+                        <td><%= link_to 'Unban member', unban_user_path(id: banned.user_id, chat_id: @chat_room.id), class: "button_view_guild" %></td>
+                    </tr>
+                <% end %>
+            </table>
+        <% end %>
+    </div>
+</div>
