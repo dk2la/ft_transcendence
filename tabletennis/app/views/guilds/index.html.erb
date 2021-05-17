@@ -13,7 +13,7 @@
                 <td><%= guild.rating %></td>
                 <td><%= guild.description %></td>
                 <td><%= link_to 'View guild', guild_path(guild.id), class: "button_view_guild" %>
-                <td><%= link_to 'War', guild_path(guild.id), class: "button_guild_war" %>
+                <td><%= link_to 'War', start_war_path(ids: {id1: current_user.guild.id, id2: guild.id}), class: "button_view_guild" %>
             </tr></br>
         <% end %>
         </table>

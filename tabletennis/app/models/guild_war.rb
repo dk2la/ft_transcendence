@@ -14,10 +14,10 @@ class GuildWar < ApplicationRecord
     end
     
     def self.find_guild_war(id1, id2)
-        if GuildWar.where(sender_guild: id1, recipient_guild: id2. status: "confirmed").empty?
+        if GuildWar.where(sender_guild: id1, recipient_guild: id2, status: "confirmed").empty?
             GuildWar.where(sender_guild: id2, recipient_guild: id1, status: "confirmed")[0].id
         else
-        GuildWar.where(sender_guild: id1, recipient_guild: id2, status: "confirmed")[0].id
+            GuildWar.where(sender_guild: id1, recipient_guild: id2, status: "confirmed")[0].id
         end
     end
 end

@@ -1,0 +1,81 @@
+<body style="background-image: url('/assets/profile.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+    <div style="width: 1000px;margin: auto;height: 100%;">
+        <div class="main_pages" style="border-color: white;">
+            <h1>Profile</h1>
+            <table class="friends" style="width: 500px;">
+                <tr>
+                    <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@current_user.photo))%>">
+                    <% if current_user.guild %>
+                        <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@current_user.guild.photo))%>"></th>
+                    <% end %>
+                </tr>
+                <tr><th>Nickname:</th><th><%= current_user.nickname %></th></tr>
+                <tr><th>Email:</th><th><%= current_user.email %></th></tr>
+                <% if current_user.guild %>
+                    <tr><th>Guild</th><th><%= current_user.guild.name %></th></tr>
+                <% end %>
+                <tr><th>Rating:</th><th><%= current_user.rating %></th></tr>
+                <tr><th>Wins: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr><th>Lose: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr><th>Win Tournament: </th><th>Dostat zaprosom iz db</th></tr>
+                <tr>
+                    <th><%= link_to "Edit profile", edit_profile_path(current_user) , class: "button_edit_profile" %> </th>
+                    <% if current_user.guild %>
+                        <th><%= link_to "Guild", guild_path(current_user.guild), class: "button_edit_profile" %> </th>
+                    <% else %>
+                        <th><%= link_to "Guild", new_guild_path, class: "button_edit_profile" %> </th>
+                    <% end %>
+                </tr>
+            </table>
+        </div>
+        <div class="main_pages" style="border-color: white;">
+            <h1>Statistic</h1>
+            <table class="friends" style="width: 500px;">
+                <tr><th style="padding-right: 10px;">Match</th><th>Player</th><th></th><th style="padding-right: 10px;">Player</th><th style="padding-right: 10px;">Score</th><th>Status</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">atomatoe</th><th style="padding-right: 10px;">6/11</th><th style="color: red">(lose)</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">sjakku</th><th style="padding-right: 10px;">11/10</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">memilio</th><th style="padding-right: 10px;">11/8</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #44ecce; padding-right: 10px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">atomatoe</th><th style="padding-right: 10px;">11/6</th><th style="color: green">(win)</th></tr>
+                <tr><th style="color: #44ecce; padding-right: 10px;">Match</th><th>tester</th><th>vs</th><th style="padding-right: 10px;">sjakku</th><th style="padding-right: 10px;">11/9</th><th style="color: green">(win)</th></tr>
+            </table>
+        </div>
+        <% unless @friends.empty? && current_user.pending_invitations.empty? %>
+        <h1>Friends</h1>
+        <table class="friends" style="width: 500px;">
+            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
+            <% @friends.each do |friend| %>
+                <tr>
+                    <td><%= friend.nickname %></td>
+                    <% if friend.guild %>
+                        <td><%= [friend.guild.anagram] %></td>
+                    <% else %>
+                        <td>["None"]</td>
+                    <% end %>
+                    <td><%= friend.email %></td>
+                    <td><%= friend.rating %></td>
+                    <td><%= friend.status %></td>
+                    <td><%= link_to 'View profile', list_player_path(friend.id), class: "button_make_officer" %></td>
+                    <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
+                </tr>
+                <% end %>
+                <% current_user.pending_invitations.each do |invitation| %>
+                    <tr>
+                    <td><%= User.find(invitation.user_id).nickname %></td>
+                    <% if User.find(invitation.user_id).guild %>
+                        <td><%= User.find(invitation.user_id).guild.name %></td>
+                    <% else %>
+                        <td>["None"]</td>
+                    <% end %>
+                    <td><%= User.find(invitation.user_id).email %></td>
+                    <td><%= User.find(invitation.user_id).rating %></td>
+                    <td><%= User.find(invitation.user_id).status %></td>
+                    <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
+                    <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
+                    </tr>
+                <% end %>
+        </table>
+        <% end %>
+        </br></br></br></br>
+        </div>
+    </div>
+</body>
