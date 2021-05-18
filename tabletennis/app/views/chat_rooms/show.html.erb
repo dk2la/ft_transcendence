@@ -34,13 +34,13 @@
         </div>
     </div>
 
-    <div class="friends" style="width: 400px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
+    <div class="friends" style="width: 520px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
         <p>
         Members: <%= @chat_room.users.uniq.count %>
         <%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id), class: "button_leave_guild", style: "margin-left: 15px;" %>
         </p>
-        <table id="list-members" class="list_guilds" style="width: 300px;">
-            <tr><td>Name</td><td>Anagram</td><td>Rating</td><td></td><td></td></tr>
+        <table id="list-members" class="list_guilds" style="width: 100px;">
+            <tr><td>Name</td><td>Anagram</td><td>Role</td><td>Rating</td><td></td><td></td></tr>
             <% @chat_room.users.each do |member| %>
                 <tr id="member-room-<%= member.id%>">
                 <td><%= member.nickname %></td>
@@ -51,30 +51,33 @@
                 <% end %>
                 <td><%= @chat_room.room_members.find_by(user_id: member.id).member_role %></td>
                 <td><%= member.rating %></td>
-                <td><%= link_to 'View profile', list_player_path(member.id), class: "button_view_guild" %></td>
+                <td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">    
+                <%= link_to 'View profile', list_player_path(member.id), class: "button_menu_chat" %>
                 <% if current_user != member && @chat_room.direct == false %>
-                    <td><%= link_to 'Duel', list_player_path(member.id), class: "button_make_officer" %></td>
+                    <%= link_to 'Duel', list_player_path(member.id), class: "button_menu_chat" %>
                     <% if @chat_room.room_owner?(current_user, @chat_room) && current_user.id != member.id %>
-                        <td><%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
-                        <td><%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
-                        <td><%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_make_officer" %></td>
+                        <%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
                         <% if @chat_room.room_owner?(current_user, @chat_room) || @chat_room.room_moderator?(current_user, chat_room) %>
-                            <td><%= link_to 'mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
-                            <td><%= link_to 'unmute', umute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                            <%= link_to 'mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
+                            <%= link_to 'unmute', umute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
                         <% end %>
                     <% end %>
                     <% if current_user.blocked_users && current_user.blocked_users.find_by(cur: member) %>
-                        <td><%= link_to 'unblock user', unblock_user_path(target_id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                        <%= link_to 'unblock user', unblock_user_path(target_id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
                     <% else %>
-                        <td><%= link_to 'block user', block_user_path(target_id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                        <%= link_to 'block user', block_user_path(target_id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
                     <% end %>
                 <% end %>
+                </td></div></div>
                 </tr>
             <% end %>
         </table>
     </div>
-    <div class="friends" style="width: 400px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
-        <% unless @chat_room.banned_users.empty? %>
+    </div>
+    <% unless @chat_room.banned_users.empty? %>
+        <div class="friends" style="width: 400px; text-align: center; height: 500px; margin-top: 50px;">
             <p>
                 Banned members: <%= @chat_room.banned_users.uniq.count %>
             </p>
@@ -94,6 +97,6 @@
                     </tr>
                 <% end %>
             </table>
-        <% end %>
-    </div>
-</div>
+        </div>
+    <% end %>
+</body>

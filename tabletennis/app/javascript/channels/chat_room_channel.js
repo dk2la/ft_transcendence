@@ -88,12 +88,12 @@ function removeLayoutsMember(leave_user_id) {
 function drawLayoutsMember(added_user, receiver_role, chat_id, current_id, guild_anagram) {
   const MEMBER_INFO_NO_GUILD = `<tr id="member-room-${added_user["id"]}"><td>${added_user["nickname"]}</td><td>[NO GUILD]</td><td>${added_user["rating"]}</td>`;
   const MEMBER_INFO_GUILD = `<tr id="member-room-${added_user["id"]}"><td>${added_user["nickname"]}</td><td>${guild_anagram}</td><td>${added_user["rating"]}</td>`;
-  const QUERY_DUEL = `<td><a class="button_make_officer" href='/list_players/${added_user["id"]}'>Duel</td>`;
-  const VIEW_PROFILE = `<td><a class="button_make_officer" href='/list_players/${added_user["id"]}'>View Profile</td>`;
-  const BAN_MEMBER = `<td><a class="button_make_officer" href='/chat_rooms/ban_user?id=${added_user["id"]}&chat_id=${chat_id}'>Ban</td>`;
-  const MUTE_MEMBER = `<td><a class="button_make_officer" href='/chat_rooms/mute_member?id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Mute</td>`;
-  const SET_MODERATOR = `<td><a class="button_make_officer" href='/chat_rooms/set_moderator?id=${added_user["id"]}&chat_id=${chat_id}'>Make officer</td>`;
-  const BLOCK_MEMBER = `<td><a class="button_make_officer" href='/chat_rooms/block_user?target_id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Block</td></tr>`;
+  const QUERY_DUEL = `<a class="button_menu_chat" href='/list_players/${added_user["id"]}'>Duel`;
+  const VIEW_PROFILE = `<a class="button_menu_chat" href='/list_players/${added_user["id"]}'>View Profile`;
+  const BAN_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/ban_user?id=${added_user["id"]}&chat_id=${chat_id}'>Ban`;
+  const MUTE_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/mute_member?id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Mute`;
+  const SET_MODERATOR = `<a class="button_menu_chat" href='/chat_rooms/set_moderator?id=${added_user["id"]}&chat_id=${chat_id}'>Make officer`;
+  const BLOCK_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/block_user?target_id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Block</tr>` + `</td></div></div>`;
   let html;
 
   let block = document.getElementById(`member-room-${added_user["id"]}`);
@@ -103,21 +103,21 @@ function drawLayoutsMember(added_user, receiver_role, chat_id, current_id, guild
   }
   if (receiver_role == "owner") {
     if (added_user["guild"]) {
-      html += MEMBER_INFO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += SET_MODERATOR; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += SET_MODERATOR; html += BLOCK_MEMBER;
     } else {
-      html += MEMBER_INFO_NO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += SET_MODERATOR; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_NO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += SET_MODERATOR; html += BLOCK_MEMBER;
     }
   } else if (receiver_role == "moderator") {
     if (added_user["guild"]) {
-      html += MEMBER_INFO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += BLOCK_MEMBER;
     } else {
-      html += MEMBER_INFO_NO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_NO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BAN_MEMBER; html += MUTE_MEMBER; html += BLOCK_MEMBER;
     }
   } else {
     if (added_user["guild"]) {
-      html += MEMBER_INFO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BLOCK_MEMBER;
     } else {
-      html += MEMBER_INFO_NO_GUILD; html += QUERY_DUEL; html += VIEW_PROFILE; html += BLOCK_MEMBER;
+      html += MEMBER_INFO_NO_GUILD; html += `<td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">`; html += QUERY_DUEL; html += VIEW_PROFILE; html += BLOCK_MEMBER;
     }
   }
   console.log(`HERE WE SEE ${html}`);

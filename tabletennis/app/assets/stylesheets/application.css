@@ -357,3 +357,80 @@ header a {
 .pack_4{
     background-color: rgba(255, 166, 0, 0);
 }
+
+.dropbtn {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid rgb(204, 133, 25);
+    border-radius: 3px;
+    background: rgb(204, 133, 25);
+    font-family: fantasy;
+}
+
+/* The container <div> - needed to position the dropup content */
+.dropup {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropup content (Hidden by Default) */
+.dropup-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropup */
+.dropup-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropup links on hover */
+.dropup-content a:hover {background-color: #ddd}
+
+/* Show the dropup menu on hover */
+.dropup:hover .dropup-content {
+    display: block;
+}
+
+/* Change the background color of the dropup button when the dropup content is shown */
+.dropup:hover .dropbtn {
+    background-color: #686868;
+    border: 1px solid #686868;
+}
+
+.button_menu_chat {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid rgb(204, 133, 25);
+    background: rgb(204, 133, 25);
+    font-family: fantasy;
+}
+
+.button_menu_chat:hover {
+    border: 1px solid #76B7E9;
+    background: #76B7E9;
+    font-family: fantasy;
+}
