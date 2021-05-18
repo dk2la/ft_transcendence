@@ -1,0 +1,27 @@
+<body style="background-image: url('/assets/list_players.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <h1>All players here</h1>
+    <h1>
+        <h1>Users: </h1>
+        <table class="friends" style="width: 600px;">>
+        <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td></tr>
+        <% @list.each do |l| %>
+            <tr>
+                <td><%= l.nickname %></td>
+                <% if l.guild %>
+                    <td><%= [l.guild.anagram] %></td>
+                <% else %>
+                    <td>["None"]</td>
+                <% end %>
+                <td><%= l.email %></td>
+                <td><%= l.rating %></td>
+                <td><%= l.status %></td>
+                <% unless l == current_user %>
+                    <td><%= link_to 'View profile', list_player_path(l.id), class: "button_make_officer" %></td>
+                <% end %>
+            </tr>
+        <% end %>
+        </table>
+    </h1>
+</div>
+</body>

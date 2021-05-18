@@ -1,0 +1,48 @@
+<body style="background-image: url('/assets/list_players.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div style="width: 1000px;margin: auto;height: 100%;">
+  <div class="main_pages" style="border-color: white;">
+  <h1>Profile user <%= @list.nickname %></h1>
+<table class="friends">
+  <tr>
+      <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@list.photo))%>">
+      <% if @list.guild %>
+        <th><img style="width: 140px; height: 140px;" src="<%=(url_for(@list.guild.photo))%>"></th>
+      <% end %>
+  </tr>
+  <tr><th>Nickname:</th><th><%= @list.nickname %></th></tr>
+  <tr><th>Email:</th><th><%= @list.email %></th></tr>
+  <% if @list.guild %>
+      <tr><th>Guild</th><th><%= @list.guild.name %></th></tr>
+  <% end %>
+  <th>Рейтинг:</th><th><%= @list.rating %></th>
+  <tr><th>Всего побед</th><th>Dostat zaprosom iz db</th></tr>
+  <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>
+  <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
+  </table>
+  <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
+    <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
+  <% end %>
+</div>
+<div>
+<% unless @friends.empty? %>
+  <h1>Friends</h1>
+  <table class="friends">
+    <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
+      <% @friends.each do |friend| %>
+          <tr>
+              <td><%= friend.nickname %></td>
+              <% if friend.guild %>
+                  <td><%= [friend.guild.anagram] %></td>
+              <% else %>
+                <td>["None"]</td>
+              <% end %>
+              <td><%= friend.email %></td>
+              <td><%= friend.rating %></td>
+              <td><%= friend.status %></td>
+          </tr>
+      <% end %>
+  </table>
+<% end %>
+</div>
+</div>
+</body>
