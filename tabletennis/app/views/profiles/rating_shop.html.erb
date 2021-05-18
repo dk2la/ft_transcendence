@@ -1,0 +1,10 @@
+<body style="text-align: center; background-image: url('/assets/shop.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+    </br>
+    <% if current_user.rating < 1399 %>
+        <h1><img style="height: 25px;" src="/assets/fire.gif"> Rating <%= current_user.rating %> <img style="height: 25px;" src="/assets/fire.gif"></h1>
+    <% else %>
+        <h1><img style="height: 40px;" src="/assets/fire_sword.gif"> Rating <%= current_user.rating %> <img style="height: 40px;" src="/assets/fire_sword.gif"></h1>
+    <% end %>
+    <%= render 'form_rating_shop', user: current_user %>
+    <%= link_to 'Back to edit user', edit_profile_path(current_user), class: "button_make_officer"  %>
+</body>

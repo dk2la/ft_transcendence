@@ -10,6 +10,9 @@ class ProfilesController < ApplicationController
     def edit
     end
   
+    def rating_shop
+    end
+
     #PATCH/POST for change home/1 information
     def update
       respond_to do |format|

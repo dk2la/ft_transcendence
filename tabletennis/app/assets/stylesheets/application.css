@@ -434,3 +434,19 @@ header a {
     background: #76B7E9;
     font-family: fantasy;
 }
+
+.not_money_avatar {
+    color: #fff;
+    background: rgba(0, 0, 0, 0);
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 1s;
+  }
+  
+.not_money_avatar:active {
+    background: rgb(126, 9, 1);
+    transition: background 0s;
+  }
