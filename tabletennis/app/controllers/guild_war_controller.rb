@@ -3,9 +3,9 @@ class GuildWarController < ApplicationController
         id1 = params[:ids][:id1]
         id2 = params[:ids][:id2]
         @g2 = Guild.all.find_by(id: id2).name
-        @invitation = GuildWar.new(sender_guild: id1, recipient_guild: id2, war_time_begin: Time.now.to_i)
+        @invitation = GuildWar.create(status: "confirmed", sender_guild: id1, recipient_guild: id2, war_time_begin: Time.now.to_i)
         p Time.now.to_i
-        @invitation.save
+        @invitation.save!
         # redirect_to guilds_path
     end
     
