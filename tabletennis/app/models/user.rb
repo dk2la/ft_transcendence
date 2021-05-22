@@ -5,14 +5,16 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :pending_invitations, -> { where confirmed: false }, class_name: 'Friendship', foreign_key: "friend_id"
 
+  # RELATIVE FOR GAME
+  has_one :game, class_name: :Game, required: false
 
   #GUILD RELATIVES
   has_one :guild_member
   has_one :guild, :through => :guild_member
 
   #GAMES RELATIVES 1:1
-  has_one :game_member
-  has_one :game, :through => :game_member
+  # has_one :game_member
+  # has_one :game, :through => :game_member
 
   #CHAT ROOMS RELATIVE
   has_many :room_members

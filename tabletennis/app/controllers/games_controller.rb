@@ -11,10 +11,16 @@ class GamesController < ApplicationController
   end
 
   def show
+    Thread.new do
+      Rails.application.executor.wrap do
+        @game.view_thread
+      end
+    end
   end
 
   def create
-    game = Game.new(game_params)
+    param = params.require(:game).permit(:name, :background)
+    game = Game.new(name: param["name"], background: param["background"], player1: current_user)
     
     if game.save
       redirect_to game, notice: "Game successfully created"

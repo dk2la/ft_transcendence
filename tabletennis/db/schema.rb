@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_151552) do
+ActiveRecord::Schema.define(version: 2021_05_22_170150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,22 +63,17 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
-  create_table "game_members", force: :cascade do |t|
-    t.bigint "first_player_id"
-    t.bigint "second_player_id"
-    t.integer "winner", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["first_player_id"], name: "index_game_members_on_first_player_id"
-    t.index ["second_player_id"], name: "index_game_members_on_second_player_id"
-  end
-
   create_table "games", force: :cascade do |t|
-    t.integer "status_game", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.text "background", default: "/assets/game_back.gif"
+    t.bigint "player1_id"
+    t.bigint "player2_id"
+    t.string "winner", default: "No one"
+    t.boolean "is_finished", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player1_id"], name: "index_games_on_player1_id"
+    t.index ["player2_id"], name: "index_games_on_player2_id"
   end
 
   create_table "guild_members", force: :cascade do |t|
@@ -158,4 +153,6 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
   add_foreign_key "blocked_users", "users", column: "cur_id"
   add_foreign_key "direct_rooms", "users", column: "first_user_id"
   add_foreign_key "direct_rooms", "users", column: "second_user_id"
+  add_foreign_key "games", "users", column: "player1_id"
+  add_foreign_key "games", "users", column: "player2_id"
 end

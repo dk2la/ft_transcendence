@@ -450,3 +450,9 @@ header a {
     background: rgb(126, 9, 1);
     transition: background 0s;
   }
+
+canvas {
+    display: block;
+    margin: 0 auto;
+ }
+ 

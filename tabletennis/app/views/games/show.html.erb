@@ -1,8 +1,37 @@
 <div id="game-room-id", data-game-room-id="<%= @game.try(:id) %>"></div>
 <div id="user-room-id", data-user-id="<%= current_user.id %>"></div>
 
-<body style="background-image: url('<%=(url_for(@game.background))%>') !important; background-size: cover; height: 100vh; padding:0; margin:0; ">
 
+<body style="background-image: url('<%=(url_for(@game.background))%>') !important; background-size: cover; height: 100vh; padding:0; margin:0; ">
 <h1><%= @game.name %></h1>
 
+<canvas width="750" height="585" id="gamee"></canvas></br></br>
+
+<div class="friends" style="width: 730px; height: 200px; text-align: center; margin: 0 auto; overflow: auto;">
+<table id="list-members" class="list_guilds" style="width: 600px;">
+    <tr><td>Name</td><td>Anagram</td><td>Rating</td><td>Score</td><td></td></tr>
+    <tr id="first-player">
+        <td><%= @game.player1.nickname %></td>
+        <% if @game.player1.guild %>
+            <td><%= [@game.player1.guild.anagram] %></td>
+        <% else %>
+        <td>[NO GUILD]</td>
+        <% end %>
+        <td><%= @game.player1.rating %></td>
+        <td id="fp-score"> 0 </td>
+    </tr id="second-player">
+    <tr>
+        <% if @game.player2 %>
+            <td><%= @game.player2.nickname %></td>
+            <% if @game.player2.guild %>
+                <td><%= [@game.player2.guild.anagram] %></td>
+            <% else %>
+            <td>[NO GUILD]</td>
+            <% end %>
+            <td><%= @game.player2.rating %></td>
+            <td id="sp-score"> 0 </td>
+        <% end %>
+    </tr>
+</table>
+</div>
 </body>
