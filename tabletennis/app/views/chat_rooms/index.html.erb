@@ -1,3 +1,4 @@
+
 <body style="background-image: url('/assets/chat.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
 </br>
 <h1> Chat rooms </h1>
@@ -12,7 +13,9 @@
                     <td><%= chat_room.id %></td>
                     <td><%= chat_room.name %></td>
                     <td><%= chat_room.users.uniq.count %> "members" </td>
-                    <td><%= link_to "View room #{chat_room.name}", chat_room_path(chat_room.id), class: "button_view_guild" %></td>
+                    <% if chat_room.room_members.find_by(user_id: current_user.id) %>
+                        <td><%= link_to "View room #{chat_room.name}", chat_room_path(chat_room.id), class: "button_view_guild" %></td>
+                    <% end %>
                     <% unless chat_room.room_members.find_by(user_id: current_user.id) %>
                         <td><%= link_to "Join to chat #{chat_room.name}", join_chat_path(id: chat_room.id), class: "button_send_invite" %></td>
                     <% end %>

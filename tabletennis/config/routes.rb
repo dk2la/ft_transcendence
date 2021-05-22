@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'users/sign_up', as: 'registration'
   get '/users/sign_in', as: 'login'
   
+  get 'profiles/rating_shop', to: 'profiles#rating_shop', as: 'rating_shop'
   get 'profiles/:id/edit', to: 'profiles#edit', as: 'edit_profile'
   patch 'profiles/:id', to: 'profiles#update', as: 'update_profile'
   post  'profiles/invite_friend', to: 'profiles#invite_friend', as: 'invite'
@@ -48,6 +49,5 @@ Rails.application.routes.draw do
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

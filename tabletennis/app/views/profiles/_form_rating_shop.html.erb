@@ -1,0 +1,149 @@
+<%= form_for(current_user, url: update_profile_path(current_user), remote: true) do |form| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="slider_wrapper">
+    <a style="margin-left: auto; padding-right: 15px;" id="prev"><img style="width: 100px; height: 29px;" src="/assets/arrow_left.png" alt="prev"></a>
+        <div class="myslide">
+            <div class="slider_item pack_2">
+                <table class="friends" style="width: 400px; height: 200px;">
+                    <tr>
+                        <% if current_user.rating > 1049 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_8.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_8.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1099 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_9.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_9.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1149 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_10.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_10.gif"></th>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <th>1050 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1100 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1150 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="myslide">
+            <div class="slider_item pack_2">
+                <table class="friends" style="width: 400px; height: 200px;">
+                    <tr>
+                        <% if current_user.rating > 1199 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_11.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_11.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1249 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_12.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_12.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1299 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_13.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_13.gif"></th>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <th>1200 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1250 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1300 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="myslide">
+            <div class="slider_item pack_2">
+                <table class="friends" style="width: 400px; height: 200px;">
+                    <tr>
+                        <% if current_user.rating > 1399 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_14.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_14.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1499 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_15.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_15.gif"></th>
+                        <% end %>
+                        <% if current_user.rating > 1599 %>
+                            <th><img class="avatar" onclick="document.getElementById('user_photo').value=this.src; document.getElementById('user').src=this.src" style="width: 75px;" src="/assets/avatar_16.gif"></th>
+                        <% else %>
+                            <th><img class="not_money_avatar" style="height: 90px;" src="/assets/avatar_16.gif"></th>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <th>1400 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1500 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                        <th>1600 <img style="height: 13px;" src="/assets/fire.gif"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    <a style="padding-left: 15px; margin-right: auto;" id="next"><img style="width: 100px; height: 29px;" src="/assets/arrow_right.png" alt="next"></a>
+    </div>
+    <%= form.text_field :photo, class: "text_sign_up", type: :hidden %>
+    <h1>Current avatar:</h1>
+    <div class="friends" style="width: 100px;">
+      <img id="user" src="<%= current_user.photo %>" style="width: 70px; height: 70px;">
+    </div>
+    <div class="actions"></br>
+      <%= form.submit "Update info", class: "button_start_game" %>
+    </div></br>
+<% end %>
+
+<script> 
+try {
+    slideIndex = 1;
+    prev = document.getElementById ('prev');
+    next = document.getElementById ('next');
+} catch (e) {
+    let slideIndex = 1;
+    let prev = document.getElementById ('prev');
+    let next = document.getElementById ('next');
+}
+showSlides(slideIndex);
+
+next.addEventListener ("click", function () {
+  showSlides(slideIndex += 1);
+});
+
+prev.addEventListener ("click", function () {
+  showSlides(slideIndex -= 1);
+});
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("myslide");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+        slideIndex = slides.length;
+    }
+ 
+    for (let slide of slides) {
+        slide.style.display = "none";
+    }
+    slides[slideIndex - 1].style.display = "flex";    
+  }
+</script> 
