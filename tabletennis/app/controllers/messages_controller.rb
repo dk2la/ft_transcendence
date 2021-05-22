@@ -17,6 +17,7 @@ class MessagesController < ApplicationController
     end
   
     def create
+<<<<<<< HEAD
       p "HERE"
       p params
       @message = Message.new(message_params)
@@ -28,6 +29,24 @@ class MessagesController < ApplicationController
       else
         @message.save
         SendMessageJob.perform_later(@message)
+=======
+      p "I AM HERE"
+      p message_params
+      @chat_room = ChatRoom.find(message_params[:chat_room_id])
+      @message = Message.create(content: message_params[:content], user: current_user, chat_room: @chat_room)
+      if @message.save
+        @chat_room.room_members.each do |member|
+          ChatRoomChannel.broadcast_to(member.user, {
+            action: "send_message",
+            title: "#{@chat_room.id}",
+            msg_id: @message.id,
+            body: @message.str(member.user)
+          })
+        end
+        render json: { status: "Succesfully sent chat_room message" }, status: :ok
+      else
+        render json: { error: "Error, couldn't save your chat_room message" }, status: :bad_request
+>>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
       end
     end
 

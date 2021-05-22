@@ -12,8 +12,14 @@
     <% end %>
     <%= form.hidden_field :chat_room_id, value: chat_room%>
   
+<<<<<<< HEAD
     <div class="input-group">
       <%= form.text_field :content, placeholder: "Type your message here...", class: "text_sign_up" %>
         <%= form.submit "Add Message", class: "button_edit_profile"  %>
+=======
+    <div id="aboba" class="input-group">
+      <%= form.text_field :content, placeholder: "Type your message here...", class: "text_sign_up" %>
+        <%= form.submit "Add Message", class: "button_edit_profile", id: "chat-btn"  %>
+>>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     </div>
   <% end %>

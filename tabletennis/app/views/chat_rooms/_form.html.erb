@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%= form_with(model: chat_room, local: false) do |form| %>
+=======
+<%= form_for(chat_room, remote: true) do |form| %>
+>>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     <% if chat_room.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
@@ -14,7 +18,11 @@
       <%= form.label "Add a new room" %><br />
       <%= form.text_field :name, placeholder: "Room name", class: "text_sign_up" %>
     </div></br>
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     <%= form.submit "Create", class: "button_start_game" %></br></br>
     <%= link_to 'Back', chat_rooms_path, class: "button_make_officer" %>
   <% end %>
