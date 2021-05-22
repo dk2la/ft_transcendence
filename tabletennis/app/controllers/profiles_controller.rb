@@ -10,12 +10,9 @@ class ProfilesController < ApplicationController
     def edit
     end
   
-<<<<<<< HEAD
-=======
     def rating_shop
     end
 
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     #PATCH/POST for change home/1 information
     def update
       respond_to do |format|

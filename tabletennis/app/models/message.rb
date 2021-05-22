@@ -1,8 +1,6 @@
 class Message < ApplicationRecord
     belongs_to :chat_room
     belongs_to :user
-<<<<<<< HEAD
-=======
 
     def str(message_receiver)
 		if message_receiver == self.user
@@ -17,5 +15,4 @@ class Message < ApplicationRecord
             end
         end
 	end
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
 end

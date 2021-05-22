@@ -1,21 +1,12 @@
 class ChatRoomsController < ApplicationController
     before_action :authenticate_user!
-<<<<<<< HEAD
-    before_action :set_chat_room, only: [:show, :update, :leave_from_room]
-=======
     before_action :set_chat_room, only: [:update, :leave_from_room]
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
 
     def index
         @chat_rooms = ChatRoom.all
     end
 
     def show
-<<<<<<< HEAD
-    end
-
-    def edit
-=======
         @chat_room = ChatRoom.find(params[:id])
         if @chat_room.direct == true
             if @chat_room.verificate_user?(current_user)
@@ -30,35 +21,23 @@ class ChatRoomsController < ApplicationController
 
     def edit
         @chat_room = ChatRoom.find(params[:id])
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 
     def new
         @chat_room = ChatRoom.new
     end
 
-<<<<<<< HEAD
-=======
     def remove_password
         @chat_room = ChatRoom.find(params[:id])
         @chat_room.update(passcode: nil, private: false)
         redirect_to @chat_room, notice: "Successfyllt removed password form #{@chat_room.name} room"
     end
 
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     def join_chat_room
         @chat_room = ChatRoom.find(params[:id])
         if @chat_room.user_banned?(current_user, @chat_room)
             redirect_to chat_rooms_path, alert: "You have no access to this room, because you banned"
         elsif @chat_room.room_member?(current_user.id, @chat_room)
-<<<<<<< HEAD
-            room_member = RoomMember.create(user_id: current_user.id, chat_room_id: @chat_room.id, member_role: 0)
-            redirect_to @chat_room, notice: "Successfully join to chat #{@chat_room.name}"
-            ActionCable.server.broadcast "chat_room_channel_#{@chat_room.id}", {member: room_member, action: "join"}
-        else
-            redirect_to chat_room_path(@chat_room.id), alert: "You already in chat  #{@chat_room.name}"
-        end
-=======
             if @chat_room.is_private?
                 p "SALAMCHIK"
                 flash[:notice] = "Insert password"
@@ -116,7 +95,6 @@ class ChatRoomsController < ApplicationController
             redirect_to chat_rooms_path, alert: "Wrong pass for #{@chat_room.name}"
         end
         p "KEKOS"
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 
     def create
@@ -132,13 +110,9 @@ class ChatRoomsController < ApplicationController
 
     def update
         if @chat_room.update(chat_room_params)
-<<<<<<< HEAD
-            redirect_to @chat_room, notice: "Chat room #{@chat_room}, successfully updated!"
-=======
             if @chat_room.update(passcode: Base64.strict_encode64(@chat_room.passcode))
                 redirect_to @chat_room, notice: "Chat room #{@chat_room}, successfully updated!"
             end
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
         else
             redirect_to chat_rooms_path, alert: "#{@chat_room.errors.full_messages.join('; ')}" #todo сделать редирект на edit method
         end
@@ -146,8 +120,6 @@ class ChatRoomsController < ApplicationController
 
     def leave_from_room
         if @chat_room.room_owner?(current_user, @chat_room)
-<<<<<<< HEAD
-=======
             @chat_room.room_members.each do |member|
                 if current_user != member.user
                     ChatRoomChannel.broadcast_to(member.user, {
@@ -157,15 +129,12 @@ class ChatRoomsController < ApplicationController
                     })
                 end    
             end
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
             @chat_room.destroy
             redirect_to chat_rooms_path, notice: "Chat room #{@chat_room.name} successfully removed"
         else
             current_user.room_members.find_by(chat_room_id: @chat_room.id).destroy
             redirect_to chat_rooms_path, notice: "User #{current_user.nickname}, successfully leaved!"
         end
-<<<<<<< HEAD
-=======
         @chat_room.room_members.each do |member|
             if current_user != member.user
                 ChatRoomChannel.broadcast_to(member.user, {
@@ -175,7 +144,6 @@ class ChatRoomsController < ApplicationController
                 })
             end
         end
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 
     def set_moderator
@@ -212,24 +180,17 @@ class ChatRoomsController < ApplicationController
             else
                 muted = MutedUser.new(user_id: cur.id, chat_room_id: @chat_room.id)
                 if !@chat_room.member_muted?(cur, @chat_room) && muted.save
-<<<<<<< HEAD
-                    redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted" 
-=======
                     redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully muted for you" 
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
                 else
                     redirect_to chat_room_path(@chat_room.id), alert: "#{cur.nickname}, already muted"
                 end
             end
         end
-<<<<<<< HEAD
-=======
         ChatRoomChannel.broadcast_to(cur, {
             action: "mute_member_from_owner",
             title: "#{@chat_room.id}",
             banned_user: cur
         })
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 
     def umute_member
@@ -240,14 +201,11 @@ class ChatRoomsController < ApplicationController
             redirect_to chat_room_path(@chat_room.id), alert: "#{cu.nickname}, not owner or moderator"
         else
             if @chat_room.member_muted?(cur, @chat_room)
-<<<<<<< HEAD
-=======
                 ChatRoomChannel.broadcast_to(cur, {
                     action: "unmute",
                     title: "#{@chat_room.id}",
                     banned_user: cur
                 })
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
                 @chat_room.muted_users.find_by(user_id: cur.id).destroy
                 redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully unmuted"
             else
@@ -270,8 +228,6 @@ class ChatRoomsController < ApplicationController
                 redirect_to chat_room_path(@chat_room.id), alert: "Fuck you"
             end
         end
-<<<<<<< HEAD
-=======
         ga = cur.guild.anagram if cur.guild
         @chat_room.room_members.each do |member|
             if cur != member.user
@@ -290,7 +246,6 @@ class ChatRoomsController < ApplicationController
                     title: "#{@chat_room.id}",
                     banned_user: cur
         })
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 
     def unban_user
@@ -300,8 +255,6 @@ class ChatRoomsController < ApplicationController
         redirect_to chat_room_path(@chat_room.id), notice: "#{cur.nickname}, successfully unbanned"
     end
 
-<<<<<<< HEAD
-=======
     def block_user
         @chat_room = ChatRoom.find(params[:chat_id])
         @target_user = User.find(params[:target_id])
@@ -353,7 +306,6 @@ class ChatRoomsController < ApplicationController
         end
     end
 
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     private
     
     def set_chat_room
@@ -361,10 +313,6 @@ class ChatRoomsController < ApplicationController
     end
 
     def chat_room_params
-<<<<<<< HEAD
-        params.require(:chat_room).permit(:name)
-=======
         params.require(:chat_room).permit(:name, :passcode, :private)
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
     end
 end

@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-=======
   mount ActionCable.server => '/cable'
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   get 'abouts/index'
   root 'start_page#index'
 
@@ -15,10 +12,7 @@ Rails.application.routes.draw do
   get 'users/sign_up', as: 'registration'
   get '/users/sign_in', as: 'login'
   
-<<<<<<< HEAD
-=======
   get 'profiles/rating_shop', to: 'profiles#rating_shop', as: 'rating_shop'
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   get 'profiles/:id/edit', to: 'profiles#edit', as: 'edit_profile'
   patch 'profiles/:id', to: 'profiles#update', as: 'update_profile'
   post  'profiles/invite_friend', to: 'profiles#invite_friend', as: 'invite'
@@ -35,14 +29,11 @@ Rails.application.routes.draw do
 
   resources :games
 
-<<<<<<< HEAD
-=======
   post '/chat_rooms/verificate_password', to: 'chat_rooms#verificate_password', as: 'verificate_password'
   get '/chat_rooms/remove_password', to: 'chat_rooms#remove_password', as: 'remove_password'
   get '/chat_rooms/create_dm', to: 'chat_rooms#create_dm', as: 'create_dm'
   get '/chat_rooms/unblock_user', to: 'chat_rooms#unblock_user', as: 'unblock_user'
   get '/chat_rooms/block_user', to: 'chat_rooms#block_user', as: 'block_user'
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   get '/chat_rooms/umute_member', to: 'chat_rooms#umute_member', as: 'umute_member'
   get '/chat_rooms/mute_member', to: 'chat_rooms#mute_member', as: 'mute_member'
   get '/chat_rooms/ban_user', to: 'chat_rooms#ban_user', as: 'ban_user'
@@ -52,10 +43,7 @@ Rails.application.routes.draw do
   get '/chat_rooms/leave_from_room', to: 'chat_rooms#leave_from_room', as: 'leave_from_chat'
   get '/chat_rooms/join_chat_room', to: 'chat_rooms#join_chat_room', as: 'join_chat'
   resources :chat_rooms
-<<<<<<< HEAD
-=======
   
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   resources :messages
   get 'friendship/update'
   get 'friendship/create'

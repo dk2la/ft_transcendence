@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_05_11_111342) do
-=======
 ActiveRecord::Schema.define(version: 2021_05_15_151552) do
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +24,6 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
     t.index ["user_id"], name: "index_banned_users_on_user_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "blocked_users", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "cur_id"
@@ -39,15 +33,10 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
     t.index ["user_id"], name: "index_blocked_users_on_user_id"
   end
 
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   create_table "chat_rooms", force: :cascade do |t|
     t.string "name"
     t.boolean "private", default: false
     t.string "passcode"
-<<<<<<< HEAD
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-=======
     t.boolean "direct", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -62,7 +51,6 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
     t.index ["chat_room_id"], name: "index_direct_rooms_on_chat_room_id"
     t.index ["first_user_id"], name: "index_direct_rooms_on_first_user_id"
     t.index ["second_user_id"], name: "index_direct_rooms_on_second_user_id"
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -167,10 +155,7 @@ ActiveRecord::Schema.define(version: 2021_05_15_151552) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
-<<<<<<< HEAD
-=======
   add_foreign_key "blocked_users", "users", column: "cur_id"
   add_foreign_key "direct_rooms", "users", column: "first_user_id"
   add_foreign_key "direct_rooms", "users", column: "second_user_id"
->>>>>>> 6d5749fbb98bbae5bd1b452f7a3e0b69667421ed
 end
