@@ -1,0 +1,359 @@
+h1 {
+    color: white;
+    text-align: center;
+    font-family: fantasy;
+}
+
+header {
+    background-color: #68686800;
+}
+
+.current_head
+{
+    color: white;
+}
+
+.current_head:hover
+{
+    color: #ec770f;
+}
+
+.start_page {
+    text-align: center;
+    padding-bottom: 25px;
+    margin-block-start: -1.5em;
+    padding-top: 300px;
+}
+
+.button_start_game {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #8CDB39;
+    border-radius: 3px;
+    background: #82ca35;
+    font-family: fantasy;
+}
+
+.button_start_game:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.main_pages {
+    min-width: 1000px;
+    padding-top: 15px;
+    /* border: 10px solid; */
+}
+
+.block_main_pages {
+    min-width: 498px;
+    min-height: 320px; 
+    display:inline-block;
+    align-content: left;
+}
+
+.block_main_pages_one {
+    color: white;
+    position: absolute;
+    margin-left: 250px;
+}
+
+.button_edit_profile {
+    margin-top: 10px;
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #8CDB39;
+    border-radius: 3px;
+    background: #82ca35;
+    font-family: fantasy;
+}
+
+.button_edit_profile:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_view_guild {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #6f2da0;
+    border-radius: 3px;
+    background: #6f2da0;
+    font-family: fantasy;
+}
+
+.button_view_guild:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_leave_guild {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #d23d25;
+    border-radius: 3px;
+    background: #d23d25;
+    font-family: fantasy;
+}
+
+.button_leave_guild:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_make_officer {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid rgb(204, 133, 25);
+    border-radius: 3px;
+    background: rgb(204, 133, 25);
+    font-family: fantasy;
+}
+
+.button_make_officer:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.button_send_invite {
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    color: #ffffff;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 1px 1.2em;
+    outline: none;
+    border: 1px solid #8CDB39;
+    border-radius: 3px;
+    background: #8CDB39;
+    font-family: fantasy;
+}
+
+.button_send_invite:hover {
+    border: 1px solid #76B7E9;
+    border-radius: 3px;
+    background: #76B7E9;
+}
+
+.friends, .list_guilds {
+    font-family: fantasy;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #3535357a;
+    padding: 10px;
+    border-radius: 10px;
+    border: #686868 solid 1px;
+}
+
+.text_sign_up
+{
+    margin-top: 10px;
+    width: 240px;
+    height: 22px;
+    border-radius: 9px;
+    background-color: #3535357a;
+    border: #686868 solid 1px;
+    color: white;
+    text-align: center;
+    font-family: fantasy;
+}
+
+.button_log_intra42 {
+    margin-top: 2px;
+    text-align: center;
+    display: inline-block;
+    font-family: arial,sans-serif;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+    line-height: 2em;
+    padding: 5px 1.7em;
+    outline: none;
+    border: #686868 solid 1px;
+    border-radius: 100px;
+    background-color: #3535357a;
+    font-family: fantasy;
+}
+
+.button_log_intra42:hover {
+    border: 1px solid #6eaf2881;
+    border-radius: 100px;
+    background: #6eaf2881;
+}
+
+.head_menu {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+
+header a {
+    color: white;
+    text-align: center;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.logo {
+    margin-bottom: -5px;
+    margin-top: 25px; 
+    height: 40;
+    width: 40;
+}
+
+.avatar {
+    color: #fff;
+    background: rgba(0, 0, 0, 0);
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 1s;
+  }
+  
+.avatar:active {
+    background: rgb(59, 129, 2);
+    transition: background 0s;
+  }
+
+.wrap {
+  text-align: center;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.card:hover .front {transform: rotateY(180deg);}
+.card:hover .back {transform: rotateY(360deg);}
+
+.button_link {
+    font-size: 18px;
+    background-color: #686868;
+    border: 1px solid #686868;
+    border-radius: 25px;
+    width: 65px;
+    height: 65px;
+ }
+ 
+ .button #rock {
+    background: url(/assets/GitHub_logo.png) no-repeat;
+ }
+
+.line {
+    border: none; /* Убираем границу */
+    background-color: #686868; /* Цвет линии */
+    color: #686868; /* Цвет линии для IE6-7 */
+    height: 1px; /* Толщина линии */
+}
+
+
+.slider_wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.myslide {
+    display: none;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider_wrapper a {
+    cursor: pointer;
+}
+
+.pack_1{
+    background-color: rgba(255, 0, 0, 0);
+}
+.pack_2{
+    background-color: rgba(0, 128, 0, 0);
+}
+.pack_3{
+    background-color: rgba(0, 0, 255, 0);
+}
+.pack_4{
+    background-color: rgba(255, 166, 0, 0);
+}

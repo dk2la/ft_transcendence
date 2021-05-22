@@ -1,0 +1,27 @@
+<tr>
+    <td><%= added_user.nickname %></td>
+    <% if added_user.guild %>
+        <td>[<%= added_user.guild.anagram %>]</td>
+    <% else %>
+        <td>"None"</td>
+    <% end %>
+    <td><%= added_user.rating %></td>
+    <% if chat_room.room_owner?(current_user, chat_room) && current_user.id != member.id %>
+        <% if chat_room.room_moderator?(added_user, chat_room) %>
+            <td><%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: chat_room.id), class: "button_make_officer" %></td>
+        <% else %>
+            <td><%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: chat_room.id), class: "button_make_officer" %></td>
+        <% end %>
+        <td><%= link_to 'ban user', ban_user_path(id: member.id, chat_id: chat_room.id), class: "button_make_officer" %></td>
+        <% if chat_room.room_owner?(current_user, chat_room) || chat_room.room_moderator?(current_user, chat_room) %>
+            <td><%= link_to 'mute', mute_member_path(id: member.id, chat_id: chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+        <% else %>
+            <td><%= link_to 'unmute', umute_member_path(id: member.id, chat_id: chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+        <% end %>
+    <% end %>
+    <% if current_user.blocked_users.find_by(user: added_user) %>
+        <td><%= link_to 'unblock user', unblock_user_path(target_id: member.id, chat_id: chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+    <% else %>
+        <td><%= link_to 'block user', block_user_path(target_id: member.id, chat_id: chat_room.id, current_id: current_user.id), class: "button_make_officer" %></td>
+    <% end %>
+</tr>

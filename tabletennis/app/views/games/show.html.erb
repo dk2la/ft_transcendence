@@ -1,0 +1,9 @@
+<div id="game-room-id", data-game-room-id="<%= @game.try(:id) %>"></div>
+<div id="user-room-id", data-user-id="<%= current_user.id %>"></div>
+
+<body style="background-image: url('<%=(url_for(@game.background))%>') !important; background-size: cover; height: 100vh; padding:0; margin:0; ">
+
+<h1><%= @game.name %></h1>
+
+
+</body>

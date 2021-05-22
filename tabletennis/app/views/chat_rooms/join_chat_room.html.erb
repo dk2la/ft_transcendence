@@ -1,0 +1,24 @@
+<% if @chat_room.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@chat_room.errors.count, "error") %> prohibited this @chat_room from being saved:</h2>
+    <ul>
+      <% @chat_room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@chat_room, url: verificate_password_path, method: :post, remote: true) do |form| %>
+  
+    <div style="color: white; font-family: fantasy;">
+      <%= form.label "Add password" %><br />
+      <%= form.text_field :passcode, value: '', placeholder: "Room password", class: "text_sign_up" %>
+    </div></br>
+  
+    <div style="color: white; font-family: fantasy;">
+        <%= form.text_field :id, value: @chat_room.id, type: :hidden %>
+    </div></br>
+
+    <%= form.submit "Join", class: "button_start_game" %></br></br>
+  <% end %>

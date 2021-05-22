@@ -1,0 +1,80 @@
+class GameController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @games = Game.all
+  end
+
+  def new
+    @game = Game.new
+  end
+
+  def show
+  end
+
+  def create
+    game = Game.new(game_params)
+    
+    if game.save
+      redirect_to game, notice: "Game successfully created"
+    else
+      redirect_to game_new_path, alert: 'Game not created because some fields wrong'
+    end
+  end
+
+  private
+
+  def set_game
+    @game = Guild.find(params[:id])
+  end
+  
+  # Only allow a list of trusted parameters through.
+  def game_params
+    p params
+    p params.require(:guild).permit(:name)
+  end
+end
+
+
+
+
+<%= form_for(@game, remote: true ) do |form| %>
+    <% if game.errors.any? %>
+      <div id="error_explanation">
+        <h1><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h1>
+  
+        <ul>
+          <% game.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div style="color: white; font-family: fantasy;">
+      <%= form.label :name %><br />
+      <%= form.text_field :name, class: "text_sign_up" %>
+    </div>
+  
+    <div class="actions"><br />
+      <%= form.submit "Create Game"%>
+    </div>
+  <% end %>
+
+
+
+
+<h2> HERE WILL BE ALL GAMES </h2>
+
+<% @games.each do |game| %>
+    <tr>
+        <td><%= game.name %></td>
+    </tr></br>
+<% end %>
+<%= link_to 'Create game', game_new_path %>
+
+
+
+
+<h2> Create New Guild </h2>
+<%= render 'form', game: @game %>
