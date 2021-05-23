@@ -61,6 +61,21 @@ class GamesController < ApplicationController
     p "YA TUTA"
   end
 
+  def leave_from_game
+    @game = Game.find(params[:id])
+    if @game.player1 == current_user
+      @game.destroy
+      GameRoomChannel.broadcast_to(@game, {
+        action: "redirect_after_destroy_room",
+        title: "#{@game.id}",
+      })
+      redirect_to games_path, notice: "Successfully leave from game #{@game.name}, child :))"
+    elsif @game.player2 == current_user
+      @game.update(player2: nil)
+      redirect_to games_path, notice: "Successfully leave from game #{@game.name}, child :))"
+    end
+  end
+
   private
 
   def set_game

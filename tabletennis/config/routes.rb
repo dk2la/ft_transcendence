@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :list_players
 
+  get '/games/leave_from_game', to: "games#leave_from_game", as: 'leave_from_game'
   get '/games/join_to_game', to: "games#join_to_game", as: 'join_game'
   resources :games
 

@@ -3,6 +3,9 @@
 
 
 <body style="background-image: url('<%=(url_for(@game.background))%>') !important; background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div class="friends" style="width: 730px; height: 50px; text-align: center; margin: 0 auto; overflow: auto;">
+    <%= link_to 'Leave', leave_from_game_path(id: @game.id), class: "button_leave_guild" %>
+</div>
 <h1><%= @game.name %></h1>
 
 <canvas width="750" height="585" id="gamee"></canvas></br></br>

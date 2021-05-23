@@ -12,8 +12,16 @@ function received_data(data, game_div) {
       console.log(`CURRENT USER === ${data["added_user"]["nickname"]}, TYPEOF RECEIVER_ROLE === ${typeof(data["receiver_role"])}`);
       if (data["title"] === game_target_id)
         drawLayoutsPlayer(data["added_user"], data["guild_anagram"]);
+    } else if (data["action"] == "redirect_after_destroy_room") {
+      if (data["title"] == game_target_id)
+        redirectAfterDestroy();
     }
 	}
+}
+
+function redirectAfterDestroy() {
+  console.log("GAME WAS DESTROYED");
+  window.location.replace("/games");
 }
 
 function drawLayoutsPlayer(added_user, guild_anagram) {
