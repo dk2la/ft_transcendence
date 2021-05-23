@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 2021_05_22_170150) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
+  create_table "game_members", force: :cascade do |t|
+    t.bigint "first_player_id"
+    t.bigint "second_player_id"
+    t.integer "winner", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_player_id"], name: "index_game_members_on_first_player_id"
+    t.index ["second_player_id"], name: "index_game_members_on_second_player_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.text "background", default: "/assets/game_back.gif"

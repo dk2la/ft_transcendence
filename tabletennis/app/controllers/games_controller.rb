@@ -11,11 +11,11 @@ class GamesController < ApplicationController
   end
 
   def show
-    Thread.new do
-      Rails.application.executor.wrap do
-        @game.view_thread
-      end
-    end
+    # Thread.new do
+    #   Rails.application.executor.wrap do
+    #     @game.view_thread
+    #   end
+    # end
   end
 
   def create
@@ -27,6 +27,24 @@ class GamesController < ApplicationController
     else
       redirect_to new_game_path, alert: "#{game.errors.full_messages.join('; ')}"
     end
+  end
+
+  def join_to_game
+    @game = Game.find(params[:id])
+    if @game[:player1_id] != current_user.id && @game[:player2_id] == nil
+        @game.update(player2_id: current_user.id)
+        redirect_to @game, notice: "Successfully join to game #{@game.name}"
+    else
+        redirect_to @game, alert: "You already in game #{@game.name}, just play"
+    end
+    ga = current_user.guild.anagram if current_user.guild
+    GameRoomChannel.broadcast_to(@game, {
+        action: "draw_players",
+        title: "#{@game.id}",
+        added_user: current_user,
+        guild_anagram: ga
+      })
+    p "YA TUTA"
   end
 
   private

@@ -1,6 +1,8 @@
 class GameRoomChannel < ApplicationCable::Channel
   def subscribed
-    stream_for current_user
+    p params
+    p "SALAMALEIKUM"
+    stream_for Game.find(params[:game_room])
   end
 
   def unsubscribed

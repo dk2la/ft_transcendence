@@ -12,7 +12,11 @@
                     <td><%= game.name %></td>
                     <td></td>
                     <td></td>
-                    <td><%= link_to 'View game', game_path(game.id), class: "button_view_guild" %>
+                    <% if game.player1 == current_user or game.player2 == current_user %>
+                        <td><%= link_to 'View game', game_path(game.id), class: "button_view_guild" %></td>
+                    <% else %>
+                        <td><%= link_to 'Join', join_game_path(id: game.id), class: "button_view_guild" %></td>
+                    <% end %>
                 </tr>
             <% end %>
         </table>

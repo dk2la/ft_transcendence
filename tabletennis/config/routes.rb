@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :list_players
 
+  get '/games/join_to_game', to: "games#join_to_game", as: 'join_game'
   resources :games
 
   post '/chat_rooms/verificate_password', to: 'chat_rooms#verificate_password', as: 'verificate_password'
