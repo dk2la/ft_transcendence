@@ -18,8 +18,8 @@ function received_data(data, game_div) {
 
 function drawLayoutsPlayer(added_user, guild_anagram) {
   console.log("HELLO I`M HERE");
-  const PLAYER_INFO_NO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>[NO GUILD]</td><td>member</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
-  const PLAYER_INFO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>${guild_anagram}</td><td>member</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
+  const PLAYER_INFO_NO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>[NO GUILD]</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
+  const PLAYER_INFO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>${guild_anagram}</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
   let html;
 
   if (guild_anagram)
