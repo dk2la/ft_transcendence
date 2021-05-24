@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_170150) do
+ActiveRecord::Schema.define(version: 2021_05_24_132842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,12 @@ ActiveRecord::Schema.define(version: 2021_05_22_170150) do
     t.boolean "is_finished", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "long_paddles", default: false
+    t.string "name_player1"
+    t.string "name_player2"
+    t.string "gametype", default: "casual"
+    t.boolean "extra_speed", default: false
+    t.bigint "tournament_id"
     t.index ["player1_id"], name: "index_games_on_player1_id"
     t.index ["player2_id"], name: "index_games_on_player2_id"
   end

@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :set_params
+	skip_before_action :verify_authenticity_token
   before_action :set_game, only: [:show]
   before_action :check_game_member, only: [:new, :create]
 
@@ -12,6 +13,8 @@ class GamesController < ApplicationController
   end
 
   def show
+    @game.send_config
+    # @game.send_config
     # Thread.new do
     #   Rails.application.executor.wrap do
     #     @game.view_thread
@@ -20,9 +23,9 @@ class GamesController < ApplicationController
   end
 
   def create
-    param = params.require(:game).permit(:name, :background)
-    game = Game.new(name: param["name"], background: param["background"], player1: current_user)
-    
+    param = params.require(:game).permit(:name, :background, :long_paddles)
+    game = Game.create(name: param["name"], background: param["background"], player1: current_user, long_paddles: false)
+    game.mysetup
     if game.save
       redirect_to game, notice: "Game successfully created"
     else
@@ -47,6 +50,7 @@ class GamesController < ApplicationController
       end
     elsif @game[:player1_id] != current_user.id && @game[:player2_id] == nil
       @game.update(player2_id: current_user.id)
+      @game.mysetup
       redirect_to @game, notice: "Successfully join to game #{@game.name}"
     else
       redirect_to @game, alert: "You already in game #{@game.name}, just play"
@@ -104,5 +108,9 @@ class GamesController < ApplicationController
       end
     end
   end
+
+  def set_params
+		current_user = User.find_by(log_token: encrypt(cookies[:log_token])) rescue nil
+	end
 
 end

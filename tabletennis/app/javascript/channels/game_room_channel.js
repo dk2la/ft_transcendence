@@ -1,6 +1,15 @@
 // FUCK FT_TRANSCENDENCE! ALL MY HOMIES HATE FT_TRANSCENDENCE
 import consumer from "./consumer"
+import Render from "../rendering/render"
+
 let GameSub = null;
+let mykeydown, mykeyup;
+let KEY_SPACE = 32,
+	ARROW_UP = 38,
+	ARROW_DOWN = 40,
+	KEY_S = 83,
+	KEY_W = 87;
+let input = "none";
 
 function received_data(data, game_div) {
   if (!game_div)
@@ -39,32 +48,72 @@ function drawLayoutsPlayer(added_user, guild_anagram) {
   $('#list-players').append(html);
 }
 
+function removeStaleGameConnections() {
+	consumer.subscriptions.subscriptions.forEach(sub => {
+		if (sub.identifier && sub.identifier.includes("GameChannel")) {
+			sub.disconnected();
+			consumer.subscriptions.remove(sub);
+		}
+	})
+}
+
 function manageGameChannels() {
   let game_div = document.getElementById('game-room-id');
+  let game_div_elem = game_div.getAttribute("data-game-room-id")
+  if (game_div_elem === null)
+    return removeStaleGameConnections();
+  let render = new Render(document.getElementById("gamee"));
+
+  let data = {
+	  type: "commandstring"
+  };
+
+  mykeydown = function(e) {
+  	e.preventDefault();
+  	if (e.keyCode === KEY_SPACE) {
+  		data["type"] = "toggleReady"
+  		GameSub.perform('input', data);
+	  } else if (e.keyCode === ARROW_UP || e.keyCode === KEY_W) {
+		  input = "paddle_up";
+	  } else if (e.keyCode === ARROW_DOWN || e.keyCode === KEY_S) {
+			input = "paddle_down";
+	  }
+	}
+
+	mykeyup = function(e) {
+  	e.preventDefault();
+  	input = "none";
+	}
+
   console.log(`THIS IS game_div, I AM HERE ${game_div}`);
-  if (game_div !== null) {  
-    GameSub = consumer.subscriptions.create({channel: "GameRoomChannel", game_room: game_div.getAttribute("data-game-room-id")}, {
-      connected: () => {
-        console.log("connected to game_room_" + GameSub.identifier);
-      },
+  GameSub = consumer.subscriptions.create({channel: "GameRoomChannel", game_room: game_div.getAttribute("data-game-room-id")}, {
+    connected: () => {
+      console.log("connected to game_room_" + GameSub.identifier);
+      document.addEventListener('keydown', mykeydown);
+      document.addEventListener('keyup', mykeyup);
+    },
 
-      disconnected: () => {
-        console.log("disconnectrd from game_room_" + GameSub.identifier);
-      },
+    disconnected: () => {
+      console.log("disconnectrd from game_room_" + GameSub.identifier);
+      document.removeEventListener('keydown', mykeydown);
+      document.removeEventListener('keydown', mykeyup);
+    },
 
-      received: (data) => {
-        console.log("AAAALLLLOOO HUILO")
+    received: (data) => {
+      console.log("AAAALLLLOOO HUILO")
+      if (data["action"] == "draw_players" || data["action"] == "redirect_after_destroy_room") {
         received_data(data, document.getElementById('game-room-id'));
       }
-    });
-  } else {
-    consumer.subscriptions.subscriptions.forEach(sub => {
-      if (sub.identifier && sub.identifier.includes("GameChannel")) {
-        sub.disconnected();
-        consumer.subscriptions.remove(sub);
+      console.log(data);
+      if (data.config) {
+        console.log("Rendering config")
+        render.config(data.config);
       }
-    })
-  }
+      data["type"] = input;
+      console.log("Rendering prform")
+      GameSub.perform('input', data);
+    }
+  });
 }
 
 window.addEventListener("hashchange", e => {
