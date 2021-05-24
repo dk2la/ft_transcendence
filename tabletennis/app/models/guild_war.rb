@@ -1,5 +1,6 @@
 class GuildWar < ApplicationRecord
-    belongs_to :guild
+    belongs_to :sender_guild, class_name: :Guild
+    belongs_to :recipient_guild, class_name: :Guild
 
     def self.reacted?(id1, id2)
         case1 = !GuildWar.where(sender_guild: id1, recipient_guild: id2).empty?
