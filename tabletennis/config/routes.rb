@@ -49,5 +49,6 @@ Rails.application.routes.draw do
   get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
   get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
   get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
+  get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
