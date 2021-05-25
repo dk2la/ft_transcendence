@@ -221,11 +221,11 @@ class Gamelogics
         @status = "finished"
     
         if @players[0].score.to_i > @players[1].score.to_i
-            @winner = @players[0].nickname
+            @winner = @players[0].name
             winner_id = @players[0].user_id
             loser_id = @players[1].user_id
         else
-            @winner = @players[1].nickname
+            @winner = @players[1].name
             winner_id = @players[1].user_id
             loser_id = @players[0].user_id
         end
@@ -364,17 +364,16 @@ class Game < ApplicationRecord
     end
 
     def add_input(type, user_id)
-		p "THIS IS ID GAME"
         if @@Gamelogics[id]
-			p @@Gamelogics[id]
-			p user_id
-			p id
             @@Gamelogics[id].add_input(type, user_id, id)
         end
     end
 
     def mydestructor
-        @@Gamelogic[id] = nil
+        @@Gamelogics[id] = nil
+		GameRoomChannel.broadcast_to(self, {
+			action: "redirect_after_destroy_room"
+		})
     end
 
     def view_thread
