@@ -13,7 +13,6 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game.send_config
     # @game.send_config
     # Thread.new do
     #   Rails.application.executor.wrap do

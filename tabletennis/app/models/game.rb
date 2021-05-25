@@ -193,7 +193,7 @@ class Player
 	end
 end
 
-class Gamelogic
+class Gamelogics
     def initialize(game)
         @game = game
         @canvas_width = 200
@@ -220,7 +220,7 @@ class Gamelogic
     def finish_game
         @status = "finished"
     
-        if @players[0].score.to_i > players[1].score.to_i
+        if @players[0].score.to_i > @players[1].score.to_i
             @winner = @players[0].nickname
             winner_id = @players[0].user_id
             loser_id = @players[1].user_id
@@ -338,15 +338,15 @@ class Game < ApplicationRecord
     belongs_to :player2, class_name: :User, required: false
 
 
-    @@Gamelogic = Hash.new
+    @@Gamelogics = Hash.new
 
     def mysetup
-        @@Gamelogic[self.id] = Gamelogic.new(self)
+        @@Gamelogics[self.id] = Gamelogics.new(self)
     end
 
     def send_config
-        if @@Gamelogic[id]
-            @@Gamelogic[id].send_config
+        if @@Gamelogics[id]
+            @@Gamelogics[id].send_config
         end
     end
 
@@ -360,12 +360,16 @@ class Game < ApplicationRecord
 	end
 
     def get_gamelogic
-        @@Gamelogic[id]
+        @@Gamelogics[id]
     end
 
     def add_input(type, user_id)
-        if @@Gamelogic[id]
-            @Gamelogic[id].add_input(type, user_id, id)
+		p "THIS IS ID GAME"
+        if @@Gamelogics[id]
+			p @@Gamelogics[id]
+			p user_id
+			p id
+            @@Gamelogics[id].add_input(type, user_id, id)
         end
     end
 

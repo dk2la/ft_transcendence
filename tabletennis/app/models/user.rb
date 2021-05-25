@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  enum status: [:offline, :online]
+  enum status: [:offline, :online, :ingame]
 
   #FRIENDS INVITATIONS RELATIVES
   has_many :invitations
@@ -48,4 +48,11 @@ class User < ActiveRecord::Base
     invitations.create(friend_id: user.id)
   end
 
+  # def is_ingame
+  #   p "USER INGAME?"
+  #   if self.status == "ingame"
+  #     return true
+  #   end
+  #   return false
+  # end
 end
