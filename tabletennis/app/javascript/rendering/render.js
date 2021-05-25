@@ -8,9 +8,9 @@ class Render {
 		this.canvas = canvas;
 		if (this.canvas)
 			this.context = canvas.getContext('2d');
-		this.background_colour = "black";
 		this.ball = new Ball;
 		this.msg = null;
+		this.grid = 15;
 		this.players = [
 			new Player,
 			new Player
@@ -20,23 +20,24 @@ class Render {
 
 	resetCanvas() {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.context.fillStyle = this.background_colour;
-		this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+		this.context.fillStyle = 'lightgrey';
+      	this.context.fillRect(0, 0, this.canvas.width, this.grid);
+      	this.context.fillRect(0, this.canvas.height - this.grid, this.canvas.width, this.canvas.height);
 		// console.log(`resetCanvas: width=${this.canvas.width}, height=${this.canvas.height}, fillStyle = ${this.context.fillStyle}`);
 	}
 
 	drawBall() {
 		this.context.beginPath();
-		this.context.fillStyle = this.ball.colour;
-		this.context.arc(this.ball.x, this.ball.y, this.ball.radius, 0, 2 * Math.PI, false);
-		this.context.fill();
+		this.context.fillStyle = this.ball.color;
+		this.context.fillRect(this.ball.x, this.ball.y, this.ball.width, this.ball.height);
+		// this.context.fill();
 		// console.log("ball: x=" + this.ball.x + ", y=" + this.ball.y, ", radius=" + this.ball.radius);
 	}
 
 	drawPaddle(nb) {
 		// console.log("paddle: x=" + this.players[nb].paddle.x + ", y=" + this.paddles[nb].y, ", width=" + this.paddles[nb].width + ", height=" + this.paddles[nb].height);
-		this.context.fillStyle = this.players[nb].paddle.colour;
-		this.context.fillRect(this.players[nb].paddle.x - (this.players[nb].paddle.width / 2), this.players[nb].paddle.y - (this.players[nb].paddle.height / 2), this.players[nb].paddle.width, this.players[nb].paddle.height);
+		this.context.fillStyle = this.players[nb].paddle.color;
+		this.context.fillRect(this.players[nb].paddle.x, this.players[nb].paddle.y, this.players[nb].paddle.width, this.players[nb].paddle.height);
 	}
 
 	drawScores() {

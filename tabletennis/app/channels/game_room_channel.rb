@@ -1,3 +1,4 @@
+
 class GameRoomChannel < ApplicationCable::Channel
   @@subscribers = Hash.new
 

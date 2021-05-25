@@ -65,13 +65,13 @@ function manageGameChannels() {
   let render = new Render(document.getElementById("gamee"));
 
   let data = {
-	  type: "commandstring"
+	  type: "none"
   };
 
   mykeydown = function(e) {
   	e.preventDefault();
   	if (e.keyCode === KEY_SPACE) {
-  		data["type"] = "toggleReady"
+  		data["type"] = "ready"
   		GameSub.perform('input', data);
 	  } else if (e.keyCode === ARROW_UP || e.keyCode === KEY_W) {
 		  input = "paddle_up";
@@ -109,9 +109,10 @@ function manageGameChannels() {
         console.log("Rendering config")
         render.config(data.config);
       }
-      data["type"] = input;
-      console.log("Rendering prform")
-      GameSub.perform('input', data);
+		  if (input !== "none") {
+		  	data["type"] = input;
+		  	GameSub.perform('input', data);
+		  }
     }
   });
 }

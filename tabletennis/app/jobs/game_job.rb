@@ -20,7 +20,7 @@ class GameJob < ApplicationJob
 		@game.toggle_players_ingame_status
 		@gamestate.countdown
 		while @gamestate.status == "running"
-			@gamestate.sim_turn
+			@gamestate.game_engine
 			sleep(0.05)
 		end
 	end
