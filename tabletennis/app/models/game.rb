@@ -222,6 +222,21 @@ class Gamelogics
 		end
 	end
 
+	def change_rating(winner, loser, winner_name)
+		@game.winner = winner_name
+		@game.save!
+
+		winner.rating += 25
+		winner.save!
+		if loser.rating - 25 < 0
+			loser.rating = 0
+			loser.save!
+		else
+			loser.rating -= 25
+			loser.save!
+		end
+	end
+
 	def finish_game
 		@status = "finished"
 
@@ -236,6 +251,7 @@ class Gamelogics
 		end
 		@msg = "#{@winner}, wins!"
 		# need add change rating after game
+		change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner)
 	end
 
 	def countdown
