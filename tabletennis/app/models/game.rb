@@ -1,5 +1,3 @@
-
-
 class Player
 	attr_accessor :inputs
 	def initialize(id, x, cwidth, cheight, paddle, user, long_paddles)
@@ -222,8 +220,9 @@ class Gamelogics
 		end
 	end
 
-	def change_rating(winner, loser, winner_name)
+	def change_rating(winner, loser, winner_name, loser_name)
 		@game.winner = winner_name
+		@game.loser = loser_name
 		@game.save!
  
 		if @game.gametype == "ladder"
@@ -254,19 +253,22 @@ class Gamelogics
 
 		if @players[0].score.to_i >  @players[1].score.to_i
 			@winner = @players[0].name
+			@loser = @players[1].name
 			winner_id = @players[0].user_id
 			loser_id = @players[1].user_id
 		else
 			@winner = @players[1].name
+			@loser = @players[0].name
 			winner_id = @players[1].user_id
 			loser_id = @players[0].user_id
 		end
 		@msg = "#{@winner}, wins!"
 		# need add change rating after game
 		if @game.gametype == "ladder" || @game.gametype == "war_time"
-			change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner)
+			change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
 		else
-			@winner = User.find_by(id: winner_id).nickname
+			@game.winner = User.find_by(id: winner_id).nickname
+			@game.loser = User.find_by(id: loser_id).nickname
 			@game.save!
 		end
 	end
@@ -374,10 +376,10 @@ class Game < ApplicationRecord
     # RELSTIVES FOR PLAYERS
     belongs_to :player1, class_name: :User, required: true
     belongs_to :player2, class_name: :User, required: false
-
 	@@Gamelogics = Hash.new
 
 	def mysetup
+		p @@Gamelogics
 		p "THIS IS ID NEW GAME #{self.id} == #{id}"
 		@@Gamelogics[self.id] = Gamelogics.new(self)
 		# p "SALAM"
@@ -411,10 +413,10 @@ class Game < ApplicationRecord
 	end
 
 	def mydestructor
-		@@Gamelogics = nil
-		# GameRoomChannel.broadcast_to(self, {
-		# 	action: "redirect_after_destroy_room"
-		# })
-		# p "this game is end"
+		GameRoomChannel.broadcast_to(self, {
+			action: "redirect_after_destroy_room"
+		})
+		p "this game is end"
+		@@Gamelogics[id] = nil
 	end
 end

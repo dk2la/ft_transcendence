@@ -30,14 +30,14 @@ class GamesController < ApplicationController
   # end
 
   def create
-    param = params.require(:game).permit(:name, :background, :long_paddles)
-    game = Game.create(name: param["name"], background: param["background"], player1: current_user, long_paddles: false)
-    # game.mysetup
-    if game.save
-      redirect_to game, notice: "Game successfully created"
-    else
-      redirect_to new_game_path, alert: "#{game.errors.full_messages.join('; ')}"
-    end
+      param = params.require(:game).permit(:name, :background, :long_paddles)
+      game = Game.create(name: param["name"], background: param["background"], player1: current_user, long_paddles: false)
+      # game.mysetup
+      if game.save
+        redirect_to game, notice: "Game successfully created"
+      else
+        redirect_to new_game_path, alert: "#{game.errors.full_messages.join('; ')}"
+      end
   end
 
   def create_ladder

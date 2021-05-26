@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration[6.1]
       t.references :player1, references: :users, foreign_key: { to_table: :users }
       t.references :player2, references: :users, foreign_key: { to_table: :users }
       t.string :winner, default: "No one"
+      t.string :loser, default: "No one"
       
       t.boolean :is_finished, default: false
       t.timestamps

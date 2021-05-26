@@ -3,6 +3,11 @@ class GameRoomChannel < ApplicationCable::Channel
   @@subscribers = Hash.new
 
   def subscribed
+        # Thread.new do
+    #   Rails.application.executor.wrap do
+    #     @game.view_thread
+    #   end
+    # end
     current_user.ingame!
     # p params
     # p "SALAMALEIKUM"
@@ -11,10 +16,14 @@ class GameRoomChannel < ApplicationCable::Channel
     @@subscribers[game_room.id] ||= 0
     @@subscribers[game_room.id] += 1
 
-    @game = Game.find(game_room.id) rescue nil
-    if @game
-      @game.send_config
-    end
+    # Thread.new do
+      # Rails.application.executor.wrap do
+        @game = Game.find(game_room.id) rescue nil
+        if @game
+          @game.send_config
+        end
+      # end
+    # end
   end
 
   def input(data)

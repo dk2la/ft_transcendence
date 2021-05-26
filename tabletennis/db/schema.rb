@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_05_25_133214) do
     t.bigint "player1_id"
     t.bigint "player2_id"
     t.string "winner", default: "No one"
+    t.string "loser", default: "No one"
     t.boolean "is_finished", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
