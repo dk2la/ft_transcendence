@@ -103,8 +103,8 @@ class Gamelogics
 		@turn = 0
 		@game = game
 		# info about canvas
-		@cheight = 585
-		@cwidth = 750
+		@cheight = 570
+		@cwidth = 735
 		
 		# info about game
 		@status = "running"
@@ -258,7 +258,7 @@ class Gamelogics
 		return obj1[:x] < obj2[:x] + obj2[:width] &&
         obj1[:x] + obj1[:width] > obj2[:x] &&
         obj1[:y] < obj2[:y] + obj2[:height] &&
-        obj1[:y] + obj1[:height] > obj2[:y];
+        obj1[:y] + obj1[:height] > obj2[:y]
 	end
 
 	def updateballpos
@@ -268,7 +268,7 @@ class Gamelogics
 		  # то отправляем его в обратном направлении
 		  @ball[:dx] *= -1;
 		  # Увеличиваем координаты мяча на ширину платформы, чтобы не засчитался новый отскок
-		  @ball[:dx] = @left_paddle[:x] + @left_paddle[:width];
+		  @ball[:x] = @left_paddle[:x] + @left_paddle[:width];
 		# Проверяем и делаем то же самое для правой платформы
 		elsif collides(@ball, @right_paddle)
 		  @ball[:dx] *= -1;
