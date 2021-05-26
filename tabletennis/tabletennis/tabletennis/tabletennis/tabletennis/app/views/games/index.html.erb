@@ -1,0 +1,22 @@
+<body style="background-image: url('/assets/game_back.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+
+<div style="width: 1000px;margin: auto;height: 100%;">
+<div class="main_pages" style="border-color: white; text-align: center;">
+        <h1> ALL GAMES </h1>
+        <%= link_to 'Create game', new_game_path, class: "button_edit_profile" %>
+        </br>
+        <table class="list_guilds" style="width: 500px;"></br>
+            <tr><td>Name</td><td>Mode</td><td>Players</td><td>View</td></tr>
+            <% @games.each do |game| %>
+                <tr>
+                    <td><%= game.name %></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= link_to 'View game', game_path(game.id), class: "button_view_guild" %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>
+</body>
+

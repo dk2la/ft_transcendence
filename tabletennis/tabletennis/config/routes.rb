@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/guilds/set_officer', to: 'guilds#set_officer', as: 'set_officer'
   get '/guilds/remove_from_officer', to: 'guilds#remove_from_officer', as: 'remove_officer'
   get '/guilds/kick_member_from_guild', to: 'guilds#kick_member_from_guild', as: 'kick_member'
-  get '/guilds/start_war', to: 'guild_war#create', as: 'start_war'
+  
   
   resources :guilds
 
@@ -39,8 +39,19 @@ Rails.application.routes.draw do
   get '/chat_rooms/join_chat_room', to: 'chat_rooms#join_chat_room', as: 'join_chat'
   resources :chat_rooms
   resources :messages
+
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'
+
+  get 'guild_war/update'
+  get 'guild_war/destroy'
+
+
+  # GUILD WARS ROUTES
+  get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
+  get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
+  get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
+  get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

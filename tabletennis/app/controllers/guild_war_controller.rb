@@ -35,6 +35,7 @@ class GuildWarController < ApplicationController
         invitation.war_time_end = Time.now.to_i + 300
         invitation.save
         redirect_to guilds_path(invitation.recipient_guild)
+        GuildWarLifecycleJob.set(wait: 2.minutes).perform_later(invitation)
       end
 
       def check_if_exists

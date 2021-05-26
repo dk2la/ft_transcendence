@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 2021_05_15_122327) do
 
   create_table "guild_wars", force: :cascade do |t|
     t.string "status"
-    t.string "sender_guild"
-    t.string "recipient_guild"
+    t.bigint "sender_guild_id"
+    t.bigint "recipient_guild_id"
     t.integer "war_time_begin"
     t.integer "war_time_end"
     t.integer "battle_begin"
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2021_05_15_122327) do
     t.boolean "add_ones"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_guild_id"], name: "index_guild_wars_on_recipient_guild_id"
+    t.index ["sender_guild_id"], name: "index_guild_wars_on_sender_guild_id"
   end
 
   create_table "guilds", force: :cascade do |t|
@@ -149,4 +151,6 @@ ActiveRecord::Schema.define(version: 2021_05_15_122327) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  add_foreign_key "guild_wars", "guilds", column: "recipient_guild_id"
+  add_foreign_key "guild_wars", "guilds", column: "sender_guild_id"
 end

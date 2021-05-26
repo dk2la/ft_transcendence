@@ -30,6 +30,8 @@ gem 'pg'
 #Install cable_ready for del more js
 gem 'cable_ready'
 
+gem 'sidekiq'
+
 ## Install Autorization gem
 # Autorization gem
 gem 'devise'

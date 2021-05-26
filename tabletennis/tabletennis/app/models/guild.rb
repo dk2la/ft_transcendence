@@ -2,7 +2,8 @@ class Guild < ApplicationRecord
     has_many :guild_members, dependent: :destroy
     has_many :users, :through => :guild_members
     has_many :invitations
-    has_many :pending_invitations, -> { where status: "rejected" }, class_name: 'GuildWar', foreign_key: 'recipient_guild'
+    has_one  :guild_war, class_name: :GuildWar, required: false
+    has_many :pending_invitations, -> { where status: "pending" }, class_name: 'GuildWar', foreign_key: 'recipient_guild'
     
     def show_guild_war
         guild_send_inv = GuildWar.where(sender_guild: id, status: "confirmed").pluck(:recipient_guild)

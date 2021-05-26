@@ -1,9 +1,9 @@
 class CreateGuildWars < ActiveRecord::Migration[6.1]
   def change
     create_table :guild_wars do |t|
-      t.string :status
-      t.string :sender_guild
-      t.string :recipient_guild
+      t.string  :status
+      t.references :sender_guild, references: :guilds, foreign_key: { to_table: :guilds } 
+      t.references :recipient_guild, references: :guilds, foreign_key: { to_table: :guilds }
       t.integer :war_time_begin
       t.integer :war_time_end
       t.integer :battle_begin

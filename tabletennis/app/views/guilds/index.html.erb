@@ -19,14 +19,16 @@
             </tr></br>
         <% end %>
         </table>
-        <% unless current_user.guild.pending_invitations.empty? %>
-            <h1>Guild War invitations</h1>
-            <% @gw = GuildWar.all.find_by(recipient_guild_id: current_user.guild.id) %>
-            <tr>
-              <td><p>From guild: <%= @gw.sender_guild.name%> </p> </td>
-              <td><%= link_to 'Accept Invitation', guild_war_update_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
-              <td><%= link_to 'Reject Invitation', guild_war_destroy_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
-        <% end %> 
+        <% if current_user.guild%>
+            <% unless current_user.guild.pending_invitations.empty? %>
+                <h1>Guild War invitations</h1>
+                <% @gw = GuildWar.all.find_by(recipient_guild_id: current_user.guild.id) %>
+                <tr>
+                  <td><p>From guild: <%= @gw.sender_guild.name%> </p> </td>
+                  <td><%= link_to 'Accept Invitation', guild_war_update_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
+                  <td><%= link_to 'Reject Invitation', guild_war_destroy_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
+            <% end %> 
+        <% end %>
     </div>
 </div>
 </body>
