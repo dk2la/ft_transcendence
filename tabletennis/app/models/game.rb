@@ -316,9 +316,14 @@ class Gamelogics
 		# @right_paddle[:y] = @players[1].move(@ball, @grid, @maxPaddleY)
 		@players.each do |p|
 			p.move(@ball, @grid, @maxPaddleY)
+			if p.paddle[:y] > @maxPaddleY
+				p.paddle[:y] = @maxPaddleY
+			elsif p.paddle[:y] < @grid
+				p.paddle[:y] = @grid
+			end
 		end
 
-		updateballpos
+		# updateballpos
 
 		if @players.any? { |p| p.score.to_i == 5}
 			finish_game

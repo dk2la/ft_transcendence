@@ -24,7 +24,7 @@ class Render {
       	this.context.fillRect(0, 0, this.canvas.width, this.grid);
       	this.context.fillRect(0, this.canvas.height - this.grid, this.canvas.width, this.canvas.height);
 		for (let i = this.grid; i < this.canvas.height - this.grid; i += this.grid * 2) {
-			this.context.fillRect(this.canvas.width / 2 - this.grid / 2, i, this.grid, this.grid);
+			this.context.fillRect(this.canvas.width / 2 - this.grid / 2 + 7, i, this.grid, this.grid);
 		}
 		// console.log(`resetCanvas: width=${this.canvas.width}, height=${this.canvas.height}, fillStyle = ${this.context.fillStyle}`);
 	}
