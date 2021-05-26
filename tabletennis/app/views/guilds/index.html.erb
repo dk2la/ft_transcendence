@@ -13,12 +13,17 @@
                 <td><%= guild.rating %></td>
                 <td><%= guild.description %></td>
                 <td><%= link_to 'View guild', guild_path(guild.id), class: "button_view_guild" %>
-                <% if current_user.guild && current_user.guild.id != guild.id %>
+                <%= current_user.guild.id%>
+                <%= guild.id %>
+                <% if current_user.guild && current_user.guild.id != guild.id  && !GuildWar.reacted?(current_user.guild.id, guild.id) %>
                 <td><%= link_to 'War', create_war_path(ids: {id1: current_user.guild.id, id2: guild.id}), class: "button_view_guild" %>
                 <% end %>
             </tr></br>
         <% end %>
         </table>
+        <%# <% unless current_user.guild.pending_invitations.empty? %>
+        <%# <h1>Guilds</h1>
+        <% end %> 
     </div>
 </div>
 </body>

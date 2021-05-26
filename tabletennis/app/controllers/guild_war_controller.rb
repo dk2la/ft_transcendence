@@ -30,9 +30,9 @@ class GuildWarController < ApplicationController
     
       def update
         invitation = GuildWar.find(params[:invitation_id])
-        p current_user
-        invitation.update(confirmed: true)
-        redirect_to guilds_path(invitation.id)
+        p current_user.guild
+        invitation.update(status: "confirmed")
+        redirect_to guilds_path(invitation.recipient_guild)
       end
 
       def check_if_exists

@@ -2,8 +2,11 @@ class Friendship < ApplicationRecord
     belongs_to :user
 
     def self.reacted?(id1, id2)
+        puts "FRIENDSHIP\n\n\n\n\n\n"
         case1 = !Friendship.where(user_id: id1, friend_id: id2).empty?
         case2 = !Friendship.where(user_id: id2, friend_id: id1).empty?
+        puts case1 || case2 ? "true" : "false"
+        puts "-"
         case1 || case2
       end
     

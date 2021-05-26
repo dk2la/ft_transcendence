@@ -3,8 +3,11 @@ class GuildWar < ApplicationRecord
     belongs_to :recipient_guild, class_name: :Guild
 
     def self.reacted?(id1, id2)
-        case1 = !GuildWar.where(sender_guild: id1, recipient_guild: id2).empty?
-        case2 = !GuildWar.where(sender_guild: id2, recipient_guild: id1).empty?
+        puts "WAR\n\n\n\n\n\n"
+        case1 = !GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2).empty?
+        case2 = !GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1).empty?
+        puts case1 || case2 ? "true" : "false"
+        puts "-"
         case1 || case2
     end
     
