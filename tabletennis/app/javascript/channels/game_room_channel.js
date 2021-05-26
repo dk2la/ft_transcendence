@@ -96,7 +96,7 @@ function manageGameChannels() {
     disconnected: () => {
       console.log("disconnectrd from game_room_" + GameSub.identifier);
       document.removeEventListener('keydown', mykeydown);
-      document.removeEventListener('keydown', mykeyup);
+      document.removeEventListener('keyup', mykeyup);
     },
 
     received: (data) => {

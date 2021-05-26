@@ -20,19 +20,28 @@ class Player
 		@inputs = Array.new
 	end
 
+	def inc_score
+		@score += 1
+	end
+
 	def move_paddle(action, grid, maxPaddleY)
 		return unless action
 
 		if action[:action] == "paddle_up"
+			p "THIS IS MAXPADDLEY #{maxPaddleY}"
 			@paddle[:dy] = -6
 			@paddle[:y] += @paddle[:dy]
 			if @paddle[:y] > maxPaddleY
+				p "THIS IS MAXPADDLEY AFTER IF for UP #{maxPaddleY}"
+				p "THIS IS PADDLE[:Y] AFTER IF for UP #{@paddle[:y]}"
 				@paddle[:y] = maxPaddleY
 			end
 		elsif action[:action] == "paddle_down"
 			@paddle[:dy] = 6
 			@paddle[:y] += @paddle[:dy]
 			if @paddle[:y] < grid
+				p "THIS IS GRID AFTER IF for UP #{grid}"
+				p "THIS IS PADDLE[:Y] AFTER IF for UP #{@paddle[:y]}"
 				@paddle[:y] = grid
 			end
 		end
@@ -56,6 +65,10 @@ class Player
 		unless @ai
 			@inputs.unshift(new_move)
 		end
+	end
+
+	def reset_paddle_dy
+		@paddle[:dy] = 0
 	end
 
 	#GETTERS FOR PLAYER VALUES
@@ -239,7 +252,29 @@ class Gamelogics
 	def score
 	end
 
+	def collides(obj1, obj2)
+		# p "this is OBJ1 #{obj1}"
+		# p "this is OBJ2 #{obj2}"
+		return obj1[:x] < obj2[:x] + obj2[:width] &&
+        obj1[:x] + obj1[:width] > obj2[:x] &&
+        obj1[:y] < obj2[:y] + obj2[:height] &&
+        obj1[:y] + obj1[:height] > obj2[:y];
+	end
+
 	def updateballpos
+
+		# Если мяч коснулся левой платформы,
+		if collides(@ball, @left_paddle)
+		  # то отправляем его в обратном направлении
+		  @ball[:dx] *= -1;
+		  # Увеличиваем координаты мяча на ширину платформы, чтобы не засчитался новый отскок
+		  @ball[:dx] = @left_paddle[:x] + @left_paddle[:width];
+		# Проверяем и делаем то же самое для правой платформы
+		elsif collides(@ball, @right_paddle)
+		  @ball[:dx] *= -1;
+		  @ball[:x] = @right_paddle[:x] - @ball[:width];
+		end
+
 		@ball[:x] += @ball[:dx];
       	@ball[:y] += @ball[:dy];
       	# Если мяч касается стены снизу — меняем направление по оси У на противоположное
@@ -247,7 +282,7 @@ class Gamelogics
         	@ball[:y] = @grid;
         	@ball[:dy] *= -1;
       	# Делаем то же самое, если мяч касается стены сверху
-      	elsif @ball[:dy] + @grid > @cheight - @grid
+      	elsif @ball[:y] + @grid > @cheight - @grid
  	       @ball[:y] = @cheight - @grid * 2;
     	    @ball[:dy] *= -1;
 		end
@@ -256,7 +291,7 @@ class Gamelogics
 			# Помечаем, что мяч перезапущен, чтобы не зациклиться
 			@ball[:resetting] = true;
 			# Даём секунду на подготовку игрокам
-			score
+			if @ball[:x] < 0 then @players[1].inc_score else @players[0].inc_score end
 			sleep(1)
 			#Всё, мяч в игре
 			@ball[:resetting] = false;
@@ -267,6 +302,9 @@ class Gamelogics
 	end
 
 	def game_engine
+		@players.each do |p|
+			p.reset_paddle_dy
+		end
 		if !@game
 			@status = "finished"
 		end
@@ -335,9 +373,9 @@ class Game < ApplicationRecord
 
 	def mydestructor
 		@@Gamelogics = nil
-		GameRoomChannel.broadcast_to(self, {
-			action: "redirect_after_destroy_room"
-		})
-		p "this game is end"
+		# GameRoomChannel.broadcast_to(self, {
+		# 	action: "redirect_after_destroy_room"
+		# })
+		# p "this game is end"
 	end
 end

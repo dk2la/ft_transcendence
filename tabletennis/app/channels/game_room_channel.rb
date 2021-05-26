@@ -4,8 +4,8 @@ class GameRoomChannel < ApplicationCable::Channel
 
   def subscribed
     current_user.ingame!
-    p params
-    p "SALAMALEIKUM"
+    # p params
+    # p "SALAMALEIKUM"
     game_room = Game.find(params[:game_room])
     stream_for game_room
     @@subscribers[game_room.id] ||= 0
@@ -18,7 +18,7 @@ class GameRoomChannel < ApplicationCable::Channel
   end
 
   def input(data)
-    p "HERE WE SEE US GAME"
+    # p "HERE WE SEE US GAME"
 		if @game
 			if current_user == @game.player1
 				id = 0
@@ -27,8 +27,8 @@ class GameRoomChannel < ApplicationCable::Channel
 			else
 				return false
 			end
-      p "HERE WE SEE US GAME"
-      p @game
+      # p "HERE WE SEE US GAME"
+      # p @game
 			@game.add_input(data["type"], id)
 		end
 		true
