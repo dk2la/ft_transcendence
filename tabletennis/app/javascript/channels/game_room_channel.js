@@ -22,10 +22,21 @@ function received_data(data, game_div) {
       if (data["title"] === game_target_id)
         drawLayoutsPlayer(data["added_user"], data["guild_anagram"]);
     } else if (data["action"] == "redirect_after_destroy_room") {
-      if (data["title"] == game_target_id)
-        redirectAfterDestroy();
+        if (data["title"] == game_target_id)
+          redirectAfterDestroy();
+    } else if (data["action"] == "draw_rules") {
+      console.log("I`AM DRAWING RULES")
+        if (data["title"] == game_target_id)
+          drawRules();
     }
 	}
+}
+
+function drawRules() {
+    // <h1 id="waiting-h1"> waiting second player </h1>
+    console.log("HELLO IAM DRAWING RULE HERE");
+    $('#waiting-h1').remove();
+    $('#waiting-div').append('<h1 id="waiting-h1"> Press SPACE for start or pause game </h1>');
 }
 
 function redirectAfterDestroy() {
@@ -46,6 +57,11 @@ function drawLayoutsPlayer(added_user, guild_anagram) {
   console.log("HELLO I`M HERE");
   console.log(`This is html what i am added ${html}`);
   $('#list-players').append(html);
+
+  // <h1 id="waiting-h1"> waiting second player </h1>
+  console.log("HELLO IAM DRAWING RULE HERE");
+  $('#waiting-h1').remove();
+  $('#waiting-div').append('<h1 id="waiting-h1"> Press SPACE for start or pause game </h1>');
 }
 
 function removeStaleGameConnections() {

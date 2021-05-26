@@ -3,6 +3,7 @@ class GamesController < ApplicationController
 	skip_before_action :verify_authenticity_token
   before_action :set_game, only: [:show]
   before_action :check_game_member, only: [:new, :create]
+  # after_action :draw_rules, only: [:show], if: -> { @game.player1 && @game.player2 }
 
   def index
     @games = Game.all
@@ -21,10 +22,17 @@ class GamesController < ApplicationController
     # end
   end
 
+  # def draw_rules
+  #   GameRoomChannel.broadcast_to(@game, {
+  #       action: "draw_rules",
+  #       title: "#{@game.id}",
+  #     })
+  # end
+
   def create
     param = params.require(:game).permit(:name, :background, :long_paddles)
     game = Game.create(name: param["name"], background: param["background"], player1: current_user, long_paddles: false)
-    game.mysetup
+    # game.mysetup
     if game.save
       redirect_to game, notice: "Game successfully created"
     else
@@ -35,14 +43,14 @@ class GamesController < ApplicationController
   def join_to_game
     game = 1
     @game = Game.find(params[:id])
-    if Game.where(player1: current_user).empty? == false || Game.where(player2: current_user).empty? == false
-      if Game.where(player1: current_user).empty? == false
-        Game.where(player1: current_user).each do |g|
+    if Game.where(player1: current_user, is_finished: false).empty? == false || Game.where(player2: current_user, is_finished: false).empty? == false
+      if Game.where(player1: current_user, is_finished: false).empty? == false
+        Game.where(player1: current_user, is_finished: false).each do |g|
           game = g
         end
         redirect_to game, alert: "You already in game #{game.name}"
-      elsif Game.where(player2: current_user).empty? == false
-        Game.where(player2: current_user).each do |g|
+      elsif Game.where(player2: current_user, is_finished: false).empty? == false
+        Game.where(player2: current_user, is_finished: false).each do |g|
           game = g
         end
         redirect_to game, alert: "You already in game #{game.name}"
@@ -50,6 +58,7 @@ class GamesController < ApplicationController
     elsif @game[:player1_id] != current_user.id && @game[:player2_id] == nil
       @game.update(player2_id: current_user.id)
       @game.mysetup
+      @game.save
       redirect_to @game, notice: "Successfully join to game #{@game.name}"
     else
       redirect_to @game, alert: "You already in game #{@game.name}, just play"
@@ -93,14 +102,14 @@ class GamesController < ApplicationController
 
   def check_game_member
     game = 1
-    if Game.where(player1: current_user).empty? == false || Game.where(player2: current_user).empty? == false
-      if Game.where(player1: current_user).empty? == false
-        Game.where(player1: current_user).each do |g|
+    if Game.where(player1: current_user, is_finished: false).empty? == false || Game.where(player2: current_user, is_finished: false).empty? == false
+      if Game.where(player1: current_user, is_finished: false).empty? == false
+        Game.where(player1: current_user, is_finished: false).each do |g|
           game = g
         end
         redirect_to game, alert: "You already in game #{game.name}"
-      elsif Game.where(player2: current_user).empty? == false
-        Game.where(player2: current_user).each do |g|
+      elsif Game.where(player2: current_user, is_finished: false).empty? == false
+        Game.where(player2: current_user, is_finished: false).each do |g|
           game = g
         end
         redirect_to game, alert: "You already in game #{game.name}"

@@ -115,7 +115,7 @@ class Gamelogics
 		@paddleHeight = @grid * 5
 		@maxPaddleY = @cheight - @grid - @paddleHeight
 		@paddleSpeed = 6
-		@ballSpeed = 5
+		@ballSpeed = 7
 		
 		@ball = {
 			x: @cwidth / 2,
@@ -230,7 +230,7 @@ class Gamelogics
 			winner_id = @players[0].user_id
 			loser_id = @players[1].user_id
 		else
-			@winner = @players[0].name
+			@winner = @players[1].name
 			winner_id = @players[1].user_id
 			loser_id = @players[0].user_id
 		end
@@ -323,7 +323,7 @@ class Gamelogics
 			end
 		end
 
-		# updateballpos
+		updateballpos
 
 		if @players.any? { |p| p.score.to_i == 5}
 			finish_game
@@ -345,9 +345,10 @@ class Game < ApplicationRecord
 	@@Gamelogics = Hash.new
 
 	def mysetup
+		p "THIS IS ID NEW GAME #{self.id} == #{id}"
 		@@Gamelogics[self.id] = Gamelogics.new(self)
 		# p "SALAM"
-		# p @@Gamelogics[id]
+		p @@Gamelogics[id]
 	end
 
 	def send_config
