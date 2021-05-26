@@ -236,6 +236,36 @@ class Gamelogics
 		@msg = nil
 	end
 
+	def score
+	end
+
+	def updateballpos
+		@ball[:x] += @ball[:dx];
+      	@ball[:y] += @ball[:dy];
+      	# Если мяч касается стены снизу — меняем направление по оси У на противоположное
+      	if @ball[:y] < @grid
+        	@ball[:y] = @grid;
+        	@ball[:dy] *= -1;
+      	# Делаем то же самое, если мяч касается стены сверху
+      	elsif @ball[:dy] + @grid > @cheight - @grid
+ 	       @ball[:y] = @cheight - @grid * 2;
+    	    @ball[:dy] *= -1;
+		end
+
+		if (@ball[:x] < 0 || @ball[:x] > @cwidth) && !@ball[:resetting]
+			# Помечаем, что мяч перезапущен, чтобы не зациклиться
+			@ball[:resetting] = true;
+			# Даём секунду на подготовку игрокам
+			score
+			sleep(1)
+			#Всё, мяч в игре
+			@ball[:resetting] = false;
+			# Снова запускаем его из центра
+			@ball[:x] = @cwidth / 2;
+			@ball[:y] = @cheight / 2;
+		end
+	end
+
 	def game_engine
 		if !@game
 			@status = "finished"
@@ -249,6 +279,8 @@ class Gamelogics
 		@players.each do |p|
 			p.move(@ball, @grid, @maxPaddleY)
 		end
+
+		updateballpos
 
 		if @players.any? { |p| p.score.to_i == 5}
 			finish_game
