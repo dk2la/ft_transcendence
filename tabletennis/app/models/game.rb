@@ -225,15 +225,27 @@ class Gamelogics
 	def change_rating(winner, loser, winner_name)
 		@game.winner = winner_name
 		@game.save!
-
-		winner.rating += 25
-		winner.save!
-		if loser.rating - 25 < 0
-			loser.rating = 0
-			loser.save!
-		else
-			loser.rating -= 25
-			loser.save!
+ 
+		if @game.gametype == "ladder"
+			winner.rating += 25
+			winner.save!
+			if loser.rating - 25 < 0
+				loser.rating = 0
+				loser.save!
+			else
+				loser.rating -= 25
+				loser.save!
+			end
+		elsif @game.gametype == "war_time"
+			winner.guild.rating += 25
+			winner.guild.save!
+			if loser.guild.rating - 25 < 0
+				loser.guild.rating = 0
+				loser.guild.save!
+			else
+				loser.guild.rating -= 25
+				loser.guild.save!
+			end
 		end
 	end
 
@@ -251,7 +263,12 @@ class Gamelogics
 		end
 		@msg = "#{@winner}, wins!"
 		# need add change rating after game
-		change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner)
+		if @game.gametype == "ladder" || @game.gametype == "war_time"
+			change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner)
+		else
+			@winner = User.find_by(id: winner_id).nickname
+			@game.save!
+		end
 	end
 
 	def countdown

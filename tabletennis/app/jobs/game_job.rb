@@ -11,6 +11,8 @@ class GameJob < ApplicationJob
 			@game.toggle_players_ingame_status
 			@game.mydestructor
 			@game.is_finished = true
+			@game.player1.online!
+			@game.player2.online!
 			@game.save
 			# @game.destroy
 		end

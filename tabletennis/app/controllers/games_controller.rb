@@ -40,6 +40,32 @@ class GamesController < ApplicationController
     end
   end
 
+  def create_ladder
+    # queueing_users = User.where(is_queueing: true).where.not(id: current_user.id)
+    # if queueing_users.length > 0
+    #   op = queueing_users.first
+    #   op.update(is_queueing: false)
+    #   ladder = Game.find_by(id: )
+    #   ladder.mysetup
+    #   ladder.save
+    #   RedirectChannel.broadcast_to(current_user, {
+    #     action: "redirect",
+    #     id: ladder.id
+    #   })
+    #   RedirectChannel.broadcast_to(op, {
+    #     action: "redirect",
+    #     id: ladder.id
+    #   })
+    #   render json: { status: "Start play"}, status: :ok
+    # else
+      current_user.update(is_queueing: true)
+      current_user.save
+      ladder = Game.new(name: ('a'..'z').to_a.shuffle[0..7].join, player1: current_user, name_player1: current_user.nickname, gametype: "ladder")
+      ladder.save
+      redirect_to ladder, notice: "Welcome to ladder game #{ladder.name}"
+    # end
+  end
+
   def join_to_game
     game = 1
     @game = Game.find(params[:id])
