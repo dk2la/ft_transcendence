@@ -1,0 +1,17 @@
+<header>
+  <div class="head_menu">
+    <div class="friends">
+        <img style="margin-bottom: -10px;margin-top: 25px;" height="50" width="50" src="/assets/logo.svg" alt="Game logo">
+        </br></br>
+        <div>
+          <%= link_to "Home",   profiles_path, class: "current_head" %>
+          <%= link_to "Games",   games_path, class: "current_head" %>
+          <%= link_to "Tournaments",   '#', class: "current_head" %>
+          <%= link_to "Guilds",   guilds_path, class: "current_head" %>
+          <%= link_to "Online players", list_players_path, class: "current_head" %>
+          <%= link_to 'Chat', chat_rooms_path, class: "current_head" %>
+          <%= link_to 'About us', abouts_index_path, class: "current_head" %>
+        </div>
+      </div>
+  </div>
+</header>

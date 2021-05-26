@@ -44,6 +44,9 @@ Rails.application.routes.draw do
   get 'friendship/create'
   get 'friendship/destroy'
 
+  get 'guild_war/update'
+  get 'guild_war/destroy'
+
 
   # GUILD WARS ROUTES
   get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'

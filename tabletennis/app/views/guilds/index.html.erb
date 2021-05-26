@@ -13,16 +13,19 @@
                 <td><%= guild.rating %></td>
                 <td><%= guild.description %></td>
                 <td><%= link_to 'View guild', guild_path(guild.id), class: "button_view_guild" %>
-                <%= current_user.guild.id%>
-                <%= guild.id %>
                 <% if current_user.guild && current_user.guild.id != guild.id  && !GuildWar.reacted?(current_user.guild.id, guild.id) %>
                 <td><%= link_to 'War', create_war_path(ids: {id1: current_user.guild.id, id2: guild.id}), class: "button_view_guild" %>
                 <% end %>
             </tr></br>
         <% end %>
         </table>
-        <%# <% unless current_user.guild.pending_invitations.empty? %>
-        <%# <h1>Guilds</h1>
+        <% unless current_user.guild.pending_invitations.empty? %>
+            <h1>Guild War invitations</h1>
+            <% @gw = GuildWar.all.find_by(recipient_guild_id: current_user.guild.id) %>
+            <tr>
+              <td><p>From guild: <%= @gw.sender_guild.name%> </p> </td>
+              <td><%= link_to 'Accept Invitation', guild_war_update_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
+              <td><%= link_to 'Reject Invitation', guild_war_destroy_path(invitation_id: @gw.id), class: "button_edit_profile" %></td>
         <% end %> 
     </div>
 </div>

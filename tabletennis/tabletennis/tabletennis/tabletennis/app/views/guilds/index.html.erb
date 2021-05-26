@@ -1,0 +1,24 @@
+<body style="background-image: url('/assets/guild.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <div class="main_pages" style="border-color: white; text-align: center;">
+        <h1>Guilds</h1>
+        <%= link_to "Create guild", new_guild_path, class: "button_edit_profile" %></br>
+        <table class="list_guilds" style="width: 500px;">
+        </br>
+        <tr><td>Name</td><td>Anagram</td><td>Rating</td><td>Description</td><td>View</td></tr>
+        <% @guilds.each do |guild| %>
+            <tr>
+                <td><%= guild.name %></td>
+                <td><%= [guild.anagram] %></td>
+                <td><%= guild.rating %></td>
+                <td><%= guild.description %></td>
+                <td><%= link_to 'View guild', guild_path(guild.id), class: "button_view_guild" %>
+                <td><%= link_to 'War', guild_path(guild.id), class: "button_guild_war" %>
+            </tr></br>
+        <% end %>
+        </table>
+    </div>
+</div>
+</body>
+
+

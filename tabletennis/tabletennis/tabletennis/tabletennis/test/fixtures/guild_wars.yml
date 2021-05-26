@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  sender_guild: MyString
+  recipient_guild: MyString
+  war_time_begin: 1
+  war_time_end: 1
+  battle_begin: 1
+  battle_end: 1
+  points: 1
+  max_ignored_invites: 1
+  add_ones: false
+
+two:
+  status: MyString
+  sender_guild: MyString
+  recipient_guild: MyString
+  war_time_begin: 1
+  war_time_end: 1
+  battle_begin: 1
+  battle_end: 1
+  points: 1
+  max_ignored_invites: 1
+  add_ones: false

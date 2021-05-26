@@ -13,25 +13,27 @@ class GuildWarController < ApplicationController
         @g2 = Guild.all.find_by(id: id2).name
 
         @invitation = GuildWar.new(sender_guild_id: id1, recipient_guild_id: id2)
-        @invitation.war_time_begin = Time.now.to_i
-        @invitation.war_time_end = Time.now.to_i + 300
-        @invitation.status = 'created'
+        @invitation.status = 'pending'
         @invitation.save
         
         
         redirect_to show_war_path(id1: id1, id2: id2)
     end
     
-    #   def destroy
-    #     invitation = Friendship.find(params[:invitation_id])
-    #     invitation.destroy
-    #     redirect_to profiles_path(current_user.id)
-    #   end
+      def destroy
+        invitation = GuildWar.find(params[:invitation_id])
+        invitation.update(status: "rejected")
+        invitation.destroy
+        redirect_to guilds_path(invitation.recipient_guild)
+      end
     
       def update
         invitation = GuildWar.find(params[:invitation_id])
         p current_user.guild
         invitation.update(status: "confirmed")
+        invitation.war_time_begin = Time.now.to_i
+        invitation.war_time_end = Time.now.to_i + 300
+        invitation.save
         redirect_to guilds_path(invitation.recipient_guild)
       end
 
