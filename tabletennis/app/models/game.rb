@@ -379,11 +379,8 @@ class Game < ApplicationRecord
 	@@Gamelogics = Hash.new
 
 	def mysetup
-		p @@Gamelogics
 		p "THIS IS ID NEW GAME #{self.id} == #{id}"
 		@@Gamelogics[self.id] = Gamelogics.new(self)
-		# p "SALAM"
-		p @@Gamelogics[id]
 	end
 
 	def send_config
