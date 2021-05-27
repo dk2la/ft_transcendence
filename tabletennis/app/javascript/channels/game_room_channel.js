@@ -131,6 +131,8 @@ function manageGameChannels() {
         render.config(data.config);
       }
 		  if (input !== "none") {
+        if (document.getElementById('leave-game-btn') != null)
+          $('#leave-game-btn').remove();
 		  	data["type"] = input;
 		  	GameSub.perform('input', data);
 		  }

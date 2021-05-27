@@ -26,18 +26,6 @@
         <td><%= @game.player1.rating %></td>
         <td id="fp-score"> LEFT PADDLE </td>
     </tr>
-    <tr id="second-player">
-        <% if @game.player2 %>
-            <td><%= @game.player2.nickname %></td>
-            <% if @game.player2.guild %>
-                <td><%= [@game.player2.guild.anagram] %></td>
-            <% else %>
-            <td>[NO GUILD]</td>
-            <% end %>
-            <td><%= @game.player2.rating %></td>
-            <td id="sp-side"> RIGHT PADDLE </td>
-        <% end %>
-    </tr>
 </table>
 </div>
 </body>

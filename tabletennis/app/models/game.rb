@@ -216,6 +216,13 @@ class Gamelogics
 		end
 	end
 
+	def reset_paddle_position
+		@left_paddle[:x] =  @grid * 2
+		@left_paddle[:y] = @cheight / 2 - @paddleHeight / 2
+		@right_paddle[:x] = @cwidth - @grid * 3
+		@right_paddle[:y] =  @cheight / 2 - @paddleHeight / 2
+	end
+
 	def change_rating(winner, loser, winner_name, loser_name)
 		@game.winner = winner_name
 		@game.loser = loser_name
@@ -242,10 +249,6 @@ class Gamelogics
 				loser.guild.save!
 			end
 		end
-		GameRoomChannel.broadcast_to(@game, {
-			action: "removeEvent",
-			title: "#{@game.id}",
-		})
 	end
 
 	def finish_game
@@ -271,6 +274,10 @@ class Gamelogics
 			@game.loser = User.find_by(id: loser_id).nickname
 			@game.save!
 		end
+		GameRoomChannel.broadcast_to(@game, {
+			action: "removeEvent",
+			title: "#{@game.id}",
+		})
 	end
 
 	def countdown
@@ -327,6 +334,7 @@ class Gamelogics
 			@ball[:resetting] = true;
 			# Даём секунду на подготовку игрокам
 			if @ball[:x] < 0 then @players[1].inc_score else @players[0].inc_score end
+			reset_paddle_position
 			sleep(1)
 			#Всё, мяч в игре
 			@ball[:resetting] = false;
