@@ -61,51 +61,76 @@
                 <% end %>
             </table>
         </div>
-        <% unless @friends.empty? && current_user.pending_invitations.empty? %>
-        <h1>Friends</h1>
-        <table class="friends" style="width: 500px;">
-            <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
-            <% @friends.each do |friend| %>
-                <tr>
-                    <td><%= friend.nickname %></td>
-                    <% if friend.guild %>
-                        <td><%= [friend.guild.anagram] %></td>
-                    <% else %>
-                        <td>["None"]</td>
-                    <% end %>
-                    <td><%= friend.email %></td>
-                    <td><%= friend.rating %></td>
-                    <td><%= friend.status %></td>
-                    <td><%= link_to 'View profile', list_player_path(friend.id), class: "button_make_officer" %></td>
-                    <% if current_user.chat_rooms.where(direct: true).empty? %>
-                        <td><%= link_to 'Direct', create_dm_path(direct_mate: friend.id, current_id: current_user.id), class: "button_make_officer" %></td>
-                    <% end %>
-                    <% current_user.chat_rooms.where(direct: true).each do |chat| %>
-                        <% unless chat.room_members.find_by(user_id: friend.id) %>
-                            <td><%= link_to 'Direct', create_dm_path(direct_mate: friend.id, current_id: current_user.id), class: "button_make_officer" %></td>
-                        <% else %>
-                            <td><%= link_to 'View Direct', chat_room_path(chat.id), class: "button_make_officer" %></td>
+        <% if current_user.pending_duels.empty? == false %>
+            <div>
+                <h1>Duels</h1>
+                <table class="friends" style="width: 500px;">
+                    <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
+                    <% if Game.where(player1: current_user.id, is_finished: false).empty? == true || Game.where(player2: current_user.id, is_finished: false).empty? == true %>
+                        <% current_user.pending_duels.each do |duel| %>
+                            <tr>
+                                <td><%= User.find(duel.sender_id).nickname %></td>
+                                <% if User.find(duel.sender_id).guild %>
+                                    <td><%= User.find(duel.sender_id).guild.name %></td>
+                                <% else %>
+                                    <td>["None"]</td>
+                                <% end %>
+                                <td><%= User.find(duel.sender_id).email %></td>
+                                <td><%= User.find(duel.sender_id).rating %></td>
+                                <td><%= User.find(duel.sender_id).status %></td>
+                                <td><%= link_to 'Accept Invitation', duels_update_path(duel_id: duel.id), class: "button_send_invite" %></td>
+                                <td><%= link_to 'Reject Invitation', duels_destroy_path(duel_id: duel.id), class: "button_leave_guild" %></td>
+                            </tr>
                         <% end %>
                     <% end %>
-                    <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
-                </tr>
-                <% end %>
-                <% current_user.pending_invitations.each do |invitation| %>
+                </table>
+            </div>
+        <% end %>
+        <% unless @friends.empty? && current_user.pending_invitations.empty? %>
+            <h1>Friends</h1>
+            <table class="friends" style="width: 500px;">
+                <tr><td>Name</td><td>Anagram</td><td>Email</td><td>Rating</td><td>Status</td><td></td><td></td></tr>
+                <% @friends.each do |friend| %>
                     <tr>
-                    <td><%= User.find(invitation.user_id).nickname %></td>
-                    <% if User.find(invitation.user_id).guild %>
-                        <td><%= User.find(invitation.user_id).guild.name %></td>
-                    <% else %>
-                        <td>["None"]</td>
-                    <% end %>
-                    <td><%= User.find(invitation.user_id).email %></td>
-                    <td><%= User.find(invitation.user_id).rating %></td>
-                    <td><%= User.find(invitation.user_id).status %></td>
-                    <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
-                    <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
+                        <td><%= friend.nickname %></td>
+                        <% if friend.guild %>
+                            <td><%= [friend.guild.anagram] %></td>
+                        <% else %>
+                            <td>["None"]</td>
+                        <% end %>
+                        <td><%= friend.email %></td>
+                        <td><%= friend.rating %></td>
+                        <td><%= friend.status %></td>
+                        <td><%= link_to 'View profile', list_player_path(friend.id), class: "button_make_officer" %></td>
+                        <% if current_user.chat_rooms.where(direct: true).empty? %>
+                            <td><%= link_to 'Direct', create_dm_path(direct_mate: friend.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                        <% end %>
+                        <% current_user.chat_rooms.where(direct: true).each do |chat| %>
+                            <% unless chat.room_members.find_by(user_id: friend.id) %>
+                                <td><%= link_to 'Direct', create_dm_path(direct_mate: friend.id, current_id: current_user.id), class: "button_make_officer" %></td>
+                            <% else %>
+                                <td><%= link_to 'View Direct', chat_room_path(chat.id), class: "button_make_officer" %></td>
+                            <% end %>
+                        <% end %>
+                        <td><%= link_to 'Destroy Friendship', friendship_destroy_path(invitation_id: Friendship.find_invitation(current_user.id, friend.id)), class: "button_leave_guild" %></td>
                     </tr>
-                <% end %>
-        </table>
+                    <% end %>
+                    <% current_user.pending_invitations.each do |invitation| %>
+                        <tr>
+                            <td><%= User.find(invitation.user_id).nickname %></td>
+                            <% if User.find(invitation.user_id).guild %>
+                                <td><%= User.find(invitation.user_id).guild.name %></td>
+                            <% else %>
+                                <td>["None"]</td>
+                            <% end %>
+                            <td><%= User.find(invitation.user_id).email %></td>
+                            <td><%= User.find(invitation.user_id).rating %></td>
+                            <td><%= User.find(invitation.user_id).status %></td>
+                            <td><%= link_to 'Accept Invitation', friendship_update_path(invitation_id: invitation.id), class: "button_send_invite" %></td>
+                            <td><%= link_to 'Reject Invitation', friendship_destroy_path(invitation_id: invitation.id), class: "button_leave_guild" %></td>
+                        </tr>
+                    <% end %>
+            </table>
         <% end %>
         </br></br></br></br>
         </div>

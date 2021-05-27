@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_25_133214) do
+ActiveRecord::Schema.define(version: 2021_05_27_175425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 2021_05_25_133214) do
     t.index ["chat_room_id"], name: "index_direct_rooms_on_chat_room_id"
     t.index ["first_user_id"], name: "index_direct_rooms_on_first_user_id"
     t.index ["second_user_id"], name: "index_direct_rooms_on_second_user_id"
+  end
+
+  create_table "duels", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_duels_on_receiver_id"
+    t.index ["sender_id"], name: "index_duels_on_sender_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -172,6 +182,8 @@ ActiveRecord::Schema.define(version: 2021_05_25_133214) do
   add_foreign_key "blocked_users", "users", column: "cur_id"
   add_foreign_key "direct_rooms", "users", column: "first_user_id"
   add_foreign_key "direct_rooms", "users", column: "second_user_id"
+  add_foreign_key "duels", "users", column: "receiver_id"
+  add_foreign_key "duels", "users", column: "sender_id"
   add_foreign_key "games", "users", column: "player1_id"
   add_foreign_key "games", "users", column: "player2_id"
 end

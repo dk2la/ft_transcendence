@@ -54,7 +54,6 @@
                 <td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">    
                 <%= link_to 'View profile', list_player_path(member.id), class: "button_menu_chat" %>
                 <% if current_user != member && @chat_room.direct == false %>
-                    <%= link_to 'Duel', list_player_path(member.id), class: "button_menu_chat" %>
                     <% if @chat_room.room_owner?(current_user, @chat_room) && current_user.id != member.id %>
                         <%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
                         <%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>

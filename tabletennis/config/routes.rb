@@ -49,6 +49,11 @@ Rails.application.routes.draw do
   resources :chat_rooms
   
   resources :messages
+
+  get 'duels/update'
+  get 'duels/create'
+  get 'duels/destroy'
+
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'

@@ -22,6 +22,9 @@
   <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
     <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
   <% end %>
+  <% if user_signed_in? && !Duel.reacted?(current_user.id, @list.id) && current_user != @list %>
+    <p style="text-align: center;"><%= link_to 'Duel', duels_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite" %></p>
+  <% end %>
 </div>
 <div>
 <% unless @friends.empty? %>

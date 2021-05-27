@@ -74,6 +74,11 @@ class GamesController < ApplicationController
 
   def leave_from_game
     @game = Game.find(params[:id])
+    duel = Duel.find_by(sender_id: @game.player1.id, receiver_id: @game.player2.id) if @game.player2
+    duel = Duel.find_by(sender_id: @game.player1.id) unless @game.player2
+    if duel
+      duel.destroy
+    end
     if @game.player1 == current_user
       @game.destroy
       GameRoomChannel.broadcast_to(@game, {

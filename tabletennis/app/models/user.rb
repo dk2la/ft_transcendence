@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   # RELATIVE FOR GAME
   has_one :game, class_name: :Game, required: false
 
+  #RELATIVES FOR DUELS
+  has_many :duels
+  has_many :pending_duels, -> { where confirmed: false}, class_name: "Duel", foreign_key: "receiver_id"
+
   #GUILD RELATIVES
   has_one :guild_member
   has_one :guild, :through => :guild_member
