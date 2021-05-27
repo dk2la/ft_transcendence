@@ -1,6 +1,6 @@
 
 class GameRoomChannel < ApplicationCable::Channel
-  @@subscribers = Hash.new
+  # @@subscribers = Hash.new
 
   def subscribed
         # Thread.new do
@@ -13,17 +13,17 @@ class GameRoomChannel < ApplicationCable::Channel
     # p "SALAMALEIKUM"
     game_room = Game.find(params[:game_room])
     stream_for game_room
-    @@subscribers[game_room.id] ||= 0
-    @@subscribers[game_room.id] += 1
+    # @@subscribers[game_room.id] ||= 0
+    # @@subscribers[game_room.id] += 1
 
-    # Thread.new do
-      # Rails.application.executor.wrap do
+    Thread.new do
+      Rails.application.executor.wrap do
         @game = Game.find(game_room.id) rescue nil
         if @game
           @game.send_config
         end
-      # end
-    # end
+      end
+    end
   end
 
   def input(data)
@@ -46,6 +46,6 @@ class GameRoomChannel < ApplicationCable::Channel
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
     current_user.online!
-    @@subscribers[params[:game_room].id] -= 1
+    # @@subscribers[params[:game_room].id] -= 1
   end
 end

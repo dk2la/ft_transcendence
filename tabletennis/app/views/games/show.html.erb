@@ -15,7 +15,7 @@
 
 <div class="friends" style="width: 730px; height: 110px; text-align: center; margin: 0 auto; overflow: auto;">
 <table id="list-players" class="list_guilds" style="width: 600px;">
-    <tr><td>Name</td><td>Anagram</td><td>Rating</td><td>Score</td><td></td></tr>
+    <tr><td>Name</td><td>Anagram</td><td>Rating</td><td>Side</td><td></td></tr>
     <tr id="first-player">
         <td><%= @game.player1.nickname %></td>
         <% if @game.player1.guild %>
@@ -24,7 +24,7 @@
         <td>[NO GUILD]</td>
         <% end %>
         <td><%= @game.player1.rating %></td>
-        <td id="fp-score"> 0 </td>
+        <td id="fp-score"> LEFT PADDLE </td>
     </tr>
     <tr id="second-player">
         <% if @game.player2 %>
@@ -35,7 +35,7 @@
             <td>[NO GUILD]</td>
             <% end %>
             <td><%= @game.player2.rating %></td>
-            <td id="sp-score"> 0 </td>
+            <td id="sp-side"> RIGHT PADDLE </td>
         <% end %>
     </tr>
 </table>

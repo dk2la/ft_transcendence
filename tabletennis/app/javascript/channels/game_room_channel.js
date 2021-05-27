@@ -28,8 +28,17 @@ function received_data(data, game_div) {
       console.log("I`AM DRAWING RULES")
         if (data["title"] == game_target_id)
           drawRules();
+    } else if (data["action"] == "removeEvent") {
+        console.log("REMOVE EVENT LIST");
+        if (data["title"] == game_target_id)
+          removeEvent();
     }
 	}
+}
+
+function removeEvent() {
+  document.removeEventListener('keydown', mykeydown);
+  document.removeEventListener('keyup', mykeyup);
 }
 
 function drawRules() {
@@ -46,8 +55,8 @@ function redirectAfterDestroy() {
 
 function drawLayoutsPlayer(added_user, guild_anagram) {
   console.log("HELLO I`M HERE");
-  const PLAYER_INFO_NO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>[NO GUILD]</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
-  const PLAYER_INFO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>${guild_anagram}</td><td>${added_user["rating"]}</td><td> 0 </td></tr>`;
+  const PLAYER_INFO_NO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>[NO GUILD]</td><td>${added_user["rating"]}</td><td> RIGHT PADDLE </td></tr>`;
+  const PLAYER_INFO_GUILD = `<tr id="second-player"><td>${added_user["nickname"]}</td><td>${guild_anagram}</td><td>${added_user["rating"]}</td><td> RIGHT PADDLE </td></tr>`;
   let html;
 
   if (guild_anagram)
@@ -57,11 +66,6 @@ function drawLayoutsPlayer(added_user, guild_anagram) {
   console.log("HELLO I`M HERE");
   console.log(`This is html what i am added ${html}`);
   $('#list-players').append(html);
-
-  // <h1 id="waiting-h1"> waiting second player </h1>
-  console.log("HELLO IAM DRAWING RULE HERE");
-  $('#waiting-h1').remove();
-  $('#waiting-div').append('<h1 id="waiting-h1"> Press SPACE for start or pause game </h1>');
 }
 
 function removeStaleGameConnections() {
@@ -117,7 +121,7 @@ function manageGameChannels() {
 
     received: (data) => {
       console.log("AAAALLLLOOO HUILO")
-      if (data["action"] == "draw_players" || data["action"] == "redirect_after_destroy_room") {
+      if (data["action"] == "draw_players" || data["action"] == "redirect_after_destroy_room" || data["action"] == "removeEvent" || data["action"] == "drawRules") {
         received_data(data, document.getElementById('game-room-id'));
       }
       console.log(data);

@@ -2,8 +2,6 @@ class Player
 	attr_accessor :inputs
 	def initialize(id, x, cwidth, cheight, paddle, user, long_paddles)
         @status = "ready"
-        @ai = false
-        @ai = (user == nil)
         if user
             @name = user.nickname
             @user_id = user.id
@@ -60,9 +58,7 @@ class Player
 	end
 
 	def add_move(new_move)
-		unless @ai
-			@inputs.unshift(new_move)
-		end
+		@inputs.unshift(new_move)
 	end
 
 	def reset_paddle_dy
@@ -246,6 +242,10 @@ class Gamelogics
 				loser.guild.save!
 			end
 		end
+		GameRoomChannel.broadcast_to(@game, {
+			action: "removeEvent",
+			title: "#{@game.id}",
+		})
 	end
 
 	def finish_game

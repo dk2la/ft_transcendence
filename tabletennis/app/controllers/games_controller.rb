@@ -97,6 +97,10 @@ class GamesController < ApplicationController
         guild_anagram: ga
       })
     p "YA TUTA"
+    GameRoomChannel.broadcast_to(@game, {
+        action: "draw_rules",
+        title: "#{@game.id}",
+      })
   end
 
   def leave_from_game
