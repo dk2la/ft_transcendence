@@ -1,0 +1,17 @@
+<body style="background-image: url('/assets/guild.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <div class="main_pages" style="border-color: white; text-align: center;">
+        <h1>Start guild war</h1>
+        <%= form_with do |form| %>
+            <%= form.check_box :begin_from %>
+            <%= form.label :begin_from, "Begin the war with acceptance" %>
+            <%= form.check_box :begin_from_time %>
+            <%= form.label :begin_from_time, "Begin the war from specified time" %>
+            <%= form.date_field :begin_date %>
+            <%= form.time_field :begin_time %>
+        <% end %>
+        
+        <%= link_to 'Send invitation', create_war_path(ids: {id1: @g1, id2: @g2}), class: "button_view_guild" %>
+    </div>
+</div>
+</body> 

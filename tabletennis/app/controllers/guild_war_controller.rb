@@ -19,7 +19,15 @@ class GuildWarController < ApplicationController
         
         redirect_to show_war_path(id1: id1, id2: id2)
     end
-    
+
+    def configure
+      id1 = params[:ids][:id1].to_i
+      id2 = params[:ids][:id2].to_i
+      @g1 = Guild.all.find_by(id: id1)
+      @g2 = Guild.all.find_by(id: id2)
+      @points = 0
+    end
+
       def destroy
         invitation = GuildWar.find(params[:invitation_id])
         invitation.update(status: "rejected")
