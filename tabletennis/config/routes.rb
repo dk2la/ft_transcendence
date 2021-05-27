@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   # GUILD WARS ROUTES
   get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
+  post '/guilds_wars/create', to: 'guild_war#create', as: 'create_wars'
   get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
   get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
   get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
