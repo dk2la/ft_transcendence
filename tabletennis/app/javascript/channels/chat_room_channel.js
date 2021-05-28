@@ -91,7 +91,7 @@ function drawLayoutsMember(added_user, receiver_role, chat_id, current_id, guild
   const VIEW_PROFILE = `<a class="button_menu_chat" href='/list_players/${added_user["id"]}'>View Profile`;
   const BAN_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/ban_user?id=${added_user["id"]}&chat_id=${chat_id}'>Ban`;
   const MUTE_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/mute_member?id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Mute`;
-  const SET_MODERATOR = `<a class="button_menu_chat" href='/chat_rooms/set_moderator?id=${added_user["id"]}&chat_id=${chat_id}'>Make officer`;
+  const SET_MODERATOR = `<a class="button_menu_chat" href='/chat_rooms/set_moderator?id=${added_user["id"]}&chat_id=${chat_id}'>Make moderator`;
   const BLOCK_MEMBER = `<a class="button_menu_chat" href='/chat_rooms/block_user?target_id=${added_user["id"]}&chat_id=${chat_id}&current_id=${current_id}'>Block</tr>` + `</td></div></div>`;
   let html;
 

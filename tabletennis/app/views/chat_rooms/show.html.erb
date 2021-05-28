@@ -1,4 +1,4 @@
-<body style="background-image: url('/assets/chat.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<body style="background-image: url('/assets/chat.gif'); background-size: cover; height: 100vh; padding:0; margin:0; overflow: auto; ">
 
 <div id="chat-room-id", data-chat-room-id="<%= @chat_room.try(:id) %>"></div>
 <div id="user-room-id", data-user-id="<%= current_user.id %>"></div>
@@ -55,12 +55,18 @@
                 <%= link_to 'View profile', list_player_path(member.id), class: "button_menu_chat" %>
                 <% if current_user != member && @chat_room.direct == false %>
                     <% if @chat_room.room_owner?(current_user, @chat_room) && current_user.id != member.id %>
-                        <%= link_to 'Set moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
-                        <%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
-                        <%= link_to 'ban user', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <% if @chat_room.just_room_member?(member, @chat_room) == true %>
+                            <%= link_to 'Make moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <% elsif @chat_room.just_room_member?(member, @chat_room) == false %>
+                            <%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <% end %>
+                        <%= link_to 'Ban', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
                         <% if @chat_room.room_owner?(current_user, @chat_room) || @chat_room.room_moderator?(current_user, chat_room) %>
-                            <%= link_to 'mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
-                            <%= link_to 'unmute', umute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
+                            <% if @chat_room.member_muted?(member, @chat_room) == false %>
+                                <%= link_to 'Mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
+                            <% elsif @chat_room.member_muted?(member, @chat_room) == true %>
+                                <%= link_to 'Unmute', umute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
+                            <% end %>
                         <% end %>
                     <% end %>
                     <% if current_user.blocked_users && current_user.blocked_users.find_by(cur: member) %>
@@ -76,7 +82,7 @@
     </div>
     </div>
     <% unless @chat_room.banned_users.empty? %>
-        <div class="friends" style="width: 400px; text-align: center; height: 500px; margin-top: 50px;">
+        <div class="friends" style="width: 400px; text-align: center; margin-top: 50px;">
             <p>
                 Banned members: <%= @chat_room.banned_users.uniq.count %>
             </p>
