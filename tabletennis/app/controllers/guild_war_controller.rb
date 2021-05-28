@@ -12,7 +12,12 @@ class GuildWarController < ApplicationController
         id2 = params[:ids][:id2].to_i
         @g1 = Guild.all.find_by(id: id1).name
         @g2 = Guild.all.find_by(id: id2).name
-        @invitation = GuildWar.new(sender_guild_id: id1, recipient_guild_id: id2, is_delay_war: params[:begin_from],
+        if params[:is_delay_war]
+          time =params[:begin_date] + " " + params[:begin_time]
+        else
+          time = nil
+        end
+        @invitation = GuildWar.new(war_time_begin: time, sender_guild_id: id1, recipient_guild_id: id2, is_delay_war: params[:begin_from],
                                   is_delay_war: params[:is_delay_war], tournament_enabled: params[:tournament_enabled],
                                   add_ones: params[:add_ones], max_ignored_invites: params[:max_ignored_invites][:"{:in=>1.0..20.0, :step=>1}"], 
                                   max_time_of_ignoring_battle: params[:max_time_of_ignoring_battle][:"{:in=>1.0..20.0, :step=>1}"],
@@ -23,15 +28,10 @@ class GuildWarController < ApplicationController
     end
 
     def configure
-        # param = params.require(:guild_war).permit(:begin_from, :begin_from_time, :begin_date, :begin_time)
-        # time = param["begin_time"]
-        # date = param["begin_date"]
-        # p "HERE WE SEE DATE #{date} AND TIME #{time}"
         id1 = params[:ids][:id1].to_i
         id2 = params[:ids][:id2].to_i
         @g1 = Guild.all.find_by(id: id1)
         @g2 = Guild.all.find_by(id: id2)
-        # @points = 0
     end
 
     def destroy

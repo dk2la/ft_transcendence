@@ -4,8 +4,8 @@ class CreateGuildWars < ActiveRecord::Migration[6.1]
       t.string  :status
       t.references :sender_guild, references: :guilds, foreign_key: { to_table: :guilds } 
       t.references :recipient_guild, references: :guilds, foreign_key: { to_table: :guilds }
-      t.integer :war_time_begin
-      t.integer :war_time_end
+      t.string :war_time_begin
+      t.integer :war_time_duration
       t.integer :battle_begin
       t.integer :battle_end
       t.integer :sender_victoies
