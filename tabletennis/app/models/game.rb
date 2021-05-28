@@ -276,12 +276,19 @@ class Gamelogics
 		end
 		GameRoomChannel.broadcast_to(@game, {
 			action: "removeEvent",
-			title: "#{@game.id}",
+			title: "#{@game.id}"
 		})
+		if Duel.find_by(sender_id: @game.player1.id, receiver_id: @game.player2.id)
+			Duel.find_by(sender_id: @game.player1.id, receiver_id: @game.player2.id).destroy
+		end
 	end
 
 	def countdown
 		@status = "countdown"
+		GameRoomChannel.broadcast_to(@game, {
+			action: "removeLeaveBtn",
+			title: "#{@game.id}"
+		})
 		5.downto(0) do |n|
 			if n == 0 then @msg = nil else @msg = "Game starting in #{n}" end
 			send_config
@@ -418,10 +425,6 @@ class Game < ApplicationRecord
 	end
 
 	def mydestructor
-		GameRoomChannel.broadcast_to(self, {
-			action: "redirect_after_destroy_room"
-		})
-		p "this game is end"
 		@@Gamelogics[id] = nil
 	end
 end

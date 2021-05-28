@@ -32,8 +32,15 @@ function received_data(data, game_div) {
         console.log("REMOVE EVENT LIST");
         if (data["title"] == game_target_id)
           removeEvent();
+    } else if (data["action"] == "removeLeaveBtn") {
+        if (data["title"] == game_target_id)
+          removeLeaveBtn();
     }
 	}
+}
+
+function removeLeaveBtn() {
+  $('#leave-btn').remove();
 }
 
 function removeEvent() {
@@ -122,7 +129,8 @@ function manageGameChannels() {
     },
 
     received: (data) => {
-      if (data["action"] == "draw_players" || data["action"] == "redirect_after_destroy_room" || data["action"] == "removeEvent" || data["action"] == "drawRules") {
+      if (data["action"] == "draw_players" || data["action"] == "redirect_after_destroy_room" || data["action"] == "removeEvent" || data["action"] == "drawRules"
+          || data["action"] == "removeLeaveBtn") {
         received_data(data, document.getElementById('game-room-id'));
       }
       console.log(data);

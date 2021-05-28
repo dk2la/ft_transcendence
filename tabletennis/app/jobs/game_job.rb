@@ -14,7 +14,10 @@ class GameJob < ApplicationJob
 			@game.player1.online!
 			@game.player2.online!
 			@game.save
-			# @game.destroy
+			GameRoomChannel.broadcast_to(@game, {
+			action: "redirect_after_destroy_room",
+			title: "#{@game.id}"
+			})
 		end
 	end
 

@@ -27,7 +27,7 @@ class DuelsController < ApplicationController
         duel = Duel.find(params[:duel_id])
         p current_user
         duel.update(confirmed: true)
-        game = Game.find_by(player1: duel.sender_id)
+        game = Game.find_by(player1: duel.sender_id, is_finished: false)
         game.update(player2: current_user, name_player2: current_user.nickname)
         game.mysetup
         game.save

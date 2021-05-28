@@ -3,9 +3,7 @@
 
 
 <body style="background-image: url('<%=(url_for(@game.background))%>') !important; background-size: cover; height: 100vh; padding:0; margin:0; ">
-<div class="friends" style="width: 730px; height: 50px; text-align: center; margin: 0 auto; overflow: auto;">
-    <%= link_to 'Leave', leave_from_game_path(id: @game.id), class: "button_leave_guild" %>
-</div>
+<p id="leave-btn", style="text-align: center; margin: 0 auto;"><%= link_to 'Leave', leave_from_game_path(id: @game.id), class: "button_leave_guild" %></p>
 <h1><%= @game.name %></h1>
 
 <canvas width="735" height="570" id="gamee"></canvas></br></br>
@@ -26,6 +24,18 @@
         <td><%= @game.player1.rating %></td>
         <td id="fp-score"> LEFT PADDLE </td>
     </tr>
+    <% if @game.player2 %>
+        <tr id="second-player">
+            <td><%= @game.player2.nickname %></td>
+            <% if @game.player2.guild %>
+                <td><%= [@game.player2.guild.anagram] %></td>
+            <% else %>
+            <td>[NO GUILD]</td>
+            <% end %>
+            <td><%= @game.player2.rating %></td>
+            <td id="fp-score"> LEFT PADDLE </td>
+        </tr>
+    <% end %>
 </table>
 </div>
 </body>
