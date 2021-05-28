@@ -92,6 +92,12 @@ class GamesController < ApplicationController
     end
   end
 
+  def create_war_time
+    war_time = Game.new(name: ('a'..'z').to_a.shuffle[0..7].join, player1: current_user, name_player1: current_user.nickname, gametype: "war_time")
+    war_time.save
+    redirect_to war_time, notice: "Welcome to ladder game #{war_time.name}"
+  end
+
   private
 
   def set_game

@@ -1,0 +1,16 @@
+<body style="background-image: url('/assets/guild.gif'); background-size: cover; height: 100vh; padding:0; margin:0; ">
+<div style="width: 1000px;margin: auto;height: 100%;">
+    <div class="main_pages" style="border-color: white; text-align: center;">
+        <h1>Guild war</h1>
+        <h1><%= @g1.name %> VS <%= @g2.name %></h1>
+		<h1>Status = <%= @gw.status %></h1>
+		<h1>Sender Guild = <%= @gw.sender_guild_id %></h1>
+		<h1>Recipient Guild = <%= @gw.recipient_guild_id %></h1>
+		<h1>War Time Begin = <%= @gw.war_time_begin %></h1>
+		<h1>Battle Begin = <%= @gw.battle_begin %></h1>
+		<h1>Battle End = <%= @gw.battle_end %></h1>
+		<h1>Created At: = <%= @gw.created_at %></h1>
+        </br>
+    </div>
+</div>
+</body>

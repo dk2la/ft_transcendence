@@ -35,10 +35,10 @@
     </div>
 
     <div class="friends" style="width: 520px; text-align: center; margin-left: -250px; height: 500px; overflow: auto;">
-        <p>
-        Members: <%= @chat_room.users.uniq.count %>
-        <%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id), class: "button_leave_guild", style: "margin-left: 15px;" %>
-        </p>
+        <p> Members: <%= @chat_room.users.uniq.count %></p>
+        <% if @chat_room.direct == false %>
+            <p><%= link_to 'Leave form chat', leave_from_chat_path(id: @chat_room.id), class: "button_leave_guild", style: "margin-left: 15px;" %></p>
+        <% end %>
         <table id="list-members" class="list_guilds" style="width: 100px;">
             <tr><td>Name</td><td>Anagram</td><td>Role</td><td>Rating</td><td></td><td></td></tr>
             <% @chat_room.users.each do |member| %>

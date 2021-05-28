@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   resources :guilds
 
   resources :list_players
-
+  
+  get '/games/create_war_time', to: 'games#create_war_time', as: 'create_war_time'
   get '/games/create_ladder', to: 'games#create_ladder', as: 'create_ladder'
   get '/games/leave_from_game', to: "games#leave_from_game", as: 'leave_from_game'
   get '/games/join_to_game', to: "games#join_to_game", as: 'join_game'
@@ -57,5 +58,15 @@ Rails.application.routes.draw do
   get 'friendship/update'
   get 'friendship/create'
   get 'friendship/destroy'
+
+    # GUILD WARS ROUTES
+    get 'guild_war/update'
+    get 'guild_war/destroy'
+    get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
+    post '/guilds_wars/create', to: 'guild_war#create', as: 'create_wars'
+    get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
+    get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
+    get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
+    get '/guild_wars/configure', to: 'guild_war#configure', as: "configure_war"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

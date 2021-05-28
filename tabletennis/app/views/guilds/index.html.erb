@@ -1,3 +1,4 @@
+
 <body style="background-image: url('/assets/guild.gif'); background-size: cover; height: 100vh; padding:0; margin:0; overflow: auto;">
 <div style="width: 1000px;margin: auto;height: 100%;">
     <div class="main_pages" style="border-color: white; text-align: center;">
@@ -13,9 +14,45 @@
                 <td><%= guild.rating %></td>
                 <td><%= guild.description %></td>
                 <td><%= link_to 'View guild', guild_path(guild.id), class: "button_view_guild" %>
+                <% if current_user.guild && current_user.guild.id != guild.id  && !GuildWar.reacted?(current_user.guild.id, guild.id) %>
+                    <td><%= link_to 'War', configure_war_path(ids: {id1: current_user.guild.id, id2: guild.id}), class: "button_view_guild" %>
+                <% end %>
             </tr></br>
         <% end %>
         </table>
+        <table class="wars" style="width: 1000px;">
+        <% if current_user.guild%>
+            <% unless current_user.guild.pending_invitations.empty? %>
+                <h1>Guild War invitations</h1>
+                <% GuildWar.where(recipient_guild_id: current_user.guild.id, status: "pending").each do |gw| %>
+                  <tr>
+                    <td><h1>From guild: <%= gw.sender_guild.name%> </h1> </td>
+                    <% if gw.is_delay_war%>
+                      <td><h3>Start at:</h3></td>
+                      <%= gw.war_time_begin%>
+                    <%end%>
+                    <% if gw.add_ones%>
+                      <td><h3>Playing with add ones</h3></td>
+                    <%end%>
+                    <% if gw.casual_enabled%>
+                      <td><h3>Casual games counts in war</h3></td>
+                    <%end%>
+                    <% if gw.tournament_enabled%>
+                      <td><h3>Tournament games counts in war</h3></td>
+                    <%end%>
+                    <% if gw.ladder_enabled%>
+                      <td><h3>Ladder games counts in war</h3></td>
+                    <%end%>
+                    <td><h3>Maximum of ignored invites:</h3>
+                          <%= gw.max_ignored_invites%></td>
+                    <td><h3>Maximum time of ignoring invitation:</h3>
+                          <%= gw.max_time_of_ignoring_battle%>
+                    </td>
+                    <td><%= link_to 'Accept Invitation', guild_war_update_path(invitation_id: gw.id), class: "button_edit_profile" %></td>
+                    <td><%= link_to 'Reject Invitation', guild_war_destroy_path(invitation_id: gw.id), class: "button_edit_profile" %></td>
+                <% end %>
+            <% end %> 
+        <% end %>
     </div>
 </div>
 </body>

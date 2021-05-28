@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_175425) do
+ActiveRecord::Schema.define(version: 2021_05_28_160113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,29 @@ ActiveRecord::Schema.define(version: 2021_05_27_175425) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "guild_wars", force: :cascade do |t|
+    t.string "status", default: "pending"
+    t.bigint "sender_guild_id"
+    t.bigint "recipient_guild_id"
+    t.string "war_time_begin"
+    t.integer "war_time_duration"
+    t.integer "battle_begin"
+    t.integer "battle_end"
+    t.integer "sender_victoies", default: 0
+    t.integer "recipient_victories", default: 0
+    t.integer "max_ignored_invites"
+    t.integer "max_time_of_ignoring_battle"
+    t.boolean "add_ones"
+    t.boolean "casual_enabled"
+    t.boolean "ladder_enabled"
+    t.boolean "tournament_enabled"
+    t.boolean "is_delay_war"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_guild_id"], name: "index_guild_wars_on_recipient_guild_id"
+    t.index ["sender_guild_id"], name: "index_guild_wars_on_sender_guild_id"
+  end
+
   create_table "guilds", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -186,4 +209,6 @@ ActiveRecord::Schema.define(version: 2021_05_27_175425) do
   add_foreign_key "duels", "users", column: "sender_id"
   add_foreign_key "games", "users", column: "player1_id"
   add_foreign_key "games", "users", column: "player2_id"
+  add_foreign_key "guild_wars", "guilds", column: "recipient_guild_id"
+  add_foreign_key "guild_wars", "guilds", column: "sender_guild_id"
 end

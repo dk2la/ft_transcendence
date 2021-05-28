@@ -251,6 +251,43 @@ class Gamelogics
 		end
 	end
 
+	def change_rating_war_time(winner, loser, winner_name, loser_name)
+		@game.winner = winner_name
+		@game.loser = loser_name
+		@game.save!
+
+		if @game.gametype == "casual"
+			winner.guild.rating += 25
+			winner.guild.save!
+			if loser.guild.rating - 25 < 0
+				loser.guild.rating = 0
+				loser.guild.save!
+			else
+				loser.guild.rating -= 25
+				loser.guild.save!
+			end
+		elsif @game.gametype == "ladder"
+			winner.rating += 25
+			winner.save!
+			winner.guild.rating += 25
+			winner.guild.save!
+			if loser.rating - 25 < 0
+				loser.rating = 0
+				loser.save!
+			else
+				loser.rating -= 25
+				loser.save!
+			end
+			if loser.guild.rating - 25 < 0
+				loser.guild.rating = 0
+				loser.guild.save!
+			else
+				loser.guild.rating -= 25
+				loser.guild.save!
+			end
+		end
+	end
+
 	def finish_game
 		@status = "finished"
 
@@ -267,7 +304,21 @@ class Gamelogics
 		end
 		@msg = "#{@winner}, wins!"
 		# need add change rating after game
-		if @game.gametype == "ladder" || @game.gametype == "war_time"
+		if (@game.gametype == "ladder" || @game.gametype == "casual") && @game.player1.guild && @game.player2.guild && GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").empty? == false
+			change_rating_war_time(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
+			if @game.player1.id = winner_id
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.sender_victoies += 1
+			else
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.recipient_victories += 1
+			end
+		elsif (@game.gametype == "ladder" || @game.gametype == "casual") && @game.player1.guild && @game.player2.guild && GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").empty? == false
+			change_rating_war_time(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
+			if @game.player2.id = winner_id
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.sender_victoies += 1
+			else
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.recipient_victories += 1
+			end
+		elsif @game.gametype == "ladder" || @game.gametype == "war_time"
 			change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
 		else
 			@game.winner = User.find_by(id: winner_id).nickname

@@ -5,11 +5,14 @@
         <h1> ALL GAMES </h1>
         <%= link_to 'Create game', new_game_path, class: "button_edit_profile" %>
         <%= link_to 'Create ladder', create_ladder_path, class: "button_edit_profile" %> 
+        <% if current_user.guild && GuildWar.where(sender_guild_id: current_user.guild.id, status: "confirmed").empty? == false %>
+            <%= link_to 'Create war time', create_war_time_path, class: "button_edit_profile" %>
+        <% end %>
         </br>
         <table class="list_guilds" style="width: 500px;"></br>
             <tr><td>Name</td><td>Mode</td><td>Players</td><td>View</td><td>Type</td></tr>
             <% @games.each do |game| %>
-                <% if game.is_finished == false && game.player2 == nil%>
+                <% if game.is_finished == false && game.gametype != "war_time"%>
                     <tr>
                         <td><%= game.name %></td>
                         <td></td>
@@ -24,6 +27,29 @@
                 <% end %>
             <% end %>
         </table>
+        <% if GuildWar.where(status: "confirmed").empty? == false %>
+            </br><h1> WAR TIME GAMES </h1>
+            <table class="list_guilds" style="width: 500px;">
+                <tr><td>Name</td><td>Mode</td><td>Players</td><td>View</td><td>Type</td></tr>
+                <% if GuildWar.where(recipient_guild_id: current_user.guild.id, status: "confirmed").empty? == false %>
+                    <% @games.where(gametype: "war_time").each do |game| %>
+                        <% if game.is_finished != true %>
+                            <tr>
+                                <td><%= game.name %></td>
+                                <td></td>
+                                <td></td>
+                                <% if game.player1 == current_user or game.player2 == current_user %>
+                                    <td><%= link_to 'View game', game_path(game.id), class: "button_view_guild" %></td>
+                                <% else %>
+                                    <td><%= link_to 'Join', join_game_path(id: game.id), class: "button_view_guild" %></td>
+                                <% end %>
+                                <td><%= game.gametype %></td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </table>
+        <% end %>
     </div>
 </div>
 </body>
