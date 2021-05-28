@@ -7,12 +7,16 @@ class GuildWarController < ApplicationController
     # 3. guild war end time
 
     def create
-        p "\n\n\n\nPARAMS: #{params}" 
+        p "PARAMS: #{params}"
         id1 = params[:ids][:id1].to_i
         id2 = params[:ids][:id2].to_i
         @g1 = Guild.all.find_by(id: id1).name
         @g2 = Guild.all.find_by(id: id2).name
-        @invitation = GuildWar.new(sender_guild_id: id1, recipient_guild_id: id2)
+        @invitation = GuildWar.new(sender_guild_id: id1, recipient_guild_id: id2, is_delay_war: params[:begin_from],
+                                  is_delay_war: params[:is_delay_war], tournament_enabled: params[:tournament_enabled],
+                                  add_ones: params[:add_ones], max_ignored_invites: params[:max_ignored_invites][:"{:in=>1.0..20.0, :step=>1}"], 
+                                  max_time_of_ignoring_battle: params[:max_time_of_ignoring_battle][:"{:in=>1.0..20.0, :step=>1}"],
+                                  casual_enabled: params[:casual_enabled], ladder_enabled: params[:ladder_enabled])
         @invitation.status = 'pending'
         @invitation.save
         redirect_to show_war_path(id1: id1, id2: id2)

@@ -76,9 +76,15 @@ ActiveRecord::Schema.define(version: 2021_05_15_122327) do
     t.integer "war_time_end"
     t.integer "battle_begin"
     t.integer "battle_end"
-    t.integer "points"
+    t.integer "sender_victoies"
+    t.integer "recipient_victories"
     t.integer "max_ignored_invites"
+    t.integer "max_time_of_ignoring_battle"
     t.boolean "add_ones"
+    t.boolean "casual_enabled"
+    t.boolean "ladder_enabled"
+    t.boolean "tournament_enabled"
+    t.boolean "is_delay_war"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipient_guild_id"], name: "index_guild_wars_on_recipient_guild_id"

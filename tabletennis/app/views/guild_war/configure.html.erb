@@ -3,12 +3,44 @@
     <div class="main_pages" style="border-color: white; text-align: center;">
         <h1>Start guild war</h1>
         <%= form_with(url: create_wars_path(ids: {id1: @g1, id2: @g2})) do |form| %>
-            <%= form.check_box :begin_from %>
-            <%= form.label :begin_from, "Begin the war with acceptance" %>
-            <%= form.check_box :begin_from_time %>
-            <%= form.label :begin_from_time, "Begin the war from specified time" %>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.check_box :is_delay_war %>
+            <%= form.label :is_delay_war, "Begin the war from specified time" %>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
             <%= form.date_field :begin_date %>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
             <%= form.time_field :begin_time %>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.check_box :add_ones%>
+            <%= form.label :add_ones, "Play with add ones"%>
+            </div>
+
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.label :max_ignored_invites%><br />
+            <%= number_field(:max_ignored_invites, in: 1.0..20.0, step: 1) %>
+            </div>
+
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.label :max_time_of_ignoring_battle%><br />
+            <%= number_field(:max_time_of_ignoring_battle, in: 1.0..20.0, step: 1) %>
+            </div>
+
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.check_box :casual_enabled%>
+            <%= form.label :casual_enabled, "Casual games counts in war"%>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.check_box :ladder_enabled%>
+            <%= form.label :ladder_enabled, "Ladder games counts in war"%>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+            <%= form.check_box :tournament_enabled%>
+            <%= form.label :tournament_enabled, "Tournament games counts in war"%>
+            </div>
+
             <div class="actions">
                 <%= form.submit%>
             </div>
