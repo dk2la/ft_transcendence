@@ -138,6 +138,11 @@ function manageChatChannels() {
 
       received: (data) => {
         console.log("AAAALLLLOOO HUILO")
+        let chatBtn = document.getElementById('chat-btn');
+        chatBtn.disabled = false;
+
+        let chatBox = document.getElementById('message_content');
+        chatBox.value = '';
         received_data(data, document.getElementById('chat-room-id'));
       }
     });
