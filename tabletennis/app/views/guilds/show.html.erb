@@ -40,17 +40,17 @@
                 <td>member</td>
             <% end %>
             <% if @guild.check_member_role?(member.user, member.user.guild) %>
-                <% if current_user.guild_member.user_role == 2 %>
+                <% if current_user.admin == true || (current_user.guild && current_user.guild.id == @guild.id && current_user.guild_member.user_role == 2) %>
                     <td><%= link_to 'make an officer', set_officer_path(id: member.user_id), class: "button_make_officer" %></td>
                 <% end %>
             <% end %>
-            <% if @guild.check_member_officer?(member.user, member.user.guild) %>
-                <% if current_user.guild_member.user_role == 2 %>
+            <% if (current_user.guild && current_user.guild.id == @guild.id && @guild.check_member_officer?(member.user, member.user.guild)) || (current_user.admin == true && @guild.check_member_officer?(member.user, member.user.guild)) %>
+                <% if current_user.admin == true || current_user.guild_member.user_role == 2 %>
                     <td><%= link_to 'remove officer', remove_officer_path(id: member.user_id), class: "button_leave_guild" %></td>
                 <% end %>
             <% end %>
             <% if @guild.check_member_officer?(member.user, member.user.guild) || @guild.check_member_role?(member.user, member.user.guild) %>
-                <% if current_user.guild_member.user_role == 2 || current_user.guild_member.user_role == 1 %>
+                <% if current_user.guild && current_user.guild.id == @guild.id && current_user != member.user && (current_user.guild_member.user_role == 2 || current_user.guild_member.user_role == 1) %>
                     <td><%= link_to 'kick member', kick_member_path(id: member.user_id), class: "button_leave_guild" %></td>
                 <% end %>
             <% end %>

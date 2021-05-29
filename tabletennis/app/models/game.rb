@@ -303,20 +303,21 @@ class Gamelogics
 			loser_id = @players[0].user_id
 		end
 		@msg = "#{@winner}, wins!"
+		# todo fix COUNT GUILD WINS
 		# need add change rating after game
 		if (@game.gametype == "ladder" || @game.gametype == "casual") && @game.player1.guild && @game.player2.guild && GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").empty? == false
 			change_rating_war_time(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
 			if @game.player1.id = winner_id
-				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.sender_victoies += 1
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.update(sender_victoies: GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.sender_victoies + 1)
 			else
-				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.recipient_victories += 1
+				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.update(recipient_victories: GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.recipient_victories + 1)
 			end
 		elsif (@game.gametype == "ladder" || @game.gametype == "casual") && @game.player1.guild && @game.player2.guild && GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").empty? == false
 			change_rating_war_time(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)
 			if @game.player2.id = winner_id
-				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.sender_victoies += 1
+				GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").last.update(sender_victoies: GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").last.sender_victoies + 1)
 			else
-				GuildWar.where(sender_guild_id: @game.player1.guild.id, recipient_guild_id: @game.player2.guild.id, status: "confirmed").last.recipient_victories += 1
+				GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").last.update(recipient_victories: GuildWar.where(sender_guild_id: @game.player2.guild.id, recipient_guild_id: @game.player1.guild.id, status: "confirmed").last.recipient_victories + 1)
 			end
 		elsif @game.gametype == "ladder" || @game.gametype == "war_time"
 			change_rating(User.find_by(id: winner_id), User.find_by(id: loser_id), @winner, @loser)

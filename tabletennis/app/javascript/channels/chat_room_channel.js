@@ -20,6 +20,9 @@ function received_data(data, chat_div) {
     } else if (data["action"] == "mute_member_from_owner") {
         if (data["title"] == chat_target_id)
           muteLayouts();
+    } else if (data["action"] == "redirect_after_admin_destroy_room") {
+        if (data["title"] == chat_target_id)
+          redirectAllMembers();
     } else if (data["action"] == "leave_chat_room_owner") {
         if (data["title"] == chat_target_id)
           leaveChatRoomOwner();
@@ -40,6 +43,11 @@ function received_data(data, chat_div) {
         $('#messages').append("<br>" + data["body"]);
     }
 	}
+}
+
+function redirectAllMembers() {
+  console.log("Redirect user, from room, cuz admin destroy it");
+  window.location.replace("/chat_rooms");
 }
 
 function unmuteLayouts() {

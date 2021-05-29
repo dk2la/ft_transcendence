@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
-  get 'errors/show'
   mount ActionCable.server => '/cable'
+  get 'errors/show'
   get 'abouts/index'
   root 'start_page#index'
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { 
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: 'users/sessions'
+  }
   
   devise_scope :user do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
   
+
+  delete '/users/sign_out', to: 'users/sessions#destroy', as: 'logout_user'
+
   get 'users/sign_up', as: 'registration'
   get '/users/sign_in', as: 'login'
   
@@ -34,6 +40,7 @@ Rails.application.routes.draw do
   get '/games/join_to_game', to: "games#join_to_game", as: 'join_game'
   resources :games
 
+  get '/chat_rooms/admin_destroy_room', to: 'chat_rooms#admin_destroy_room', as: 'destroy_room_admin'
   post '/chat_rooms/verificate_password', to: 'chat_rooms#verificate_password', as: 'verificate_password'
   get '/chat_rooms/remove_password', to: 'chat_rooms#remove_password', as: 'remove_password'
   get '/chat_rooms/create_dm', to: 'chat_rooms#create_dm', as: 'create_dm'

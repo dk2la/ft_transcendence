@@ -306,6 +306,19 @@ class ChatRoomsController < ApplicationController
         end
     end
 
+    def admin_destroy_room
+        chat_room = ChatRoom.find_by(id: params[:id])
+        chat_room.room_members.each do |member|
+            ChatRoomChannel.broadcast_to(member.user, {
+                action: "redirect_after_admin_destroy_room",
+                title: "#{chat_room.id}"
+            })
+        end
+        name = chat_room.name
+        chat_room.destroy
+        redirect_to chat_rooms_path, notice: "Successfuly destroy room #{name}"
+    end
+
     private
     
     def set_chat_room

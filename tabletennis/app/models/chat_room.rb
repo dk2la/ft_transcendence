@@ -30,7 +30,9 @@ class ChatRoom < ApplicationRecord
 
     def room_owner?(cur, chat_room)
         room_member = cur.room_members.find_by(chat_room_id: chat_room.id)
-        if room_member.member_role == "owner"
+        if cur.admin == true
+            return true
+        elsif room_member.member_role == "owner"
             return true
         end
         return false
