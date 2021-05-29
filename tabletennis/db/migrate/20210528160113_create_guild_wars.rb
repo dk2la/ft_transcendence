@@ -17,6 +17,8 @@ class CreateGuildWars < ActiveRecord::Migration[6.1]
       t.boolean :ladder_enabled
       t.boolean :tournament_enabled
       t.boolean :is_delay_war
+      t.integer :bank_points, default: 50
+      t.integer :duration, default: 2
       t.timestamps
     end
   end

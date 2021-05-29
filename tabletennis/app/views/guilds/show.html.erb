@@ -58,5 +58,47 @@
     <% end %>
     </table>
     </div>
+    <div>
+        <h1>Statistic</h1>
+        <table class="friends" style="width: 500px;">
+            <tr><th style="padding-right: 10px;">Sender</th><th></th><th style="padding-right: 10px;">Recipient</th><th>Winner</th></tr>
+            <% if GuildWar.where(sender_guild_id: @guild.id).empty? == false %>
+                <% GuildWar.where(sender_guild_id: @guild.id).each do |war| %>
+                    <tr>
+                        <th><%= war.sender_guild.name %></th>
+                        <th>VS</th>
+                        <th style="padding-right: 10px;"><%= war.recipient_guild.name %></th>
+                        <% if war.status == "ended" %>
+                            <% if war.sender_victoies > war.recipient_victories %>
+                                <th style="color: green"><%= war.sender_guild.name %></th>
+                            <% elsif war.sender_victoies < war.recipient_victories %>
+                                <th style="color: red"><%= war.recipient_guild.name %></th>
+                            <% else %>
+                                <th style="color: white">[Draw]</th>
+                            <% end %>
+                        <% end %>
+                    </tr>
+                <% end %>
+            <% end %>
+            <% if GuildWar.where(recipient_guild_id: @guild.id).empty? == false %>
+                <% GuildWar.where(recipient_guild_id: @guild.id).each do |war| %>
+                    <tr>
+                        <th><%= war.sender_guild.name %></th>
+                        <th>VS</th>
+                        <th style="padding-right: 10px;"><%= war.recipient_guild.name %></th>
+                        <% if war.status == "ended" %>
+                            <% if war.sender_victoies > war.recipient_victories %>
+                                <th style="color: red"><%= war.sender_guild.name %></th>
+                            <% elsif war.sender_victoies < war.recipient_victories %>
+                                <th style="color: green"><%= war.recipient_guild.name %></th>
+                            <% else %>
+                                <th style="color: white">[Draw]</th>
+                            <% end %>
+                        <% end %>
+                    </tr>
+                <% end %>
+            <% end %>
+        </table>
+    </div>
 </div>
 </body>

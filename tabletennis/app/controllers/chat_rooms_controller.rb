@@ -172,7 +172,7 @@ class ChatRoomsController < ApplicationController
         @chat_room = ChatRoom.find(params[:chat_id])
         cur = User.find(params[:id])
         cu = User.find(params[:current_id])
-        unless @chat_room.room_owner?(cu, @chat_room)
+        unless @chat_room.room_owner?(cu, @chat_room) || @chat_room.room_moderator?(cu, @chat_room)
             redirect_to chat_room_path(@chat_room.id), alert: "#{cu.nickname}, not owner or moderator"
         else
             if @chat_room.room_owner?(cur, @chat_room)
@@ -197,7 +197,7 @@ class ChatRoomsController < ApplicationController
         @chat_room = ChatRoom.find(params[:chat_id])
         cur = User.find(params[:id])
         cu = User.find(params[:current_id])
-        unless @chat_room.room_owner?(cu, @chat_room)
+        unless @chat_room.room_owner?(cu, @chat_room) || @chat_room.room_moderator?(cu, @chat_room)
             redirect_to chat_room_path(@chat_room.id), alert: "#{cu.nickname}, not owner or moderator"
         else
             if @chat_room.member_muted?(cur, @chat_room)

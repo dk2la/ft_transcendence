@@ -3,7 +3,7 @@ class RoundJob < ApplicationJob
 
   def perform(round_id)
     games = Tournament.last.pairs.where(round: round_id)
-    if round_id + 1 >= 2
+    if round_id + 1 >= 0
       games.each do |g|
         ga = Game.create(name: ('a'..'z').to_a.shuffle[0..7].join, gametype: "ladder", player1: g.player1, player2: g.player2)
         ga.mysetup

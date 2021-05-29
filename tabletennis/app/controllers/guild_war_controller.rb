@@ -19,10 +19,8 @@ class GuildWarController < ApplicationController
           time = nil
         end
         @invitation = GuildWar.new(war_time_begin: time, sender_guild_id: id1, recipient_guild_id: id2, is_delay_war: params[:begin_from],
-                                  is_delay_war: params[:is_delay_war], tournament_enabled: params[:tournament_enabled],
-                                  add_ones: params[:add_ones], max_ignored_invites: params[:max_ignored_invites][:"{:in=>1.0..20.0, :step=>1}"], 
-                                  max_time_of_ignoring_battle: params[:max_time_of_ignoring_battle][:"{:in=>1.0..20.0, :step=>1}"],
-                                  casual_enabled: params[:casual_enabled], ladder_enabled: params[:ladder_enabled], status: "pending")
+                                  is_delay_war: params[:is_delay_war], casual_enabled: params[:casual_enabled],
+                                  ladder_enabled: params[:ladder_enabled], status: "pending", bank_points: params[:bank_points].to_i, duration: params[:duration].to_i)
         if @invitation.save
           p "SALAMCH"
           p @invitation
@@ -53,10 +51,10 @@ class GuildWarController < ApplicationController
       invitation.update(status: "accepted")
       if (invitation.is_delay_war)
         GuildWarLifecycleJob.set(wait_until: (DateTime.parse(invitation.war_time_begin) - 3.hours)).perform_later(invitation, 0)
-        GuildWarLifecycleJob.set(wait_until: (DateTime.parse(invitation.war_time_begin)- 3.hours + 2.minute)).perform_later(invitation, 1)
+        GuildWarLifecycleJob.set(wait_until: (DateTime.parse(invitation.war_time_begin)- 3.hours + invitation.duration.minutes)).perform_later(invitation, 1)
       else
         invitation.update(status: "confirmed")
-        GuildWarLifecycleJob.set(wait: 2.minutes).perform_later(invitation, 1)
+        GuildWarLifecycleJob.set(wait: invitation.duration.minute).perform_later(invitation, 1)
       end
     end
 

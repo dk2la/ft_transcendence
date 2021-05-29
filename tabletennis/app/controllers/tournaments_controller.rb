@@ -11,8 +11,9 @@ class TournamentsController < ApplicationController
 
     def create
         p "ALLO"
+        p params
         param = params.require(:tournament).permit(:name, :status, :count)
-        @tournament = Tournament.new(name: param["name"], status: 0, count: params[:count][:"{:in=>1.0..4.0, :step=>1}"])
+        @tournament = Tournament.new(name: param["name"], status: 0, count: param["count"].to_i)
         if @tournament.save
             redirect_to tournaments_path, notice: "Successfully"
         else

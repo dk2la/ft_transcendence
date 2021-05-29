@@ -15,9 +15,8 @@
       <tr><th>Guild</th><th><%= @list.guild.name %></th></tr>
   <% end %>
   <th>Рейтинг:</th><th><%= @list.rating %></th>
-  <tr><th>Всего побед</th><th>Dostat zaprosom iz db</th></tr>
-  <tr><th>Всего поражений</th><th>Dostat zaprosom iz db</th></tr>
-  <tr><th>Количество выйгранных турниров:</th><th>Dostat zaprosom iz db</th></tr>
+  <tr><th>Всего побед</th><th><%= Game.where(winner: @list.nickname).count %></th></tr>
+  <tr><th>Всего поражений</th><th><%= Game.where(loser: @list.nickname).count %></th></tr>
   </table>
   <% if user_signed_in? && !Friendship.reacted?(current_user.id, @list.id) && current_user != @list %>
     <p style="text-align: center;"><%= link_to 'Send Invitation',friendship_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite"%></p>
@@ -25,6 +24,42 @@
   <% if user_signed_in? && !Duel.reacted?(current_user.id, @list.id) && current_user != @list %>
     <p style="text-align: center;"><%= link_to 'Duel', duels_create_path(ids: {id1: current_user.id, id2: @list.id}), class: "button_send_invite" %></p>
   <% end %>
+</div>
+<div class="main_pages" style="border-color: white;">
+<h1>Statistic</h1>
+<table class="friends" style="width: 500px;">
+    <tr><th style="padding-right: 10px;">Match</th><th>Player</th><th></th><th style="padding-right: 10px;">Player</th><th>Winner</th></tr>
+    <% if Game.where(player1: @list).empty? == false %>
+        <% Game.where(player1: @list).each do |game| %>
+            <tr>
+                <th style="color: #dc4309; padding-right: 10px;"><%= game.gametype %></th>
+                <th><%= game.player1.nickname %></th>
+                <th>VS</th>
+                <th style="padding-right: 10px;"><%= game.player2.nickname %></th>
+                <% if game.winner != @list.nickname %>
+                    <th style="color: red"><%= game.winner %></th>
+                <% else %>
+                    <th style="color: green"><%= game.winner %></th>
+                <% end %>
+            </tr>
+        <% end %>
+    <% end %>
+    <% if Game.where(player2: @list).empty? == false %>
+        <% Game.where(player2: @list).each do |game| %>
+            <tr>
+                <th style="color: #dc4309; padding-right: 10px;"><%= game.gametype %></th>
+                <th><%= game.player2.nickname %></th>
+                <th>VS</th>
+                <th style="padding-right: 10px;"><%= game.player1.nickname %></th>
+                <% if game.winner != @list.nickname %>
+                    <th style="color: red"><%= game.winner %></th>
+                <% else %>
+                    <th style="color: green"><%= game.winner %></th>
+                <% end %>
+            </tr>
+        <% end %>
+    <% end %>
+</table>
 </div>
 <div>
 <% unless @friends.empty? %>

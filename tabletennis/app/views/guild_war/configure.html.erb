@@ -13,21 +13,7 @@
             <div style="padding-top: 10px; color: white; font-family: fantasy;">
                 <%= form.time_field :begin_time %> 
             </div>
-            <div style="padding-top: 10px; color: white; font-family: fantasy;">
-                <%= form.check_box :add_ones%>
-                <%= form.label :add_ones, "Play with add ones"%>
-            </div>
-
-            <div style="padding-top: 10px; color: white; font-family: fantasy;">
-                <%= form.label :max_ignored_invites%><br />
-                <%= number_field(:max_ignored_invites, in: 1.0..20.0, step: 1) %>
-            </div>
-
-            <div style="padding-top: 10px; color: white; font-family: fantasy;">
-                <%= form.label :max_time_of_ignoring_battle%><br />
-                <%= number_field(:max_time_of_ignoring_battle, in: 1.0..20.0, step: 1) %>
-            </div>
-
+          
             <div style="padding-top: 10px; color: white; font-family: fantasy;">
                 <%= form.check_box :casual_enabled%>
                 <%= form.label :casual_enabled, "Casual games counts in war"%>
@@ -36,11 +22,15 @@
                 <%= form.check_box :ladder_enabled%>
                 <%= form.label :ladder_enabled, "Ladder games counts in war"%>
             </div>
-            <div style="padding-top: 10px; color: white; font-family: fantasy;">
-                <%= form.check_box :tournament_enabled%>
-                <%= form.label :tournament_enabled, "Tournament games counts in war"%>
-            </div>
 
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+                <%= form.label :bank_points%><br/>
+                <%= form.number_field(:bank_points, in: 50.0..200.0, step: 10) %>
+            </div>
+            <div style="padding-top: 10px; color: white; font-family: fantasy;">
+                <%= form.label :duration%><br/>
+                <%= form.number_field(:duration, in: 2.0..10.0, step: 1) %>
+            </div>
             <div class="actions">
                 <%= form.submit%>
             </div>

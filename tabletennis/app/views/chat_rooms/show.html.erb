@@ -54,14 +54,16 @@
                 <td><div class="dropup"><button class="dropbtn">Info</button><div class="dropup-content">    
                 <%= link_to 'View profile', list_player_path(member.id), class: "button_menu_chat" %>
                 <% if current_user != member && @chat_room.direct == false %>
-                    <% if @chat_room.room_owner?(current_user, @chat_room) && current_user.id != member.id %>
-                        <% if @chat_room.just_room_member?(member, @chat_room) == true %>
+                    <% if @chat_room.room_owner?(current_user, @chat_room) && current_user.id != member.id || @chat_room.room_moderator?(current_user, @chat_room)%>
+                        <% if @chat_room.just_room_member?(member, @chat_room) == true && @chat_room.room_owner?(current_user, @chat_room) %>
                             <%= link_to 'Make moderator', set_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
-                        <% elsif @chat_room.just_room_member?(member, @chat_room) == false %>
+                        <% elsif @chat_room.just_room_member?(member, @chat_room) == false && @chat_room.room_owner?(current_user, @chat_room) %>
                             <%= link_to 'Remove moderator', remove_moderator_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
                         <% end %>
-                        <%= link_to 'Ban', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
-                        <% if @chat_room.room_owner?(current_user, @chat_room) || @chat_room.room_moderator?(current_user, chat_room) %>
+                        <% if @chat_room.just_room_member?(member, @chat_room) %>
+                            <%= link_to 'Ban', ban_user_path(id: member.id, chat_id: @chat_room.id), class: "button_menu_chat" %>
+                        <% end %>
+                        <% if @chat_room.room_owner?(current_user, @chat_room) || @chat_room.room_moderator?(current_user, @chat_room) %>
                             <% if @chat_room.member_muted?(member, @chat_room) == false %>
                                 <%= link_to 'Mute', mute_member_path(id: member.id, chat_id: @chat_room.id, current_id: current_user.id), class: "button_menu_chat" %>
                             <% elsif @chat_room.member_muted?(member, @chat_room) == true %>

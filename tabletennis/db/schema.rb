@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2021_05_29_150820) do
     t.boolean "ladder_enabled"
     t.boolean "tournament_enabled"
     t.boolean "is_delay_war"
+    t.integer "bank_points", default: 50
+    t.integer "duration", default: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipient_guild_id"], name: "index_guild_wars_on_recipient_guild_id"

@@ -17,7 +17,6 @@
                 <tr><th>Rating:</th><th><%= current_user.rating %></th></tr>
                 <tr><th>Wins: </th><th><%= Game.where(winner: current_user.nickname).count %></th></tr>
                 <tr><th>Lose: </th><th><%= Game.where(loser: current_user.nickname).count %></th></tr>
-                <tr><th>Win Tournament: </th><th>Dostat zaprosom iz db</th></tr>
                 <tr>
                     <th><%= link_to "Edit profile", edit_profile_path(current_user) , class: "button_edit_profile" %> </th>
                     <% if current_user.guild %>
@@ -32,7 +31,6 @@
             <h1>Statistic</h1>
             <table class="friends" style="width: 500px;">
                 <tr><th style="padding-right: 10px;">Match</th><th>Player</th><th></th><th style="padding-right: 10px;">Player</th><th>Winner</th></tr>
-                <tr><th style="color: #dc4309; padding-right: 10px;">Tournament</th><th>tester</th><th>VS</th><th style="padding-right: 10px;">atomatoe</th>><th style="color: red">tester</th></tr>
                 <% if Game.where(player1: current_user).empty? == false %>
                     <% Game.where(player1: current_user).each do |game| %>
                         <tr>
