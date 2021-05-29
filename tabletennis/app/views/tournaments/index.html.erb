@@ -1,0 +1,22 @@
+<body style="background-image: url('/assets/guild.gif'); background-size: cover; height: 100vh; padding:0; margin:0; overflow: auto ">
+    <% if current_user.admin == true %>
+        <h1><%= link_to 'Create tour', new_tournament_path, class: "button_view_guild" %></h1>
+    <% end %>
+
+    <div>
+        <table class="friends" style="width: 300px;">
+            <tr><td>Name</td><td>Count</td><td>Action</td><td></td></tr>
+            <% @tournaments.each do |t| %>
+                <% if t.status == 0 %>
+                    <td><%= t.name %></td>
+                    <td><%= t.count %></td>
+                    <% if !t.tournament_members.find_by(player: current_user) %>
+                        <td><%= link_to 'Reg tournament', join_tour_path(id: t.id), class: "button_view_guild" %></td>
+                    <% else %>
+                        <td> Waiting start </td>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </table>
+    </div>
+</body

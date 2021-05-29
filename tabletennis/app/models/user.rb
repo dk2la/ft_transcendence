@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :room_members
   has_many :chat_rooms, :through => :room_members
   has_many :blocked_users, class_name: "BlockedUser", dependent: :destroy
+ 
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

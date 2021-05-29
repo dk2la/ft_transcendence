@@ -66,14 +66,18 @@ Rails.application.routes.draw do
   get 'friendship/create'
   get 'friendship/destroy'
 
-    # GUILD WARS ROUTES
-    get 'guild_war/update'
-    get 'guild_war/destroy'
-    get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
-    post '/guilds_wars/create', to: 'guild_war#create', as: 'create_wars'
-    get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
-    get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
-    get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
-    get '/guild_wars/configure', to: 'guild_war#configure', as: "configure_war"
+  # GUILD WARS ROUTES
+  get 'guild_war/update'
+  get 'guild_war/destroy'
+  get '/guilds_wars/create', to: 'guild_war#create', as: 'create_war'
+  post '/guilds_wars/create', to: 'guild_war#create', as: 'create_wars'
+  get '/guilds_wars/update', to: 'guild_war#update', as: 'update_war'
+  get '/guilds_wars/destroy', to: 'guild_war#destroy', as: 'destroy_war'
+  get '/guilds_wars/show', to: 'guild_war#show', as: 'show_war'
+  get '/guild_wars/configure', to: 'guild_war#configure', as: "configure_war"
+
+  get '/tournaments/unreg', to: 'tournaments#unreg', as: 'unreg'
+  get '/tournaments/join_tour', to: 'tournaments#join_tour', as: 'join_tour'
+  resources :tournaments
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

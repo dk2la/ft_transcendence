@@ -2,7 +2,7 @@
 <div style="width: 1000px;margin: auto;height: 100%;">
     <div class="main_pages" style="border-color: white; text-align: center;">
         <h1>Start guild war</h1>
-        <%= form_with(url: create_wars_path(ids: {id1: @g1, id2: @g2})) do |form| %>
+        <%= form_with(url: create_wars_path(ids: {id1: @g1, id2: @g2}), local: false) do |form| %>
             <div style="padding-top: 10px; color: white; font-family: fantasy;">
                 <%= form.check_box :is_delay_war %>
                 <%= form.label :is_delay_war, "Begin the war from specified time" %>

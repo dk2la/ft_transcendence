@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_160113) do
+ActiveRecord::Schema.define(version: 2021_05_29_150820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,20 @@ ActiveRecord::Schema.define(version: 2021_05_28_160113) do
     t.index ["user_id"], name: "index_muted_users_on_user_id"
   end
 
+  create_table "pairs", force: :cascade do |t|
+    t.bigint "player1_id"
+    t.bigint "player2_id"
+    t.integer "round"
+    t.bigint "game_id"
+    t.bigint "tournament_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_pairs_on_game_id"
+    t.index ["player1_id"], name: "index_pairs_on_player1_id"
+    t.index ["player2_id"], name: "index_pairs_on_player2_id"
+    t.index ["tournament_id"], name: "index_pairs_on_tournament_id"
+  end
+
   create_table "room_members", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "chat_room_id"
@@ -172,6 +186,24 @@ ActiveRecord::Schema.define(version: 2021_05_28_160113) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chat_room_id"], name: "index_room_members_on_chat_room_id"
     t.index ["user_id"], name: "index_room_members_on_user_id"
+  end
+
+  create_table "tournament_members", force: :cascade do |t|
+    t.bigint "player_id"
+    t.bigint "tournament_id"
+    t.integer "player_wins"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_tournament_members_on_player_id"
+    t.index ["tournament_id"], name: "index_tournament_members_on_tournament_id"
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string "name"
+    t.integer "status"
+    t.integer "count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -211,4 +243,5 @@ ActiveRecord::Schema.define(version: 2021_05_28_160113) do
   add_foreign_key "games", "users", column: "player2_id"
   add_foreign_key "guild_wars", "guilds", column: "recipient_guild_id"
   add_foreign_key "guild_wars", "guilds", column: "sender_guild_id"
+  add_foreign_key "tournament_members", "users", column: "player_id"
 end

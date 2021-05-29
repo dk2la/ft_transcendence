@@ -1,0 +1,27 @@
+<%= form_for(@tournament, remote: true ) do |form| %>
+    <% if @tournament.errors.any? %>
+      <div id="error_explanation">
+        <h1><%= pluralize(@tournament.errors.count, "error") %> prohibited this @tournament from being saved:</h1>
+  
+        <ul>
+          <% @tournament.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div style="padding-top: 10px; color: white; font-family: fantasy;">
+      <%= form.label :name %><br />
+      <%= form.text_field :name, class: "text_sign_up" %>
+    </div>
+  
+    <div style="padding-top: 10px; color: white; font-family: fantasy;">
+        <%= form.label :count%><br />
+        <%= number_field(:count, in: 1.0..4.0, step: 1) %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit%>
+    </div>
+  <% end %>
