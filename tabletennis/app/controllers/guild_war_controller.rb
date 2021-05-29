@@ -48,21 +48,27 @@ class GuildWarController < ApplicationController
     
     def update
       invitation = GuildWar.find(params[:invitation_id])
-      p current_user.guild
-      invitation.update(status: "confirmed")
-      invitation.war_time_begin = Time.now.to_i
       invitation.save
       redirect_to guilds_path(invitation.recipient_guild)
-      GuildWarLifecycleJob.set(wait: 2.minutes).perform_later(invitation)
+      invitation.update(status: "accepted")
+      if (invitation.is_delay_war)
+        GuildWarLifecycleJob.set(wait_until: (DateTime.parse(invitation.war_time_begin) - 3.hours)).perform_later(invitation, 0)
+        GuildWarLifecycleJob.set(wait_until: (DateTime.parse(invitation.war_time_begin)- 3.hours + 2.minute)).perform_later(invitation, 1)
+      else
+        invitation.update(status: "confirmed")
+        GuildWarLifecycleJob.set(wait: 2.minutes).perform_later(invitation, 1)
+      end
     end
 
     def check_if_exists
       id1 = params[:ids][:id1].to_i
       id2 = params[:ids][:id2].to_i
 
-      if GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2, status: "confirmed").empty? == false || GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2, status: "pending").empty? == false
+      if GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2, status: "confirmed").empty? == false || GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2, status: "pending").empty? == false ||
+        GuildWar.where(sender_guild_id: id1, recipient_guild_id: id2, status: "accepted").empty? == false 
         redirect_to show_war_path(id1: id1, id2: id2), alert: 'War already exists'
-      elsif GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1, status: "confirmed").empty? == false || GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1, status: "pending").empty? == false
+      elsif GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1, status: "confirmed").empty? == false || GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1, status: "pending").empty? == false ||
+        GuildWar.where(sender_guild_id: id2, recipient_guild_id: id1, status: "accepted").empty? == false 
         redirect_to show_war_path(id1: id1, id2: id2), alert: 'War already exists'
       end
     end
