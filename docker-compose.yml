@@ -24,8 +24,8 @@ services:
         - db
         - redis
     environment:
-      FT_ID: 5aca6d2b8d03bd85d8c945b15b9cbf7c53275f4a697916e79429a799162f688c 
-      FT_SECRET: a895f2b0c1a6873101ae79d76703bb1c41e3c159eaf04400a50d4275b059a260
+      FT_ID: key_id from api 
+      FT_SECRET: key_secret from api
     deploy:
       restart_policy:
         condition: on-failure
